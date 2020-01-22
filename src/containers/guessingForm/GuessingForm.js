@@ -6,10 +6,10 @@ import './GuessingForm.css';
 
 class GussingForm extends Component {
   state = {
-    numOne: -1,
-    numTwo: -1,
-    numThree: -1,
-    numFour: -1
+    numOne: '',
+    numTwo: '',
+    numThree: '',
+    numFour: ''
   }
 
   onSubmit = e => {
@@ -19,8 +19,12 @@ class GussingForm extends Component {
   }
 
   handleOnChange = e => {
-    this.setState({[e.target.name]: parseInt(e.target.value)})
-    this.numBorderStyle()
+    const parsedValue = parseInt(e.target.value);
+    const value = isNaN(parsedValue) ? '' : parsedValue
+    console.log()
+    this.setState({[e.target.name]: value})
+    this.numBorderStyle();
+    this.clearValues(e)
   }
 
   numBorderStyle = (num) => {
@@ -33,28 +37,33 @@ class GussingForm extends Component {
       numFour: '#26a243'
     }
 
-    if (currentState !== -1 && !isNaN(currentState)) {
+    if (currentState !== '' && !isNaN(currentState)) {
       return {
         borderColor: colors[num]
       }
     } else {
       return {
-        borderColor: '#9da6b3'
+        borderColor: '#bbc3ce'
       }
     }
   }
 
+  clearValues = e => {
+    this.setState({[e.target.value]: ''})
+  }
+
   render() {
+    const { numOne } = this.state;
     return (
         <Form
         onSubmit={this.onSubmit}
         className="gussing-form"
         >
            <div className="guss-num-input-container">
-                <Form.Control style={this.numBorderStyle('numOne')} name="numOne" onChange={this.handleOnChange} className="guess-num-input guess-num-input-1"/>
-                <Form.Control style={this.numBorderStyle('numTwo')} name="numTwo" onChange={this.handleOnChange} className="guess-num-input guess-num-input-2"/>
-                <Form.Control style={this.numBorderStyle('numThree')} name="numThree" onChange={this.handleOnChange}  className="guess-num-input guess-num-input-3"/>
-                <Form.Control style={this.numBorderStyle('numFour')} name="numFour" onChange={this.handleOnChange} className="guess-num-input guess-num-input-4"/>
+                <Form.Control value={numOne} style={this.numBorderStyle('numOne')} name="numOne" onChange={this.handleOnChange} className="guess-num-input guess-num-input-1" maxLength="2"/>
+                <Form.Control style={this.numBorderStyle('numTwo')} name="numTwo" onChange={this.handleOnChange} className="guess-num-input guess-num-input-2" maxLength="2"/>
+                <Form.Control style={this.numBorderStyle('numThree')} name="numThree" onChange={this.handleOnChange}  className="guess-num-input guess-num-input-3" maxLength="2"/>
+                <Form.Control style={this.numBorderStyle('numFour')} name="numFour" onChange={this.handleOnChange} className="guess-num-input guess-num-input-4" maxLength="2"/>
            </div>
                   
                 <Button variant="outline-dark" type="submit" className="submit-guess-btn">

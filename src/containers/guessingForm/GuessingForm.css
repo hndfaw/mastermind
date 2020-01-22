@@ -1,5 +1,6 @@
 
 .gussing-form {
+  width: 100%;
   max-width: 320px;
   margin-bottom: 10px;
 }
@@ -27,5 +28,6 @@
   border: 2px solid;
   background: rgb(238, 241, 243);
   font-size: 24px;
+  /* color: #bbc3ce; */
 }
 

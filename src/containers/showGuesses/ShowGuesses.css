@@ -1,0 +1,15 @@
+.show-guesses {
+  border: 1px solid gray;
+  height: 70vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.guess-card {
+  display: flex;
+  justify-content: space-between;
+  height: 30px;
+  border: 1px solid red
+}
