@@ -32,8 +32,22 @@
   margin: 0;
   padding: 0;
   border: 2px solid;
-  background: rgb(238, 241, 243);
   font-size: 24px;
-  /* color: #bbc3ce; */
+}
+
+.guess-num-input-1 {
+  background: hsla(354, 70%, 54%, 0.2);
+}
+
+.guess-num-input-2 {
+  background: hsla(211, 100%, 50%, 0.2);
+}
+
+.guess-num-input-3 {
+  background: hsla(45, 100%, 52%, 0.2);
+}
+
+.guess-num-input-4 {
+  background: hsla(134, 62%, 39%, 0.2);
 }
 
