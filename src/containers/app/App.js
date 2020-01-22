@@ -7,6 +7,7 @@ import CodeKeeper from '../codeKeeper/CodeKeeper';
 import logo from '../../assets/images/mastermind-logo.png';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import Settings from '../settings/Settings';
 
 
 
@@ -22,14 +23,15 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.generateNewCode()
+      let { difficalityLevel } = this.state
+    this.generateNewCode(difficalityLevel)
   }
   
-  generateNewCode = () => {
+  generateNewCode = level => {
       let newCode = []
-      fetchCode()
-        .then(data => data.split(''))
-            .then(data => data.map(d => !isNaN(parseInt(d)) && newCode.push(parseInt(d))))
+      fetchCode(level)
+        .then(data => data.split(/\r|\n/))
+            .then(data => data.map(d => d !== "" && newCode.push(parseInt(d))))
                 .then(() =>
                     this.setState({code: newCode})
       )
@@ -110,9 +112,10 @@ class App extends Component {
     }
 
     restartRound = () => {
-        let numOfRounds = this.state.round
+        let numOfRounds = this.state.round;
+        let { difficalityLevel } = this.state;
         this.setState({currentGuesses: [], roundFinished: false, round: numOfRounds + 1})
-        this.generateNewCode()
+        this.generateNewCode(difficalityLevel)
     }
 
     getDifficultyLevel = () => {
@@ -124,6 +127,11 @@ class App extends Component {
             56: 'Harder'
         }
         return `${diffLev[difficalityLevel]} (0 -${difficalityLevel})`
+    }
+
+    updateDifficultyLevel = level => {        
+        this.setState({difficalityLevel: level})
+        this.generateNewCode(level)
     }
 
 
@@ -161,17 +169,15 @@ class App extends Component {
         <Modal
               size="md"
               show={openSettings}
-            //   onHide={() => this.setState({openSettings: false})}
+              onHide={() => this.setState({openSettings: false})}
               aria-labelledby="example-modal-sizes-title-lg"
             >
               <Modal.Header >
                 <Modal.Title>Game Settings</Modal.Title>
               </Modal.Header>
-
               <Modal.Body>
-                <p>Are you sure you want to delete the job?</p>
+                <Settings updateDifficultyLevel={this.updateDifficultyLevel}/>
               </Modal.Body>
-
               <Modal.Footer>
                 <Button variant="secondary" onClick={() => this.setState({openSettings: false})}>Close</Button>
               </Modal.Footer>
