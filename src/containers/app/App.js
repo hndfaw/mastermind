@@ -6,6 +6,8 @@ import ShowGuesses from '../showGuesses/ShowGuesses';
 import CodeKeeper from '../codeKeeper/CodeKeeper';
 import logo from '../../assets/images/mastermind-logo.png';
 import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+
 
 
 class App extends Component {
@@ -16,6 +18,7 @@ class App extends Component {
     successfulRounds: 0,
     roundFinished: false,
     difficalityLevel: 7,
+    openSettings: false,
   }
 
   componentDidMount() {
@@ -126,7 +129,7 @@ class App extends Component {
 
 
   render() {
-      const { roundFinished, code, currentGuesses, round, successfulRounds } = this.state;
+      const { roundFinished, code, currentGuesses, round, successfulRounds, openSettings} = this.state;
 
     const guess = this.state.currentGuesses.map((g, i) => <ShowGuesses guess={g.guess} key={i} feedback={g.analyzedGuess}/>)
 
@@ -140,7 +143,7 @@ class App extends Component {
                 <p>Successful Rounds: <span>{successfulRounds}</span></p>
                 <p>Difficulty Level: <span>{this.getDifficultyLevel()}</span></p>
             </div>
-                <Button variant="light" className="settings-btn">settings</Button>
+                <Button variant="light" className="settings-btn" onClick={() => this.setState({openSettings: true})}>settings</Button>
             
         </div>
         <div className="game-container">
@@ -155,6 +158,24 @@ class App extends Component {
         <div className="app-sidebar-right">
 
         </div>
+        <Modal
+              size="md"
+              show={openSettings}
+            //   onHide={() => this.setState({openSettings: false})}
+              aria-labelledby="example-modal-sizes-title-lg"
+            >
+              <Modal.Header >
+                <Modal.Title>Game Settings</Modal.Title>
+              </Modal.Header>
+
+              <Modal.Body>
+                <p>Are you sure you want to delete the job?</p>
+              </Modal.Body>
+
+              <Modal.Footer>
+                <Button variant="secondary" onClick={() => this.setState({openSettings: false})}>Close</Button>
+              </Modal.Footer>
+            </Modal>
       </div>
     );
   }
