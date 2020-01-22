@@ -8,9 +8,14 @@
 }
 
 .guess-card {
+  height: 10%;
+  border: 1px solid #fff;
+  background: #f7f7f7;
+}
+
+.guess-card-part-1 {
   display: flex;
   justify-content: space-around;
-  height: 10%;
   align-items: center;
 }
 
@@ -18,7 +23,6 @@
   margin: 0;
   border: 1px solid;
   border-top: 4px solid;
-  border-bottom: 4px solid;
   border-color: #fff;
   background: #eeeeef;
   width: 25%;
@@ -26,4 +30,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.guess-card-part-2-msg {
+  margin: 0;
+  font-size: 11px;
+  color: #93989e;
+  padding-left: 5px;
+}
+
+p {
+  margin: 0;
 }

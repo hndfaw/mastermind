@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
 import './App.css';
-// import { setCode, setCurrentGuess } from '../../actions';
 import { fetchCode } from '../../api/apiCalls';
-// import { connect } from 'react-redux';
 import GuessingForm from '../guessingForm/GuessingForm';
 import ShowGuesses from '../showGuesses/ShowGuesses';
+import CodeKeeper from '../codeKeeper/CodeKeeper';
 
 
 class App extends Component {
   state = {
     code: [],
     currentGuesses: [],
-    aGuesSubmitted: true
+    round: 1,
+    successfulRounds: 0,
+    roundFinished: false,
   }
 
   componentDidMount() {
@@ -19,41 +20,109 @@ class App extends Component {
   }
   
   generateNewCode = () => {
-    let newCode = []
-    fetchCode()
-    .then(data => data.split(''))
-    .then(data => data.map(d => !isNaN(parseInt(d)) && newCode.push(parseInt(d))))
-    .then(() =>
-    this.setState({code: newCode})
-    )
-    console.log(newCode)
+      let newCode = []
+      fetchCode()
+        .then(data => data.split(''))
+            .then(data => data.map(d => !isNaN(parseInt(d)) && newCode.push(parseInt(d))))
+                .then(() =>
+                    this.setState({code: newCode})
+      )
   }
 
   submitAGuess = guess => {
     let updatedAllGuesses = this.state.currentGuesses;
     if(updatedAllGuesses.length < 10) {
-      updatedAllGuesses.push(guess)
-      this.setState({currentGuesses: updatedAllGuesses})
+      this.analyzingCode(guess)
     }
+
+    if(updatedAllGuesses.length === 10) {
+        this.endOfRound();
+    }
+
+    console.log('code: ', this.state.code)
   }
+
+  analyzingCode = guess => {
+    const { code } = this.state
+    let analyzedGuess = {
+      correctNumbers: 0,
+      correctLocations: 0,
+      feedbackNum: 0,
+    }
+
+     let direction1 = code.filter(codeNum => 
+      guess.includes(codeNum)
+      ).length
+
+      let direction2 = guess.filter(guessNum => 
+        code.includes(guessNum)
+    ).length
+
+    analyzedGuess.correctLocations = guess.filter((guessedNum, i) => 
+        guessedNum === code[i]
+      ).length
+
+      analyzedGuess.correctNumbers = Math.min(direction1, direction2)
+
+      let CN = analyzedGuess.correctNumbers;
+      let CL = analyzedGuess.correctLocations
+      
+      if(CN === 0 && CL === 0) {
+          analyzedGuess.feedbackNum = 0;
+      } else if (CN === 1 && CL === 0) {
+          analyzedGuess.feedbackNum = 1;
+      } else if (CN === 1 && CL === 1) {
+          analyzedGuess.feedbackNum = 2;
+      } else if (CN > 1 && CL !== 4) {
+          analyzedGuess.feedbackNum = 3;
+      } else if (CN === 4 && CL === 4) {
+          analyzedGuess.feedbackNum = 4;
+
+     
+        this.endOfRound('success')
+      }
+    
+      let updatedGuess = {
+          guess,
+          analyzedGuess
+      }
+
+      let getCurrentGuesses = this.state.currentGuesses
+      getCurrentGuesses.push(updatedGuess)
+ 
+      this.setState({currentGuesses: getCurrentGuesses })
+
+  }
+
+  endOfRound = result => {
+        this.setState({roundFinished: true})
+        if(result === 'success') {
+            let updateSuccessfulRounds = this.state.successfulRounds
+            this.setState({successfulRounds: updateSuccessfulRounds + 1})
+        }
+    }
+
+    restartRound = () => {
+        let numOfRounds = this.state.round
+        this.setState({currentGuesses: [], roundFinished: false, round: numOfRounds + 1})
+        this.generateNewCode()
+    }
+
 
 
   render() {
-    const guess = this.state.currentGuesses.map((g, i) => <ShowGuesses guess={g} key={i}/>)
+      const { roundFinished, code } = this.state;
+
+    const guess = this.state.currentGuesses.map((g, i) => <ShowGuesses guess={g.guess} key={i} feedback={g.analyzedGuess}/>)
 
     return (
       <div className="app">
         <div className="game">
-          <div className="the-code">
-            <p className="the-code-num">*</p>
-            <p className="the-code-num">*</p>
-            <p className="the-code-num">*</p>
-            <p className="the-code-num">*</p>
-          </div>
+            <CodeKeeper roundFinished={roundFinished} code={code}/>
           <div className="guesses-container">
             {guess}
           </div>
-          <GuessingForm submitAGuess={this.submitAGuess}/>
+          <GuessingForm submitAGuess={this.submitAGuess} roundFinished={roundFinished} restartRound={this.restartRound}/>
         </div>
       </div>
     );
@@ -61,14 +130,3 @@ class App extends Component {
 }
 
 export default App;
-
-// export const mapStateToProps = state => ({
-//   currentGuess: state.currentGuess,
-// })
-
-// export const mapDispatchToProps = dispatch => ({
-//   handleSetCode: code => dispatch(setCode(code)),
-//   handleSetCurrentGuess: guess => dispatch(setCurrentGuess(guess))
-// })
-
-// export default connect(mapStateToProps, mapDispatchToProps)(App);
