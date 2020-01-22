@@ -16,10 +16,10 @@ import { connect } from 'react-redux';
 
     return (
         <div className="guess-card">
-            <p>{guess[0]}</p>
-            <p>{guess[1]}</p>
-            <p>{guess[2]}</p>
-            <p>{guess[3]}</p>
+            <p className="guess-card-num">{guess[0]}</p>
+            <p className="guess-card-num">{guess[1]}</p>
+            <p className="guess-card-num">{guess[2]}</p>
+            <p className="guess-card-num">{guess[3]}</p>
       </div>
     )
   }

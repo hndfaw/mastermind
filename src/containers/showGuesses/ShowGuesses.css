@@ -9,7 +9,21 @@
 
 .guess-card {
   display: flex;
-  justify-content: space-between;
-  height: 30px;
-  border: 1px solid red
+  justify-content: space-around;
+  height: 10%;
+  align-items: center;
+}
+
+.guess-card-num {
+  margin: 0;
+  border: 1px solid;
+  border-top: 4px solid;
+  border-bottom: 4px solid;
+  border-color: #fff;
+  background: #eeeeef;
+  width: 25%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
