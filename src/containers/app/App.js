@@ -4,6 +4,8 @@ import { fetchCode } from '../../api/apiCalls';
 import GuessingForm from '../guessingForm/GuessingForm';
 import ShowGuesses from '../showGuesses/ShowGuesses';
 import CodeKeeper from '../codeKeeper/CodeKeeper';
+import logo from '../../assets/images/mastermind-logo.png';
+import Button from 'react-bootstrap/Button';
 
 
 class App extends Component {
@@ -13,6 +15,7 @@ class App extends Component {
     round: 1,
     successfulRounds: 0,
     roundFinished: false,
+    difficalityLevel: 7,
   }
 
   componentDidMount() {
@@ -39,7 +42,6 @@ class App extends Component {
         this.endOfRound();
     }
 
-    console.log('code: ', this.state.code)
   }
 
   analyzingCode = guess => {
@@ -92,6 +94,8 @@ class App extends Component {
  
       this.setState({currentGuesses: getCurrentGuesses })
 
+      console.log(this.state.code)
+
   }
 
   endOfRound = result => {
@@ -108,21 +112,48 @@ class App extends Component {
         this.generateNewCode()
     }
 
+    getDifficultyLevel = () => {
+        const { difficalityLevel } = this.state;
+        const diffLev = {
+            7: 'Eeasy',
+            14: 'Medium',
+            28: 'Hard',
+            56: 'Harder'
+        }
+        return `${diffLev[difficalityLevel]} (0 -${difficalityLevel})`
+    }
+
 
 
   render() {
-      const { roundFinished, code } = this.state;
+      const { roundFinished, code, currentGuesses, round, successfulRounds } = this.state;
 
     const guess = this.state.currentGuesses.map((g, i) => <ShowGuesses guess={g.guess} key={i} feedback={g.analyzedGuess}/>)
 
     return (
       <div className="app">
-        <div className="game">
-            <CodeKeeper roundFinished={roundFinished} code={code}/>
-          <div className="guesses-container">
-            {guess}
-          </div>
-          <GuessingForm submitAGuess={this.submitAGuess} roundFinished={roundFinished} restartRound={this.restartRound}/>
+        <div className="app-sidebar">
+            <img src={logo} className="logo" alt="logo"/>
+            <div>
+                <p>Guess Balance: <span>{10 - currentGuesses.length}</span></p>
+                <p>Round Number: <span>{round}</span></p>
+                <p>Successful Rounds: <span>{successfulRounds}</span></p>
+                <p>Difficulty Level: <span>{this.getDifficultyLevel()}</span></p>
+            </div>
+                <Button variant="light" className="settings-btn">settings</Button>
+            
+        </div>
+        <div className="game-container">
+            <div className="game">
+                <CodeKeeper roundFinished={roundFinished} code={code}/>
+            <div className="guesses-container">
+                {guess}
+            </div>
+            <GuessingForm submitAGuess={this.submitAGuess} roundFinished={roundFinished} restartRound={this.restartRound}/>
+            </div>
+        </div>
+        <div className="app-sidebar-right">
+
         </div>
       </div>
     );
