@@ -6,7 +6,7 @@ import ShowGuesses from '../showGuesses/ShowGuesses';
 import CodeKeeper from '../codeKeeper/CodeKeeper';
 import logo from '../../assets/images/mastermind-logo.png';
 import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
+// import Modal from 'react-bootstrap/Modal';
 import Settings from '../settings/Settings';
 
 
@@ -126,7 +126,7 @@ class App extends Component {
             28: 'Hard',
             56: 'Harder'
         }
-        return `${diffLev[difficalityLevel]} (0 -${difficalityLevel})`
+        return `${diffLev[difficalityLevel]} (0 - ${difficalityLevel})`
     }
 
     updateDifficultyLevel = level => {        
@@ -134,10 +134,14 @@ class App extends Component {
         this.generateNewCode(level)
     }
 
+    updateOpenSettings = boolean => {
+        this.setState({openSettings: boolean})
+    }
+
 
 
   render() {
-      const { roundFinished, code, currentGuesses, round, successfulRounds, openSettings} = this.state;
+      const { roundFinished, code, currentGuesses, round, successfulRounds, openSettings, difficalityLevel} = this.state;
 
     const guess = this.state.currentGuesses.map((g, i) => <ShowGuesses guess={g.guess} key={i} feedback={g.analyzedGuess}/>)
 
@@ -149,9 +153,9 @@ class App extends Component {
                 <p>Guess Balance: <span>{10 - currentGuesses.length}</span></p>
                 <p>Round Number: <span>{round}</span></p>
                 <p>Successful Rounds: <span>{successfulRounds}</span></p>
-                <p>Difficulty Level: <span>{this.getDifficultyLevel()}</span></p>
+                <p>Difficulity Level: <span>{this.getDifficultyLevel()}</span></p>
             </div>
-                <Button variant="light" className="settings-btn" onClick={() => this.setState({openSettings: true})}>settings</Button>
+                <Button variant="light" className="settings-btn" onClick={() => this.updateOpenSettings(true)}>settings</Button>
             
         </div>
         <div className="game-container">
@@ -164,24 +168,8 @@ class App extends Component {
             </div>
         </div>
         <div className="app-sidebar-right">
-
         </div>
-        <Modal
-              size="md"
-              show={openSettings}
-              onHide={() => this.setState({openSettings: false})}
-              aria-labelledby="example-modal-sizes-title-lg"
-            >
-              <Modal.Header >
-                <Modal.Title>Game Settings</Modal.Title>
-              </Modal.Header>
-              <Modal.Body>
-                <Settings updateDifficultyLevel={this.updateDifficultyLevel}/>
-              </Modal.Body>
-              <Modal.Footer>
-                <Button variant="secondary" onClick={() => this.setState({openSettings: false})}>Close</Button>
-              </Modal.Footer>
-            </Modal>
+                    <Settings updateDifficultyLevel={this.updateDifficultyLevel} difficalityLevel={difficalityLevel} currentGuesses={currentGuesses} openSettings={openSettings} updateOpenSettings={this.updateOpenSettings}/>
       </div>
     );
   }
