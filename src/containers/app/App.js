@@ -16,7 +16,8 @@ class App extends Component {
     roundFinished: false,
     difficalityLevel: 7,
     openSettings: false,
-    feedbackRespnse: "single"
+    feedbackRespnse: "single",
+    points: 0
   };
 
   componentDidMount() {
@@ -38,13 +39,19 @@ class App extends Component {
       this.analyzingCode(guess);
     }
 
-    if (updatedAllGuesses.length === 10) {
+    let lastGuessAnalyze = this.returnLastAnalayzedGuess();
+
+    if (
+      updatedAllGuesses.length === 10 &&
+      lastGuessAnalyze.correctNumbers < 4 &&
+      lastGuessAnalyze.correctLocations < 4
+    ) {
       this.endOfRound();
-    }
+	}
+	
   };
 
   analyzingCode = guess => {
-    console.log(this.state.code);
     const { code } = this.state;
 
     let analyzedGuess = {
@@ -66,8 +73,8 @@ class App extends Component {
     let CN = analyzedGuess.correctNumbers;
     let CL = analyzedGuess.correctLocations;
 
-	analyzedGuess.feedbackNum = this.getFeedbackNumber(CN, CL)
-	
+    analyzedGuess.feedbackNum = this.getFeedbackNumber(CN, CL);
+
     analyzedGuess.feedback = this.convertFeedbackNumberToFeedback(
       analyzedGuess
     );
@@ -127,11 +134,21 @@ class App extends Component {
   };
 
   endOfRound = result => {
+    this.calculatePoints();
     this.setState({ roundFinished: true });
     if (result === "success") {
       let updateSuccessfulRounds = this.state.successfulRounds;
       this.setState({ successfulRounds: updateSuccessfulRounds + 1 });
     }
+  };
+
+  calculatePoints = () => {
+    const { points, currentGuesses } = this.state;
+    console.log("num of guesses: ", currentGuesses.length);
+    let guessBalance = 10 - currentGuesses.length;
+    let updatedPoints = points + guessBalance * 10;
+    this.setState({ points: updatedPoints });
+    console.log(updatedPoints);
   };
 
   restartRound = () => {
@@ -175,8 +192,17 @@ class App extends Component {
     this.setState({ currentGuesses: [], roundFinished: false });
 
     if (type === "Game") {
-      this.setState({ round: 1, successfulRounds: 0 });
+      this.setState({ round: 1, successfulRounds: 0, points: 0 });
     }
+  };
+
+  returnLastAnalayzedGuess = () => {
+    const { currentGuesses } = this.state;
+    const lastAnalyzedGuess =
+      currentGuesses.length !== 0
+        ? currentGuesses[currentGuesses.length - 1].analyzedGuess
+        : "";
+    return lastAnalyzedGuess;
   };
 
   render() {
@@ -190,11 +216,6 @@ class App extends Component {
       difficalityLevel,
       feedbackRespnse
     } = this.state;
-
-    const lastFeedback =
-      currentGuesses.length !== 0
-        ? currentGuesses[currentGuesses.length - 1].analyzedGuess
-        : "";
 
     const guess = this.state.currentGuesses.map((g, i) => (
       <ShowGuesses
@@ -219,7 +240,9 @@ class App extends Component {
             <CodeKeeper roundFinished={roundFinished} code={code} />
             <div className="guesses-container">{guess}</div>
             {feedbackRespnse === "single" && (
-              <p className="single-feedback">{lastFeedback.feedback}</p>
+              <p className="single-feedback">
+                {this.returnLastAnalayzedGuess().feedback}
+              </p>
             )}
             <GuessingForm
               submitAGuess={this.submitAGuess}
