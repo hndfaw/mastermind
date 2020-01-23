@@ -4,10 +4,8 @@ import { fetchCode } from '../../api/apiCalls';
 import GuessingForm from '../guessingForm/GuessingForm';
 import ShowGuesses from '../showGuesses/ShowGuesses';
 import CodeKeeper from '../codeKeeper/CodeKeeper';
-import logo from '../../assets/images/mastermind-logo.png';
-import Button from 'react-bootstrap/Button';
-// import Modal from 'react-bootstrap/Modal';
 import Settings from '../settings/Settings';
+import SideBar from '../sideBar/SideBar';
 
 
 
@@ -147,17 +145,7 @@ class App extends Component {
 
     return (
       <div className="app">
-        <div className="app-sidebar">
-            <img src={logo} className="logo" alt="logo"/>
-            <div>
-                <p>Guess Balance: <span>{10 - currentGuesses.length}</span></p>
-                <p>Round Number: <span>{round}</span></p>
-                <p>Successful Rounds: <span>{successfulRounds}</span></p>
-                <p>Difficulity Level: <span>{this.getDifficultyLevel()}</span></p>
-            </div>
-                <Button variant="light" className="settings-btn" onClick={() => this.updateOpenSettings(true)}>settings</Button>
-            
-        </div>
+          <SideBar currentGuesses={currentGuesses} round={round} successfulRounds={successfulRounds} getDifficultyLevel={this.getDifficultyLevel} updateOpenSettings={this.updateOpenSettings}/>
         <div className="game-container">
             <div className="game">
                 <CodeKeeper roundFinished={roundFinished} code={code}/>
