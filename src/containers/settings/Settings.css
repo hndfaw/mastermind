@@ -1,0 +1,17 @@
+.settings-header {
+  margin-top: 35px;
+}
+
+.settings-note {
+  color: rgb(118, 128, 134);
+  font-size: 11px;
+  padding: 5px;
+}
+
+.settings-modal-body {
+  padding: 0 30px 30px 30px;
+}
+
+.settings-modal-body-restart {
+  padding: 30px
+}

@@ -9,8 +9,10 @@
 
 .guess-card {
   height: 10%;
-  border: 1px solid #fff;
-  background: #f7f7f7;
+  border-top: 1px solid #ffffff;
+  border-bottom: 1px solid #ffffff;
+  background: #e8ebef;
+  padding: 2px;
 }
 
 .guess-card-part-1 {
@@ -21,21 +23,21 @@
 
 .guess-card-num {
   margin: 0;
-  border: 1px solid;
-  border-top: 4px solid;
-  border-color: #fff;
-  background: #eeeeef;
+  border: 4px solid;
+  border-color: #e8ebef;
+  background: #7a8896;
   width: 25%;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+  color: #fff;
 }
 
 .guess-card-part-2-msg {
   margin: 0;
   font-size: 11px;
-  color: #93989e;
+  color: #626d79;
   padding-left: 5px;
 }
 
