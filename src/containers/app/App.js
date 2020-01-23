@@ -22,7 +22,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-      let { difficalityLevel } = this.state
+    let { difficalityLevel } = this.state
     this.generateNewCode(difficalityLevel)
   }
   
@@ -142,7 +142,13 @@ class App extends Component {
     }
 
     restart = type => {
-      console.log(type)
+      let { difficalityLevel } = this.state;
+      this.generateNewCode(difficalityLevel);
+      this.setState({currentGuesses: [], roundFinished: false})
+
+      if(type === 'Game') {
+        this.setState({round: 1, successfulRounds: 0})
+      }
     }
 
 
@@ -177,7 +183,7 @@ class App extends Component {
         </div>
         <div className="app-sidebar-right">
         </div>
-        <Settings updateDifficultyLevel={this.updateDifficultyLevel} difficalityLevel={difficalityLevel} currentGuesses={currentGuesses} openSettings={openSettings} updateOpenSettings={this.updateOpenSettings} updateFeedbackRespnse={this.updateFeedbackRespnse} feedbackRespnse={feedbackRespnse} restart={this.restart}/>
+        <Settings updateDifficultyLevel={this.updateDifficultyLevel} difficalityLevel={difficalityLevel} currentGuesses={currentGuesses} openSettings={openSettings} updateOpenSettings={this.updateOpenSettings} updateFeedbackRespnse={this.updateFeedbackRespnse} feedbackRespnse={feedbackRespnse} restart={this.restart} round={round}/>
       </div>
     );
   }
