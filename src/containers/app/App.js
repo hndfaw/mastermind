@@ -47,8 +47,7 @@ class App extends Component {
       lastGuessAnalyze.correctLocations < 4
     ) {
       this.endOfRound();
-	}
-	
+    }
   };
 
   analyzingCode = guess => {
@@ -144,11 +143,9 @@ class App extends Component {
 
   calculatePoints = () => {
     const { points, currentGuesses } = this.state;
-    console.log("num of guesses: ", currentGuesses.length);
     let guessBalance = 10 - currentGuesses.length;
     let updatedPoints = points + guessBalance * 10;
     this.setState({ points: updatedPoints });
-    console.log(updatedPoints);
   };
 
   restartRound = () => {
@@ -205,6 +202,11 @@ class App extends Component {
     return lastAnalyzedGuess;
   };
 
+
+
+
+
+
   render() {
     const {
       roundFinished,
@@ -214,7 +216,8 @@ class App extends Component {
       successfulRounds,
       openSettings,
       difficalityLevel,
-      feedbackRespnse
+	  feedbackRespnse,
+	  points
     } = this.state;
 
     const guess = this.state.currentGuesses.map((g, i) => (
@@ -233,11 +236,13 @@ class App extends Component {
           round={round}
           successfulRounds={successfulRounds}
           getDifficultyLevel={this.getDifficultyLevel}
-          updateOpenSettings={this.updateOpenSettings}
+		  updateOpenSettings={this.updateOpenSettings}
+		  points={points}
+		  roundFinished={roundFinished}
         />
         <div className="game-container">
           <div className="game">
-            <CodeKeeper roundFinished={roundFinished} code={code} />
+            <CodeKeeper roundFinished={roundFinished} code={code} currentGuesses={currentGuesses}/>
             <div className="guesses-container">{guess}</div>
             {feedbackRespnse === "single" && (
               <p className="single-feedback">
@@ -261,7 +266,7 @@ class App extends Component {
           updateFeedbackRespnse={this.updateFeedbackRespnse}
           feedbackRespnse={feedbackRespnse}
           restart={this.restart}
-          round={round}
+		  round={round}
         />
       </div>
     );

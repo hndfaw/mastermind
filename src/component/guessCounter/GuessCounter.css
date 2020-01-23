@@ -1,0 +1,29 @@
+.guess-counter {
+  border-top: 1px solid #000;
+  display: flex;
+  padding: 5px;
+}
+
+.guess-counter-title {
+  font-weight: normal;
+  margin: 0;
+  font-size: 13px;
+  width: 120px;
+}
+
+.guess-counter-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.single-guess-counter {
+  background: #FFC108;
+  width: 7%;
+  height: 9px;
+}
+
+.empty {
+    background: rgb(211, 211, 211);
+  }

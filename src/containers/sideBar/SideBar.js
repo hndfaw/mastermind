@@ -2,27 +2,36 @@ import React, { Component } from "react";
 import "./SideBar.css";
 import logo from "../../assets/images/mastermind-logo.png";
 import Button from "react-bootstrap/Button";
+import SuccessfulRoundsWidget from "../../component/successfulRoundsWidget/SuccessfulRoundsWidget";
 
 class SideBar extends Component {
   render() {
-    const { currentGuesses, round, successfulRounds } = this.props;
+    const { round, successfulRounds, points, roundFinished } = this.props;
 
     return (
-      <div className="app-sidebar">
+      <section className="app-sidebar">
         <img src={logo} className="logo" alt="logo" />
         <div>
-          <p>
-            Guess Balance: <span>{10 - currentGuesses.length}</span>
-          </p>
-          <p>
-            Round Number: <span>{round}</span>
-          </p>
-          <p>
-            Successful Rounds: <span>{successfulRounds}</span>
-          </p>
-          <p>
-            Difficulty Level: <span>{this.props.getDifficultyLevel()}</span>
-          </p>
+          <div className="circle-widget-container">
+            <article className="sidebar-widget-circle">
+              <p className="sidebar-widget-circle-num">{round}</p>
+              <p className="sidebar-widget-circle-label">ROUND</p>
+            </article>
+            <article className="sidebar-widget-circle">
+              <p className="sidebar-widget-circle-num">{points}</p>
+              <p className="sidebar-widget-circle-label">POINTS</p>
+            </article>
+          </div>
+          <SuccessfulRoundsWidget
+            successfulRounds={successfulRounds}
+			round={round}
+			roundFinished={roundFinished}
+          />
+          <article className="sidebar-difficulty-level">
+            <p>
+              Difficulty Level: <span>{this.props.getDifficultyLevel()}</span>
+            </p>
+          </article>
         </div>
         <Button
           variant="light"
@@ -31,7 +40,7 @@ class SideBar extends Component {
         >
           settings
         </Button>
-      </div>
+      </section>
     );
   }
 }

@@ -1,3 +1,7 @@
+.code-keeper {
+  width: 100%;
+}
+
 .the-code {
   height: 60px;
   width: 100%;
@@ -16,5 +20,5 @@
 .the-code-num-1,
 .the-code-num-2,
 .the-code-num-3 {
-  border-right: 1px solid gray;
+  border-right: 1px solid #000;
 }
