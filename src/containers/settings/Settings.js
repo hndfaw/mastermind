@@ -46,7 +46,9 @@ class Settings extends Component {
           </Modal.Header>
           <Modal.Body className="settings-modal-body">
             <div>
-              <h6 className="settings-header">Game Difficulty Level</h6>
+              <h6 className="settings-header">
+				  Game Difficulty Level
+			  </h6>
               <ToggleButtonGroup
                 type="radio"
                 name="options"
@@ -84,7 +86,9 @@ class Settings extends Component {
             </div>
 
             <div>
-              <h6 className="settings-header">Showing Feedback</h6>
+              <h6 className="settings-header">
+				  Showing Feedback
+			  </h6>
               <ToggleButtonGroup
                 type="radio"
                 name="options"
@@ -128,7 +132,7 @@ class Settings extends Component {
               Restart Game
             </Button>
             <Button
-              variant="secondary"
+              variant="dark"
               onClick={() => this.props.updateOpenSettings(false)}
             >
               Close
@@ -158,10 +162,10 @@ class Settings extends Component {
               Yes, Restart {restartType}
             </Button>
             <Button
-              variant="secondary"
+              variant="dark"
               onClick={() => this.handleRestart(false)}
             >
-              Cancele
+              Cancel
             </Button>
           </Modal.Footer>
         </Modal>
