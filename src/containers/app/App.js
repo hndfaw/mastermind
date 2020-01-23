@@ -1,13 +1,11 @@
-import React, { Component } from 'react';
-import './App.css';
-import { fetchCode } from '../../api/apiCalls';
-import GuessingForm from '../guessingForm/GuessingForm';
-import ShowGuesses from '../showGuesses/ShowGuesses';
-import CodeKeeper from '../codeKeeper/CodeKeeper';
-import Settings from '../settings/Settings';
-import SideBar from '../sideBar/SideBar';
-
-
+import React, { Component } from "react";
+import "./App.css";
+import { fetchCode } from "../../api/apiCalls";
+import GuessingForm from "../guessingForm/GuessingForm";
+import ShowGuesses from "../showGuesses/ShowGuesses";
+import CodeKeeper from "../codeKeeper/CodeKeeper";
+import Settings from "../settings/Settings";
+import SideBar from "../sideBar/SideBar";
 
 class App extends Component {
   state = {
@@ -18,172 +16,258 @@ class App extends Component {
     roundFinished: false,
     difficalityLevel: 7,
     openSettings: false,
-    feedbackRespnse: 'single',
-  }
+    feedbackRespnse: "single",
+    points: 0
+  };
 
   componentDidMount() {
-    let { difficalityLevel } = this.state
-    this.generateNewCode(difficalityLevel)
+    let { difficalityLevel } = this.state;
+    this.generateNewCode(difficalityLevel);
   }
-  
+
   generateNewCode = level => {
-      let newCode = []
-      fetchCode(level)
-        .then(data => data.split(/\r|\n/))
-            .then(data => data.map(d => d !== "" && newCode.push(parseInt(d))))
-                .then(() =>
-                    this.setState({code: newCode})
-      )
-  }
+    let newCode = [];
+    fetchCode(level)
+      .then(data => data.split(/\r|\n/))
+      .then(data => data.map(d => d !== "" && newCode.push(parseInt(d))))
+      .then(() => this.setState({ code: newCode }));
+  };
 
   submitAGuess = guess => {
     let updatedAllGuesses = this.state.currentGuesses;
-    if(updatedAllGuesses.length < 10) {
-      this.analyzingCode(guess)
+    if (updatedAllGuesses.length < 10) {
+      this.analyzingCode(guess);
     }
 
-    if(updatedAllGuesses.length === 10) {
-        this.endOfRound();
-    }
+    let lastGuessAnalyze = this.returnLastAnalayzedGuess();
 
-  }
+    if (
+      updatedAllGuesses.length === 10 &&
+      lastGuessAnalyze.correctNumbers < 4 &&
+      lastGuessAnalyze.correctLocations < 4
+    ) {
+      this.endOfRound();
+    }
+  };
 
   analyzingCode = guess => {
-    const { code } = this.state
+    const { code } = this.state;
+
     let analyzedGuess = {
       correctNumbers: 0,
       correctLocations: 0,
       feedbackNum: 0,
+      feedback: ""
+    };
+
+    let direction1 = this.getCorrectNumbers(code, guess, "codeToGuess");
+    let direction2 = this.getCorrectNumbers(code, guess, "guessToCode");
+
+    analyzedGuess.correctNumbers = Math.min(direction1, direction2);
+
+    analyzedGuess.correctLocations = guess.filter(
+      (guessedNum, i) => guessedNum === code[i]
+    ).length;
+
+    let CN = analyzedGuess.correctNumbers;
+    let CL = analyzedGuess.correctLocations;
+
+    analyzedGuess.feedbackNum = this.getFeedbackNumber(CN, CL);
+
+    analyzedGuess.feedback = this.convertFeedbackNumberToFeedback(
+      analyzedGuess
+    );
+
+    let updatedGuess = {
+      guess,
+      analyzedGuess
+    };
+
+    let getCurrentGuesses = this.state.currentGuesses;
+    getCurrentGuesses.push(updatedGuess);
+    this.setState({ currentGuesses: getCurrentGuesses });
+  };
+
+  getCorrectNumbers = (code, guess, direction) => {
+    let first, second;
+    if (direction === "codeToGuess") {
+      first = code;
+      second = guess;
+    } else {
+      first = guess;
+      second = code;
+    }
+    return first.filter(num => second.includes(num)).length;
+  };
+
+  getFeedbackNumber = (correctNumbers, correctLocations) => {
+    let feedbackNum;
+
+    if (correctNumbers === 0 && correctLocations === 0) {
+      feedbackNum = 0;
+    } else if (correctNumbers === 1 && correctLocations === 0) {
+      feedbackNum = 1;
+    } else if (correctNumbers === 1 && correctLocations === 1) {
+      feedbackNum = 2;
+    } else if (correctNumbers > 1 && correctLocations !== 4) {
+      feedbackNum = 3;
+    } else if (correctNumbers === 4 && correctLocations === 4) {
+      feedbackNum = 4;
+
+      this.endOfRound("success");
     }
 
-     let direction1 = code.filter(codeNum => 
-      guess.includes(codeNum)
-      ).length
+    return feedbackNum;
+  };
 
-      let direction2 = guess.filter(guessNum => 
-        code.includes(guessNum)
-    ).length
-
-    analyzedGuess.correctLocations = guess.filter((guessedNum, i) => 
-        guessedNum === code[i]
-      ).length
-
-      analyzedGuess.correctNumbers = Math.min(direction1, direction2)
-
-      let CN = analyzedGuess.correctNumbers;
-      let CL = analyzedGuess.correctLocations
-      
-      if(CN === 0 && CL === 0) {
-          analyzedGuess.feedbackNum = 0;
-      } else if (CN === 1 && CL === 0) {
-          analyzedGuess.feedbackNum = 1;
-      } else if (CN === 1 && CL === 1) {
-          analyzedGuess.feedbackNum = 2;
-      } else if (CN > 1 && CL !== 4) {
-          analyzedGuess.feedbackNum = 3;
-      } else if (CN === 4 && CL === 4) {
-          analyzedGuess.feedbackNum = 4;
-
-     
-        this.endOfRound('success')
-      }
-    
-      let updatedGuess = {
-          guess,
-          analyzedGuess
-      }
-
-      let getCurrentGuesses = this.state.currentGuesses
-      getCurrentGuesses.push(updatedGuess)
- 
-      this.setState({currentGuesses: getCurrentGuesses })
-
-      console.log(this.state.code)
-
-  }
+  convertFeedbackNumberToFeedback = guess => {
+    let { correctNumbers, correctLocations, feedbackNum } = guess;
+    let feedbackResponse = {
+      0: "Your guess was incorrect",
+      1: "You had a correct number",
+      2: "You had guessed a correct number and its correct location",
+      3: `You had ${correctNumbers} correct numbers and ${correctLocations} crrect location/s`,
+      4: "You found the CORRECT code!"
+    };
+    return feedbackResponse[feedbackNum];
+  };
 
   endOfRound = result => {
-        this.setState({roundFinished: true})
-        if(result === 'success') {
-            let updateSuccessfulRounds = this.state.successfulRounds
-            this.setState({successfulRounds: updateSuccessfulRounds + 1})
-        }
+    this.calculatePoints();
+    this.setState({ roundFinished: true });
+    if (result === "success") {
+      let updateSuccessfulRounds = this.state.successfulRounds;
+      this.setState({ successfulRounds: updateSuccessfulRounds + 1 });
     }
+  };
 
-    restartRound = () => {
-        let numOfRounds = this.state.round;
-        let { difficalityLevel } = this.state;
-        this.setState({currentGuesses: [], roundFinished: false, round: numOfRounds + 1})
-        this.generateNewCode(difficalityLevel)
+  calculatePoints = () => {
+    const { points, currentGuesses } = this.state;
+    let guessBalance = 10 - currentGuesses.length;
+    let updatedPoints = points + guessBalance * 10;
+    this.setState({ points: updatedPoints });
+  };
+
+  restartRound = () => {
+    let numOfRounds = this.state.round;
+    let { difficalityLevel } = this.state;
+    this.setState({
+      currentGuesses: [],
+      roundFinished: false,
+      round: numOfRounds + 1
+    });
+    this.generateNewCode(difficalityLevel);
+  };
+
+  getDifficultyLevel = () => {
+    const { difficalityLevel } = this.state;
+    const diffLev = {
+      7: "Eeasy",
+      14: "Medium",
+      28: "Hard",
+      56: "Harder"
+    };
+    return `${diffLev[difficalityLevel]} (0 - ${difficalityLevel})`;
+  };
+
+  updateDifficultyLevel = level => {
+    this.setState({ difficalityLevel: level });
+    this.generateNewCode(level);
+  };
+
+  updateOpenSettings = boolean => {
+    this.setState({ openSettings: boolean });
+  };
+
+  updateFeedbackRespnse = feedbackType => {
+    this.setState({ feedbackRespnse: feedbackType });
+  };
+
+  restart = type => {
+    let { difficalityLevel } = this.state;
+    this.generateNewCode(difficalityLevel);
+    this.setState({ currentGuesses: [], roundFinished: false });
+
+    if (type === "Game") {
+      this.setState({ round: 1, successfulRounds: 0, points: 0 });
     }
+  };
 
-    getDifficultyLevel = () => {
-        const { difficalityLevel } = this.state;
-        const diffLev = {
-            7: 'Eeasy',
-            14: 'Medium',
-            28: 'Hard',
-            56: 'Harder'
-        }
-        return `${diffLev[difficalityLevel]} (0 - ${difficalityLevel})`
-    }
+  returnLastAnalayzedGuess = () => {
+    const { currentGuesses } = this.state;
+    const lastAnalyzedGuess =
+      currentGuesses.length !== 0
+        ? currentGuesses[currentGuesses.length - 1].analyzedGuess
+        : "";
+    return lastAnalyzedGuess;
+  };
 
-    updateDifficultyLevel = level => {        
-        this.setState({difficalityLevel: level})
-        this.generateNewCode(level)
-    }
 
-    updateOpenSettings = boolean => {
-        this.setState({openSettings: boolean})
-    }
 
-    updateFeedbackRespnse = feedbackType => {        
-      this.setState({feedbackRespnse: feedbackType})
-    }
-
-    restart = type => {
-      let { difficalityLevel } = this.state;
-      this.generateNewCode(difficalityLevel);
-      this.setState({currentGuesses: [], roundFinished: false})
-
-      if(type === 'Game') {
-        this.setState({round: 1, successfulRounds: 0})
-      }
-    }
 
 
 
   render() {
-      const { roundFinished, code, currentGuesses, round, successfulRounds, openSettings, difficalityLevel, feedbackRespnse} = this.state;
+    const {
+      roundFinished,
+      code,
+      currentGuesses,
+      round,
+      successfulRounds,
+      openSettings,
+      difficalityLevel,
+	  feedbackRespnse,
+	  points
+    } = this.state;
 
-      const lastFeedback = currentGuesses.length !== 0 ? currentGuesses[currentGuesses.length - 1].analyzedGuess : ''
-
-      let feedbackResponse = {
-        0: 'Your guess was incorrect',
-        1: 'You had a correct number',
-        2: 'You had guessed a correct number and its correct location',
-        3: `You had ${lastFeedback.correctNumbers} correct numbers and ${lastFeedback.correctLocations} crrect location/s`,
-        4: 'You found the CORRECT code!'
-      }
-
-    const guess = this.state.currentGuesses.map((g, i) => <ShowGuesses guess={g.guess} key={i} feedback={g.analyzedGuess} feedbackRespnse={feedbackRespnse}/>)
+    const guess = this.state.currentGuesses.map((g, i) => (
+      <ShowGuesses
+        guess={g.guess}
+        key={i}
+        feedback={g.analyzedGuess}
+        feedbackRespnse={feedbackRespnse}
+      />
+    ));
 
     return (
       <div className="app">
-          <SideBar currentGuesses={currentGuesses} round={round} successfulRounds={successfulRounds} getDifficultyLevel={this.getDifficultyLevel} updateOpenSettings={this.updateOpenSettings}/>
+        <SideBar
+          currentGuesses={currentGuesses}
+          round={round}
+          successfulRounds={successfulRounds}
+          getDifficultyLevel={this.getDifficultyLevel}
+		  updateOpenSettings={this.updateOpenSettings}
+		  points={points}
+		  roundFinished={roundFinished}
+        />
         <div className="game-container">
-            <div className="game">
-                <CodeKeeper roundFinished={roundFinished} code={code}/>
-            <div className="guesses-container">
-                {guess}
-            </div>
-            {feedbackRespnse === 'single' && <p className="single-feedback">{feedbackResponse[lastFeedback.feedbackNum]}</p>}
-            <GuessingForm submitAGuess={this.submitAGuess} roundFinished={roundFinished} restartRound={this.restartRound}/>
-            </div>
+          <div className="game">
+            <CodeKeeper roundFinished={roundFinished} code={code} currentGuesses={currentGuesses}/>
+            <div className="guesses-container">{guess}</div>
+            {feedbackRespnse === "single" && (
+              <p className="single-feedback">
+                {this.returnLastAnalayzedGuess().feedback}
+              </p>
+            )}
+            <GuessingForm
+              submitAGuess={this.submitAGuess}
+              roundFinished={roundFinished}
+              restartRound={this.restartRound}
+            />
+          </div>
         </div>
-        <div className="app-sidebar-right">
-        </div>
-        <Settings updateDifficultyLevel={this.updateDifficultyLevel} difficalityLevel={difficalityLevel} currentGuesses={currentGuesses} openSettings={openSettings} updateOpenSettings={this.updateOpenSettings} updateFeedbackRespnse={this.updateFeedbackRespnse} feedbackRespnse={feedbackRespnse} restart={this.restart} round={round}/>
+        <div className="app-sidebar-right"></div>
+        <Settings
+          updateDifficultyLevel={this.updateDifficultyLevel}
+          difficalityLevel={difficalityLevel}
+          currentGuesses={currentGuesses}
+          openSettings={openSettings}
+          updateOpenSettings={this.updateOpenSettings}
+          updateFeedbackRespnse={this.updateFeedbackRespnse}
+          feedbackRespnse={feedbackRespnse}
+          restart={this.restart}
+		  round={round}
+        />
       </div>
     );
   }
