@@ -18,6 +18,7 @@ class App extends Component {
     roundFinished: false,
     difficalityLevel: 7,
     openSettings: false,
+    feedbackRespnse: 'single',
   }
 
   componentDidMount() {
@@ -136,12 +137,27 @@ class App extends Component {
         this.setState({openSettings: boolean})
     }
 
+    updateFeedbackRespnse = feedbackType => {        
+      this.setState({feedbackRespnse: feedbackType})
+  }
+
 
 
   render() {
-      const { roundFinished, code, currentGuesses, round, successfulRounds, openSettings, difficalityLevel} = this.state;
+      const { roundFinished, code, currentGuesses, round, successfulRounds, openSettings, difficalityLevel, feedbackRespnse} = this.state;
 
-    const guess = this.state.currentGuesses.map((g, i) => <ShowGuesses guess={g.guess} key={i} feedback={g.analyzedGuess}/>)
+      const lastFeedback = currentGuesses.length !== 0 ? currentGuesses[currentGuesses.length - 1].analyzedGuess : ''
+      console.log(lastFeedback)
+
+      let feedbackResponse = {
+        0: 'Your guess was incorrect',
+        1: 'You had a correct number',
+        2: 'You had guessed a correct number and its correct location',
+        3: `You had ${lastFeedback.correctNumbers} correct numbers and ${lastFeedback.correctLocations} crrect location/s`,
+        4: 'You found the CORRECT code!'
+      }
+
+    const guess = this.state.currentGuesses.map((g, i) => <ShowGuesses guess={g.guess} key={i} feedback={g.analyzedGuess} feedbackRespnse={feedbackRespnse}/>)
 
     return (
       <div className="app">
@@ -151,13 +167,14 @@ class App extends Component {
                 <CodeKeeper roundFinished={roundFinished} code={code}/>
             <div className="guesses-container">
                 {guess}
+            {feedbackRespnse === 'single' && <p className="single-feedback">{feedbackResponse[lastFeedback.feedbackNum]}</p>}
             </div>
             <GuessingForm submitAGuess={this.submitAGuess} roundFinished={roundFinished} restartRound={this.restartRound}/>
             </div>
         </div>
         <div className="app-sidebar-right">
         </div>
-                    <Settings updateDifficultyLevel={this.updateDifficultyLevel} difficalityLevel={difficalityLevel} currentGuesses={currentGuesses} openSettings={openSettings} updateOpenSettings={this.updateOpenSettings}/>
+        <Settings updateDifficultyLevel={this.updateDifficultyLevel} difficalityLevel={difficalityLevel} currentGuesses={currentGuesses} openSettings={openSettings} updateOpenSettings={this.updateOpenSettings} updateFeedbackRespnse={this.updateFeedbackRespnse} feedbackRespnse={feedbackRespnse}/>
       </div>
     );
   }
