@@ -11,3 +11,7 @@
 .settings-modal-body {
   padding: 0 30px 30px 30px;
 }
+
+.settings-modal-body-restart {
+  padding: 30px
+}

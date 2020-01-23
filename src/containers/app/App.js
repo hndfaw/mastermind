@@ -139,7 +139,11 @@ class App extends Component {
 
     updateFeedbackRespnse = feedbackType => {        
       this.setState({feedbackRespnse: feedbackType})
-  }
+    }
+
+    restart = type => {
+      console.log(type)
+    }
 
 
 
@@ -147,7 +151,6 @@ class App extends Component {
       const { roundFinished, code, currentGuesses, round, successfulRounds, openSettings, difficalityLevel, feedbackRespnse} = this.state;
 
       const lastFeedback = currentGuesses.length !== 0 ? currentGuesses[currentGuesses.length - 1].analyzedGuess : ''
-      console.log(lastFeedback)
 
       let feedbackResponse = {
         0: 'Your guess was incorrect',
@@ -167,14 +170,14 @@ class App extends Component {
                 <CodeKeeper roundFinished={roundFinished} code={code}/>
             <div className="guesses-container">
                 {guess}
-            {feedbackRespnse === 'single' && <p className="single-feedback">{feedbackResponse[lastFeedback.feedbackNum]}</p>}
             </div>
+            {feedbackRespnse === 'single' && <p className="single-feedback">{feedbackResponse[lastFeedback.feedbackNum]}</p>}
             <GuessingForm submitAGuess={this.submitAGuess} roundFinished={roundFinished} restartRound={this.restartRound}/>
             </div>
         </div>
         <div className="app-sidebar-right">
         </div>
-        <Settings updateDifficultyLevel={this.updateDifficultyLevel} difficalityLevel={difficalityLevel} currentGuesses={currentGuesses} openSettings={openSettings} updateOpenSettings={this.updateOpenSettings} updateFeedbackRespnse={this.updateFeedbackRespnse} feedbackRespnse={feedbackRespnse}/>
+        <Settings updateDifficultyLevel={this.updateDifficultyLevel} difficalityLevel={difficalityLevel} currentGuesses={currentGuesses} openSettings={openSettings} updateOpenSettings={this.updateOpenSettings} updateFeedbackRespnse={this.updateFeedbackRespnse} feedbackRespnse={feedbackRespnse} restart={this.restart}/>
       </div>
     );
   }
