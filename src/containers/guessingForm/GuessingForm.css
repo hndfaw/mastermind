@@ -1,10 +1,9 @@
 .guessing-form {
   width: 100%;
-  max-width: 320px;
   margin: 15px;
-  padding: 10px;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: 1px solid black;
 }
 
 .guss-num-input-container {
@@ -14,7 +13,7 @@
 
 .submit-guess-btn {
   position: relative;
-  font-size: 22px;
+  font-size: 20px;
   border-radius: 6px;
   text-align: center;
   width: 100%;
@@ -22,10 +21,9 @@
 }
 
 .guess-num-input {
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   text-align: center;
-  border-radius: 50%;
   margin: 0;
   padding: 0;
   border: 2px solid;

@@ -240,23 +240,24 @@ class App extends Component {
 		  points={points}
 		  roundFinished={roundFinished}
         />
-        <div className="game-container">
           <div className="game">
+
             <CodeKeeper roundFinished={roundFinished} code={code} currentGuesses={currentGuesses}/>
+
             <div className="guesses-container">{guess}</div>
+			
             {feedbackRespnse === "single" && (
               <p className="single-feedback">
                 {this.returnLastAnalayzedGuess().feedback}
               </p>
             )}
+
             <GuessingForm
               submitAGuess={this.submitAGuess}
               roundFinished={roundFinished}
               restartRound={this.restartRound}
             />
           </div>
-        </div>
-        <div className="app-sidebar-right"></div>
         <Settings
           updateDifficultyLevel={this.updateDifficultyLevel}
           difficalityLevel={difficalityLevel}

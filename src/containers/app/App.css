@@ -3,24 +3,15 @@
   justify-content: space-between;
 }
 
-.game-container {
-  width: 450px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 
 .game {
-  height: calc(100vh - 20px);
+  height: calc(100vh);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 400px;
-  margin: 0 auto;
+  width: 450px;
   align-items: center;
-  border: 1px solid #000;
-  border-radius: 10px;
-  margin: 10px;
+  /* border: 1px solid #000; */
 }
 
 .guesses-container {
@@ -32,6 +23,7 @@
   border-top: 1px solid #000;
   border-bottom: 1px solid #000;
   position: relative;
+  border: 1px solid black;
 }
 
 .app-sidebar-right {
@@ -48,4 +40,5 @@
   background: #444d57;
   width: 100%;
   height: 30px;
+  border: 1px solid #000;
 }
