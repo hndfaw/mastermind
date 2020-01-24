@@ -254,16 +254,18 @@ class App extends Component {
 
           <div className="guesses-container">{this.returnGuess()}</div>
 
-          {feedbackRespnse === "single" && (
+          {/* {feedbackRespnse === "single" && (
             <p className="single-feedback">
               {this.returnLastAnalayzedGuess().feedback}
             </p>
-          )}
+          )} */}
 
           <GuessingForm
             submitAGuess={this.submitAGuess}
             roundFinished={roundFinished}
-            restartRound={this.restartRound}
+			restartRound={this.restartRound}
+			returnLastAnalayzedGuess={this.returnLastAnalayzedGuess}
+			feedbackRespnse={feedbackRespnse}
           />
         </div>
         <Settings
