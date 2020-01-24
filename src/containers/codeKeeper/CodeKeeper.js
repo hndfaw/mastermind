@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./CodeKeeper.css";
-import GuessCounter from "../../component/guessCounter/GuessCounter";
+// import GuessCounter from "../../component/guessCounter/GuessCounter";
 
 class CodeKeeper extends Component {
 
@@ -8,8 +8,8 @@ class CodeKeeper extends Component {
 
   render() {
 
-    const { code, roundFinished, currentGuesses } = this.props;
-	let fontStyle = roundFinished ? { fontSize: "2.3em" } : { fontSize: "3em" };
+    const { code, roundFinished } = this.props;
+	let fontStyle = roundFinished ? { fontSize: "1.88em" } : { fontSize: "2.6em" };
 	
 	
     return (
@@ -28,7 +28,6 @@ class CodeKeeper extends Component {
             {roundFinished ? code[3] : "*"}
           </p>
         </div>
-        <GuessCounter currentGuesses={currentGuesses}/>
       </div>
     );
   }

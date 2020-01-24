@@ -8,11 +8,8 @@
 }
 
 .guess-card {
-  height: 10%;
-  border-top: 1px solid #ffffff;
-  border-bottom: 1px solid #ffffff;
-  background: #e8ebef;
-  padding: 2px;
+  height: 35px;
+  border-radius: 5px;
 }
 
 .guess-card-part-1 {
@@ -23,9 +20,7 @@
 
 .guess-card-num {
   margin: 0;
-  border: 4px solid;
   border-color: #e8ebef;
-  background: #7a8896;
   width: 25%;
   height: 100%;
   display: flex;
@@ -34,13 +29,31 @@
   color: #fff;
 }
 
+.guess-card-num-1,
+.guess-card-num-2,
+.guess-card-num-3 {
+  border-right: 1px solid #fff
+}
+
+.guess-card-num-4 {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.guess-card-num-1 {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
 .guess-card-part-2-msg {
-  margin: 0;
-  font-size: 11px;
+  font-size: 12px;
   color: #626d79;
   padding-left: 5px;
+  white-space: nowrap;
 }
 
 p {
-  margin: 0;
+  margin: 0
 }
+
+

@@ -55,7 +55,7 @@ class Settings extends Component {
                 onChange={this.handleChangeDifficulty}
               >
                 <ToggleButton disabled={currentGuesses.length !== 0} value={7}>
-                  Eassy (0 - 7)
+                  Easy (0 - 7)
                 </ToggleButton>
                 <ToggleButton disabled={currentGuesses.length !== 0} value={14}>
                   Medium (0 - 14)

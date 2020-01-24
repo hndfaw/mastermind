@@ -25,10 +25,10 @@ class GussingForm extends Component {
     const { roundFinished } = this.props;
     const { numOne, numTwo, numThree, numFour } = this.state;
 
-    if (roundFinished !== true && !this.checkEmptyFields()) {
+    // if (roundFinished !== true && !this.checkEmptyFields()) {
       this.props.submitAGuess([numOne, numTwo, numThree, numFour]);
-      this.clearValues();
-    }
+    //   this.clearValues();
+    // }
   };
 
   handleOnChange = e => {
@@ -54,7 +54,7 @@ class GussingForm extends Component {
       };
     } else {
       return {
-        borderColor: "#495057"
+        borderColor: null
       };
     }
   };
@@ -116,7 +116,7 @@ class GussingForm extends Component {
 
         <Button
           disabled={this.checkEmptyFields() && !roundFinished}
-          variant="primary"
+          variant="dark"
           type="submit"
           className="submit-guess-btn"
         >

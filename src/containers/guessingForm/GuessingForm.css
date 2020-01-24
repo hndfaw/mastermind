@@ -1,10 +1,10 @@
 .guessing-form {
   width: 100%;
-  max-width: 320px;
-  margin: 15px;
-  padding: 10px;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
+  padding: 10px 20px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  margin-top: 5px;
+  background: #343a4047;
 }
 
 .guss-num-input-container {
@@ -14,7 +14,7 @@
 
 .submit-guess-btn {
   position: relative;
-  font-size: 22px;
+  font-size: 15px;
   border-radius: 6px;
   text-align: center;
   width: 100%;
@@ -22,17 +22,16 @@
 }
 
 .guess-num-input {
-  width: 50px;
-  height: 50px;
+  width: 68px;
+  height: 40px;
   text-align: center;
-  border-radius: 50%;
   margin: 0;
   padding: 0;
-  border: 2px solid;
   font-size: 24px;
+  border-radius: 0px;
 }
 
-.guess-num-input-1 {
+/* .guess-num-input-1 {
   background: hsla(354, 70%, 54%, 0.1);
 }
 
@@ -46,4 +45,4 @@
 
 .guess-num-input-4 {
   background: hsla(134, 62%, 39%, 0.1);
-}
+} */
