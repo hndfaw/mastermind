@@ -7,7 +7,7 @@ class ShowGuess extends Component {
     const { index, currentGuesses } = this.props;
     let length = currentGuesses.length;
     let dynamicWidth = (105 - (length - index) * 8) - (((length - index - 1) * index)/1.4);
-    let dynamicHeight = 42 - (length - index) * 2 ;
+    let dynamicHeight = 35 - (length - index) * 2 ;
     let dynamicFontSize = 20 - (length - index);
     let dynamicMarginTop = 28 - ((length - index) * 2);
 

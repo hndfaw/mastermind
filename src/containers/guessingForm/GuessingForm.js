@@ -54,7 +54,7 @@ class GussingForm extends Component {
       };
     } else {
       return {
-        borderColor: "#495057"
+        borderColor: null
       };
     }
   };
@@ -116,7 +116,7 @@ class GussingForm extends Component {
 
         <Button
           disabled={this.checkEmptyFields() && !roundFinished}
-          variant="primary"
+          variant="dark"
           type="submit"
           className="submit-guess-btn"
         >
