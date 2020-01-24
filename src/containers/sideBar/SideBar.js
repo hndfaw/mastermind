@@ -3,10 +3,12 @@ import "./SideBar.css";
 import logo from "../../assets/images/mastermind-logo.png";
 import Button from "react-bootstrap/Button";
 import SuccessfulRoundsWidget from "../../component/successfulRoundsWidget/SuccessfulRoundsWidget";
+import GuessCounter from "../../component/guessCounter/GuessCounter";
+
 
 class SideBar extends Component {
   render() {
-    const { round, successfulRounds, points, roundFinished } = this.props;
+    const { round, successfulRounds, points, roundFinished, currentGuesses } = this.props;
 
     return (
       <section className="app-sidebar">
@@ -27,6 +29,7 @@ class SideBar extends Component {
 			round={round}
 			roundFinished={roundFinished}
           />
+          <GuessCounter currentGuesses={currentGuesses}/>
           <article className="sidebar-difficulty-level">
             <p>
               Difficulty Level: <span>{this.props.getDifficultyLevel()}</span>

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./CodeKeeper.css";
-import GuessCounter from "../../component/guessCounter/GuessCounter";
+// import GuessCounter from "../../component/guessCounter/GuessCounter";
 
 class CodeKeeper extends Component {
 
@@ -28,7 +28,7 @@ class CodeKeeper extends Component {
             {roundFinished ? code[3] : "*"}
           </p>
         </div>
-        <GuessCounter currentGuesses={currentGuesses}/>
+        {/* <GuessCounter currentGuesses={currentGuesses}/> */}
       </div>
     );
   }
