@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./App.css";
 import { fetchCode } from "../../api/apiCalls";
 import GuessingForm from "../guessingForm/GuessingForm";
-import ShowGuesses from "../showGuesses/ShowGuesses";
+import Guess from "../guess/Guess";
 import CodeKeeper from "../codeKeeper/CodeKeeper";
 import Settings from "../settings/Settings";
 import SideBar from "../sideBar/SideBar";
@@ -162,7 +162,7 @@ class App extends Component {
   getDifficultyLevel = () => {
     const { difficalityLevel } = this.state;
     const diffLev = {
-      7: "Eeasy",
+      7: "Easy",
       14: "Medium",
       28: "Hard",
       56: "Harder"
@@ -202,10 +202,24 @@ class App extends Component {
     return lastAnalyzedGuess;
   };
 
+  returnGuess = () => {
+    const { feedbackRespnse, currentGuesses } = this.state;
 
+    const guess = this.state.currentGuesses.map((g, i) => {
+      return (
+        <Guess
+          guess={g.guess}
+          key={i}
+          feedback={g.analyzedGuess}
+		  feedbackRespnse={feedbackRespnse}
+		  index={i}
+		  currentGuesses={currentGuesses}
+        />
+      );
+    });
 
-
-
+    return guess;
+  };
 
   render() {
     const {
@@ -216,18 +230,9 @@ class App extends Component {
       successfulRounds,
       openSettings,
       difficalityLevel,
-	  feedbackRespnse,
-	  points
+      feedbackRespnse,
+      points
     } = this.state;
-
-    const guess = this.state.currentGuesses.map((g, i) => (
-      <ShowGuesses
-        guess={g.guess}
-        key={i}
-        feedback={g.analyzedGuess}
-        feedbackRespnse={feedbackRespnse}
-      />
-    ));
 
     return (
       <div className="app">
@@ -236,28 +241,31 @@ class App extends Component {
           round={round}
           successfulRounds={successfulRounds}
           getDifficultyLevel={this.getDifficultyLevel}
-		  updateOpenSettings={this.updateOpenSettings}
-		  points={points}
-		  roundFinished={roundFinished}
+          updateOpenSettings={this.updateOpenSettings}
+          points={points}
+          roundFinished={roundFinished}
         />
-          <div className="game">
+        <div className="game">
+          <CodeKeeper
+            roundFinished={roundFinished}
+            code={code}
+            currentGuesses={currentGuesses}
+          />
 
-            <CodeKeeper roundFinished={roundFinished} code={code} currentGuesses={currentGuesses}/>
+          <div className="guesses-container">{this.returnGuess()}</div>
 
-            <div className="guesses-container">{guess}</div>
-			
-            {feedbackRespnse === "single" && (
-              <p className="single-feedback">
-                {this.returnLastAnalayzedGuess().feedback}
-              </p>
-            )}
+          {feedbackRespnse === "single" && (
+            <p className="single-feedback">
+              {this.returnLastAnalayzedGuess().feedback}
+            </p>
+          )}
 
-            <GuessingForm
-              submitAGuess={this.submitAGuess}
-              roundFinished={roundFinished}
-              restartRound={this.restartRound}
-            />
-          </div>
+          <GuessingForm
+            submitAGuess={this.submitAGuess}
+            roundFinished={roundFinished}
+            restartRound={this.restartRound}
+          />
+        </div>
         <Settings
           updateDifficultyLevel={this.updateDifficultyLevel}
           difficalityLevel={difficalityLevel}
@@ -267,7 +275,7 @@ class App extends Component {
           updateFeedbackRespnse={this.updateFeedbackRespnse}
           feedbackRespnse={feedbackRespnse}
           restart={this.restart}
-		  round={round}
+          round={round}
         />
       </div>
     );
