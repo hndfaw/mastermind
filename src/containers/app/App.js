@@ -5,7 +5,7 @@ import GuessingForm from "../guessingForm/GuessingForm";
 import Guess from "../guess/Guess";
 import CodeKeeper from "../codeKeeper/CodeKeeper";
 import Settings from "../settings/Settings";
-import SideBar from "../sideBar/SideBar";
+import Header from "../header/Header";
 
 class App extends Component {
   state = {
@@ -126,7 +126,7 @@ class App extends Component {
       0: "Your guess was incorrect",
       1: "You had a correct number",
       2: "You had guessed a correct number and its correct location",
-      3: `You had ${correctNumbers} correct numbers and ${correctLocations} crrect location/s`,
+      3: `You had ${correctNumbers} correct numbers and ${correctLocations} correct location/s`,
       4: "You found the CORRECT code!"
     };
     return feedbackResponse[feedbackNum];
@@ -236,16 +236,16 @@ class App extends Component {
 
     return (
       <div className="app">
-        <SideBar
-          currentGuesses={currentGuesses}
-          round={round}
-          successfulRounds={successfulRounds}
-          getDifficultyLevel={this.getDifficultyLevel}
-          updateOpenSettings={this.updateOpenSettings}
-          points={points}
-          roundFinished={roundFinished}
-        />
         <div className="game">
+			<Header
+				currentGuesses={currentGuesses}
+				round={round}
+				successfulRounds={successfulRounds}
+				getDifficultyLevel={this.getDifficultyLevel}
+				updateOpenSettings={this.updateOpenSettings}
+				points={points}
+				roundFinished={roundFinished}
+			/>
           <CodeKeeper
             roundFinished={roundFinished}
             code={code}
@@ -253,12 +253,6 @@ class App extends Component {
           />
 
           <div className="guesses-container">{this.returnGuess()}</div>
-
-          {/* {feedbackRespnse === "single" && (
-            <p className="single-feedback">
-              {this.returnLastAnalayzedGuess().feedback}
-            </p>
-          )} */}
 
           <GuessingForm
             submitAGuess={this.submitAGuess}

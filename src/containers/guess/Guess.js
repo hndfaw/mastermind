@@ -30,7 +30,7 @@ class ShowGuess extends Component {
 
     let dynamicOpacity = 1 - ((length - index) / 20) ;
     return {
-      background: `rgba(121, 135, 150, ${dynamicOpacity})`
+      background: `rgba(52, 58, 64, ${dynamicOpacity})`
     }
   }
 
