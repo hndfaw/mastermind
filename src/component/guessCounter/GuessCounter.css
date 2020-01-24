@@ -1,7 +1,6 @@
 .guess-counter {
-  border-top: 1px solid #000;
   display: flex;
-  padding: 5px;
+  margin: 7px 0 15px 0;
 }
 
 .guess-counter-title {
@@ -19,11 +18,24 @@
 }
 
 .single-guess-counter {
-  background: #FFC108;
-  width: 7%;
+  background: #343A40;
   height: 9px;
+  width: 10%;
+}
+
+.single-guess-counter-0,
+.single-guess-counter-1,
+.single-guess-counter-2,
+.single-guess-counter-3,
+.single-guess-counter-4,
+.single-guess-counter-5,
+.single-guess-counter-6,
+.single-guess-counter-7,
+.single-guess-counter-8 {
+  border-right: 1px solid #dbdde0;
 }
 
 .empty {
-    background: rgb(211, 211, 211);
+    background: rgb(183, 183, 183);
+    ;
   }

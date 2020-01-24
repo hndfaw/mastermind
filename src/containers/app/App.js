@@ -266,6 +266,7 @@ class App extends Component {
 			restartRound={this.restartRound}
 			returnLastAnalayzedGuess={this.returnLastAnalayzedGuess}
 			feedbackRespnse={feedbackRespnse}
+			currentGuesses={currentGuesses}
           />
         </div>
         <Settings
