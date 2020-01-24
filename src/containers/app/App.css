@@ -21,7 +21,7 @@
   width: 100%;
   position: relative;
   align-items: center;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
 
 .app-sidebar-right {
@@ -30,13 +30,11 @@
 }
 
 .single-feedback {
-  margin: 0;
   font-size: 12px;
-  padding: 3px;
-  color: #fff;
-  padding-left: 5px;
-  background: #444d57;
   width: 100%;
-  height: 30px;
-  border: 1px solid #000;
+  background: #d0d0d0;
+  padding: 3px;
+  border-radius: 2px;
+  padding-left: 8px;
+  margin-bottom: 9px;
 }

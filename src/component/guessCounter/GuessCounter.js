@@ -21,21 +21,21 @@ class GuessCounter extends Component {
     generateElement = () => {
         return this.generateGuessStatus().map((el, i) => {
             if (el === 1) {
-                return <div className="single-guess-counter" key={i}></div>
+                return <div className={`single-guess-counter single-guess-counter-${i}`} key={i}></div>
             } else {
-                return <div className="single-guess-counter empty" key={i}></div>
+                return <div className={`single-guess-counter empty single-guess-counter-${i}`}  key={i}></div>
             }
         })
     }
 
     render() {
         
-    const { currentGuesses } = this.props;
+    // const { currentGuesses } = this.props;
         
 
         return (
             <div className="guess-counter">
-                <h6 className="guess-counter-title">GUESSES<span> ({10 - currentGuesses.length}) </span></h6>
+                {/* <h6 className="guess-counter-title">GUESSES<span> ({10 - currentGuesses.length}) </span></h6> */}
                 <div className="guess-counter-container">
                     {this.generateElement()}
                 </div>
