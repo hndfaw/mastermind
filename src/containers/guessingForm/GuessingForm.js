@@ -71,6 +71,7 @@ class GussingForm extends Component {
               onChange={this.handleOnChange}
               className="guess-num-input guess-num-input-1"
               maxLength="2"
+              type="number"
             />
             <Form.Control
               disabled={roundFinished}
@@ -79,6 +80,7 @@ class GussingForm extends Component {
               onChange={this.handleOnChange}
               className="guess-num-input guess-num-input-2"
               maxLength="2"
+              type="number"
             />
             <Form.Control
               disabled={roundFinished}
@@ -87,6 +89,7 @@ class GussingForm extends Component {
               onChange={this.handleOnChange}
               className="guess-num-input guess-num-input-3"
               maxLength="2"
+              type="number"
             />
             <Form.Control
               disabled={roundFinished}
@@ -95,6 +98,7 @@ class GussingForm extends Component {
               onChange={this.handleOnChange}
               className="guess-num-input guess-num-input-4"
               maxLength="2"
+              type="number"
             />
           </div>
 
