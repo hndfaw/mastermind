@@ -11,17 +11,18 @@
   justify-content: space-between;
   width: 450px;
   align-items: center;
+  margin: 0 auto;
 }
 
 .guesses-container {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  height: 100%;
+  height: 412px;
   width: 100%;
   position: relative;
   align-items: center;
-  margin-bottom: 20px;
+  margin: auto 0 17px 0;
 }
 
 .app-sidebar-right {
