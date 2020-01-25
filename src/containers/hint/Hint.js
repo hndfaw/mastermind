@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./Hint.css";
 
+
 class Hint extends Component {
   state = {
     randomCodeIndex: 0,
@@ -105,7 +106,7 @@ class Hint extends Component {
             </article>
 
             <article className="flip-card-back">
-              <p>{hint}</p>
+              <p className="flip-card-hint">{hint}</p>
             </article>
           </div>
         </div>

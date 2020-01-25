@@ -210,7 +210,7 @@ class App extends Component {
     let { correctNumbers, correctLocations, feedbackNum } = guess;
     let feedbackResponse = {
       0: "Your guess was incorrect",
-      1: "You had a correct number",
+      1: "You had one correct number in wrong location",
       2: "You had guessed a correct number and its correct location",
       3: `You had ${correctNumbers} correct numbers and ${correctLocations} correct location/s`,
       4: "You found the CORRECT code!"
