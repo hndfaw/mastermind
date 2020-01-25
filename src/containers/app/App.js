@@ -7,8 +7,6 @@ import CodeKeeper from "../codeKeeper/CodeKeeper";
 import Settings from "../settings/Settings";
 import SideBar from "../sideBar/SideBar";
 
-
-
 class App extends Component {
   state = {
     code: [],
@@ -19,16 +17,16 @@ class App extends Component {
     difficalityLevel: 7,
     openSettings: false,
     feedbackRespnse: "all",
-	points: 0,
-	guessContainerHeight: 0,
+    points: 0,
+    guessContainerHeight: 0
   };
 
   _element = React.createRef();
 
   componentDidMount() {
     let { difficalityLevel } = this.state;
-	this.generateNewCode(difficalityLevel);
-	this.setState({guessContainerHeight: this._element.current.clientHeight})
+    this.generateNewCode(difficalityLevel);
+    this.setState({ guessContainerHeight: this._element.current.clientHeight });
   }
 
   generateNewCode = level => {
@@ -209,7 +207,11 @@ class App extends Component {
   };
 
   returnGuess = () => {
-    const { feedbackRespnse, currentGuesses, guessContainerHeight } = this.state;
+    const {
+      feedbackRespnse,
+      currentGuesses,
+      guessContainerHeight
+    } = this.state;
 
     const guess = this.state.currentGuesses.map((g, i) => {
       return (
@@ -217,18 +219,16 @@ class App extends Component {
           guess={g.guess}
           key={i}
           feedback={g.analyzedGuess}
-		  feedbackRespnse={feedbackRespnse}
-		  index={i}
-		  currentGuesses={currentGuesses}
-		  guessContainerHeight={guessContainerHeight}
+          feedbackRespnse={feedbackRespnse}
+          index={i}
+          currentGuesses={currentGuesses}
+          guessContainerHeight={guessContainerHeight}
         />
       );
     });
 
     return guess;
   };
-
-
 
   render() {
     const {
@@ -245,15 +245,15 @@ class App extends Component {
 
     return (
       <div className="app">
-		  <SideBar
-				currentGuesses={currentGuesses}
-				round={round}
-				successfulRounds={successfulRounds}
-				getDifficultyLevel={this.getDifficultyLevel}
-				updateOpenSettings={this.updateOpenSettings}
-				points={points}
-				roundFinished={roundFinished}
-			/>
+        <SideBar
+          currentGuesses={currentGuesses}
+          round={round}
+          successfulRounds={successfulRounds}
+          getDifficultyLevel={this.getDifficultyLevel}
+          updateOpenSettings={this.updateOpenSettings}
+          points={points}
+          roundFinished={roundFinished}
+        />
         <div className="game">
           <CodeKeeper
             roundFinished={roundFinished}
@@ -261,17 +261,15 @@ class App extends Component {
             currentGuesses={currentGuesses}
           />
 
-          <div
-		  className="guesses-container"
-		  ref={this._element}
-		  >{this.returnGuess()}</div>
-
+          <div className="guesses-container" ref={this._element}>
+            {this.returnGuess()}
+          </div>
           <GuessingForm
             submitAGuess={this.submitAGuess}
             roundFinished={roundFinished}
-			restartRound={this.restartRound}
-			returnLastAnalayzedGuess={this.returnLastAnalayzedGuess}
-			feedbackRespnse={feedbackRespnse}
+            restartRound={this.restartRound}
+            returnLastAnalayzedGuess={this.returnLastAnalayzedGuess}
+            feedbackRespnse={feedbackRespnse}
 			currentGuesses={currentGuesses}
           />
         </div>
