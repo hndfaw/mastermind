@@ -21,7 +21,7 @@ class Hint extends Component {
       const randomNumber = Math.floor(Math.random() * maxFixed) + minFixed;
       this.setState({ hint: hints[randomNumber], secondSideCard: true });
       this.countDown(7);
-      setTimeout(this.flipBackTheCard, 9000);
+      setTimeout(this.flipBackTheCard, 6000);
       updateHintReady();
     }
   };
@@ -31,7 +31,7 @@ class Hint extends Component {
   };
 
   countDown = () => {
-    let timeLeft = 8;
+    let timeLeft = 5;
     let timer = setInterval(function() {
       document.querySelector(".show-timer").innerHTML = timeLeft;
       timeLeft -= 1;
@@ -41,8 +41,27 @@ class Hint extends Component {
     }, 1000);
   };
 
+
+  hintFrontSideMsg = () => {
+	const { hintIsReady, hintsBalance } = this.props;
+
+	if (hintsBalance === 0) {
+		return `You do not have hints anymore. You will get 2 hints again in the next round!`
+	} else if (!hintIsReady && hintsBalance === 2) {
+		return "Your first hint is NOT ready yet, it will be ready after you make two guesses!"
+	} else if (hintIsReady && hintsBalance === 2) {
+		return "Your first hint is ready, CLICK here to reveal it!"
+	} else if (!hintIsReady && hintsBalance < 2) {
+		return "Your next hint is NOT ready yet. You can only get one hint per a guess!"
+	} else if (hintIsReady && hintsBalance === 1) {
+		return "Your hint second is ready, CLICK here to reveal it!"
+	}
+  }
+
+
+
   render() {
-    const { hint, secondSideCard, timeLeft } = this.state;
+    const { hint, secondSideCard } = this.state;
     const { hintIsReady, hintsBalance } = this.props;
 
     const flipStyle = secondSideCard
@@ -55,18 +74,20 @@ class Hint extends Component {
 
     const frontStyle = hintIsReady
       ? {
-          color: "#fff"
+		  color: "#fff",
+		  cursor: 'pointer'
         }
       : {
-          color: null
+		  color: null,
+		  cursor: 'default'
         };
 
     const timerStyle = secondSideCard
       ? {
-          color: "#fff"
+		  color: "#fff",
         }
       : {
-          color: null
+		  color: null,
         };
 
     return (
@@ -78,16 +99,9 @@ class Hint extends Component {
               className="flip-card-front"
               onClick={this.returnAHint}
             >
-              {!hintIsReady ? (
-                <p>
-                  Your hint is not ready yet, it will be ready after you make
-                  two guesses!
-                </p>
-              ) : (
-                <p>Your hint is ready! Click Here to reveal it!</p>
-              )}
 
-              {/* <p className="hints-balance">Hints Balance <span className="hints-balance-num">{hintsBalance}</span></p> */}
+			  {this.hintFrontSideMsg()}
+
             </article>
 
             <article className="flip-card-back">

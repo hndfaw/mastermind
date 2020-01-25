@@ -23,7 +23,7 @@ class App extends Component {
     guessContainerHeight: 0,
     hints: [],
     hintIsReady: false,
-    hintsBalance: 2  
+    hintsBalance: 2
   };
 
   _element = React.createRef();
@@ -134,7 +134,6 @@ class App extends Component {
       this.setState({hintIsReady: false})
       this.setState({hintsBalance: hintsBalance - 1})
     }
-
   }
 
   analyzingCode = guess => {
@@ -219,31 +218,11 @@ class App extends Component {
     return feedbackResponse[feedbackNum];
   };
 
-  endOfRound = result => {
-    this.calculatePoints();
-    this.setState({ roundFinished: true });
-    if (result === "success") {
-      let updateSuccessfulRounds = this.state.successfulRounds;
-      this.setState({ successfulRounds: updateSuccessfulRounds + 1 });
-    }
-  };
-
   calculatePoints = () => {
     const { points, currentGuesses } = this.state;
     let guessBalance = 10 - currentGuesses.length;
     let updatedPoints = points + guessBalance * 10;
     this.setState({ points: updatedPoints });
-  };
-
-  restartRound = () => {
-    let numOfRounds = this.state.round;
-    let { difficultyLevel } = this.state;
-    this.setState({
-      currentGuesses: [],
-      roundFinished: false,
-      round: numOfRounds + 1
-    });
-    this.generateNewCode(difficultyLevel);
   };
 
   getDifficultyLevel = () => {
@@ -270,15 +249,40 @@ class App extends Component {
     this.setState({ feedbackRespnse: feedbackType });
   };
 
+  endOfRound = result => {
+    this.calculatePoints();
+    this.setState({ roundFinished: true });
+    if (result === "success") {
+      let updateSuccessfulRounds = this.state.successfulRounds;
+      this.setState({ successfulRounds: updateSuccessfulRounds + 1, hintsBalance: 2});
+    }
+  };
+
   restart = type => {
+
+    // type 'Game to restart whole game
+    // type Round to restart round manually
+    // roundFinished to restart round and incrementing rounds number
+
+    let numOfRounds = this.state.round;
+
     let { difficultyLevel } = this.state;
     this.generateNewCode(difficultyLevel);
-    this.setState({ currentGuesses: [], roundFinished: false });
+
+    this.setState({ currentGuesses: [], roundFinished: false, hintsBalance: 2 });
 
     if (type === "Game") {
       this.setState({ round: 1, successfulRounds: 0, points: 0 });
     }
+
+    if (type === 'Round-Finished') {
+      this.setState({
+        round: numOfRounds + 1,
+        hintIsReady: false
+      });
+    }
   };
+
 
   returnLastAnalayzedGuess = () => {
     const { currentGuesses } = this.state;
@@ -363,7 +367,7 @@ class App extends Component {
           <GuessingForm
             submitAGuess={this.submitAGuess}
             roundFinished={roundFinished}
-            restartRound={this.restartRound}
+            restart={this.restart}
             returnLastAnalayzedGuess={this.returnLastAnalayzedGuess}
             feedbackRespnse={feedbackRespnse}
             currentGuesses={currentGuesses}

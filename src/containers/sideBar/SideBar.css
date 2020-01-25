@@ -1,6 +1,7 @@
 .app-side-bar {
   width: 35vw;
   background: rgb(53,54,58);
+  cursor: default;
 }
 
 .logo {

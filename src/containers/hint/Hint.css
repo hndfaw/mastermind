@@ -5,6 +5,7 @@
   margin: 100px auto 0 auto;
   flex-direction: column;
   width: fit-content;
+  cursor: default;
 }
 
 .flip-card {
@@ -38,31 +39,16 @@
 }
 
 .flip-card-front {
-  background-color: rgb(59, 92, 128);
-  color: #1e1f23;
-  cursor: pointer;
+  background-color: rgb(58, 91, 127);
+  color: #bbbbbb;
 }
 
 .flip-card-back {
   background-color: #007bfe;
   color: white;
   transform: rotateY(180deg);
+  cursor: default;
 }
-
-/* .hints-balance {
-	font-size: 12px;
-	position: fixed;
-	bottom: 2px;
-	left: 2px;
-  }
-
-  .hints-balance-num {
-	background: #1e1f23af;
-	color: rgba(255, 255, 255, 0.664);
-	width: fit-content;
-	padding: 0 4px;
-	border-radius: 2px;
-  } */
 
   .show-timer {
 	  margin-top: 3px;
