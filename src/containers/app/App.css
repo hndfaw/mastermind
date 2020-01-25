@@ -1,10 +1,11 @@
 /* .app {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 } */
 
 .home-page {
-
   display: flex;
   justify-content: space-between;
 }
@@ -44,4 +45,35 @@
   border-radius: 2px;
   padding-left: 8px;
   margin-bottom: 9px;
+}
+
+.page-not-exist {
+  font-size: 18px;
+  color: #000;
+  padding-bottom: 20px;
+}
+
+.back-to-game {
+  color: rgb(70, 72, 77);
+  font-size: 16px;
+  border: 1px solid rgb(70, 72, 77);
+  text-decoration: none;
+  border-radius: 3px;
+  padding: 3px 7px;
+  border: 1px oslid rgb(70, 72, 77);
+}
+
+.back-to-game:hover {
+  background: rgb(70, 72, 77);
+  color: #fff;
+  text-decoration: none;
+}
+
+.page-404 {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }

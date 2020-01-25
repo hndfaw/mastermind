@@ -8,6 +8,7 @@ import Settings from "../settings/Settings";
 import SideBar from "../sideBar/SideBar";
 import { Route, Switch, NavLink } from 'react-router-dom';
 import WelcomePage from '../../component/welcomePage/WelcomePage';
+import Instruction from '../../component/instruction/Instruction';
 
 
 class App extends Component {
@@ -403,7 +404,16 @@ class App extends Component {
                
             )} />
 
-          
+          <Route exact path="/instructions" render={() => (
+              <Instruction />
+            )}/>  
+
+            <Route render={() => (
+              <div className="page-404">
+                <p className="page-not-exist">The page you’re looking for can’t be found.</p><NavLink to="/game" className="back-to-game"> Back to the Game page</NavLink>
+              </div>
+            )}/>
+
         </Switch>
       </div>
     );

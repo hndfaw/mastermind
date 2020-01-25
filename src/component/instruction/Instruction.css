@@ -1,0 +1,58 @@
+.instructions-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.instructions-red-logo {
+  height: 26px;
+  margin-left: 6px;
+}
+
+.instructions-page-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 100px 0 120px 0;
+}
+
+.instructions-body {
+  font-size: 24px;
+  max-width: 600px;
+}
+
+.instructions-btn {
+  color: #fff;
+  font-size: 20px;
+  /* border: 1px solid rgb(70, 72, 77); */
+  text-decoration: none;
+  border-radius: 3px;
+  padding: 6px 13px;
+  border: 1px oslid rgb(70, 72, 77);
+  background: #dc3545;
+}
+
+.instructions-btn-instructions {
+  background: #ffc108;
+}
+
+.instructions-btn-instructions:hover {
+  background: rgba(255, 193, 8, 0.85);
+}
+
+.instructions-btn-game:hover {
+  background: hsla(354, 70%, 54%, 0.85);
+}
+
+.instructions-btn:hover {
+  text-decoration: none;
+  color: #fff;
+}
+
+.instructions-page-btns-container {
+  margin-top: 100px;
+  display: flex;
+  justify-content: space-between;
+  width: 350px;
+}
