@@ -9,7 +9,9 @@ import SideBar from "../sideBar/SideBar";
 
 class App extends Component {
   state = {
-    code: [],
+	code: [],
+	uniqueCodeNums: [],
+    nonExistingNums: [],
     currentGuesses: [],
     round: 1,
     successfulRounds: 0,
@@ -18,7 +20,8 @@ class App extends Component {
     openSettings: false,
     feedbackRespnse: "all",
     points: 0,
-    guessContainerHeight: 0
+	guessContainerHeight: 0,
+	hints: []
   };
 
   _element = React.createRef();
@@ -34,7 +37,67 @@ class App extends Component {
     fetchCode(level)
       .then(data => data.split(/\r|\n/))
       .then(data => data.map(d => d !== "" && newCode.push(parseInt(d))))
-      .then(() => this.setState({ code: newCode }));
+      .then(() => this.setState({ code: newCode }))
+      .then(() => this.findNonExistingNumbers());
+  };
+
+  findNonExistingNumbers = () => {
+    const { difficalityLevel, code } = this.state;
+    const uniqueCodeNums = code.filter((codeNum, index, self) => {
+      return index === self.indexOf(codeNum);
+    });
+    let emptyArray = Array(difficalityLevel + 1).fill(0);
+    const nonExistingNums = [];
+    emptyArray.forEach((zero, i) => {
+      if (!uniqueCodeNums.includes(i)) {
+        nonExistingNums.push(i);
+      }
+    });
+
+	// this.setState({ nonExistingNums, uniqueCodeNums });
+	this.generateHints(nonExistingNums, uniqueCodeNums)
+  };
+
+  generateHints = (nonExistingNums, uniqueCodeNums) => {
+    const { difficalityLevel } = this.props;
+    let hints = [];
+    uniqueCodeNums.forEach(codeNum => {
+      hints.push(`Number ${codeNum} exsit in the combination of the code!`);
+    });
+
+    nonExistingNums.forEach(num => {
+      hints.push(
+        `Number ${num} does NOT exsit in the combination of the code!`
+      );
+    });
+
+    if (uniqueCodeNums.length === 4) {
+      hints.push("There are no duplicate numbers!");
+    } else {
+      hints.push("There is at least one duplicate number");
+    }
+
+    if (uniqueCodeNums.length <= 2) {
+      hints.push(
+        `I don/'t know how to tell you this! too many similar numbers are there!`
+      );
+    }
+
+    if (uniqueCodeNums.length === 1) {
+      hints.push(
+        `Ok here is the best hint ever! all the numbers are similar! Good Luck!!`
+      );
+    }
+
+    let maxCodeNum = Math.max(...uniqueCodeNums);
+    let minCodeNum = Math.min(...uniqueCodeNums);
+    maxCodeNum !== difficalityLevel &&
+      hints.push(`All the numbers are less than ${maxCodeNum + 1}`);
+    minCodeNum !== 0 &&
+      hints.push(`All the numbers are greater than ${minCodeNum - 1}`);
+
+        this.setState({ hints });
+
   };
 
   submitAGuess = guess => {
@@ -240,7 +303,9 @@ class App extends Component {
       openSettings,
       difficalityLevel,
       feedbackRespnse,
-      points
+      points,
+	  nonExistingNums,
+	  uniqueCodeNums
     } = this.state;
 
     return (
@@ -253,6 +318,10 @@ class App extends Component {
           updateOpenSettings={this.updateOpenSettings}
           points={points}
           roundFinished={roundFinished}
+          code={code}
+          difficalityLevel={difficalityLevel}
+		  nonExistingNums={nonExistingNums}
+		  uniqueCodeNums={uniqueCodeNums}
         />
         <div className="game">
           <CodeKeeper
@@ -270,7 +339,7 @@ class App extends Component {
             restartRound={this.restartRound}
             returnLastAnalayzedGuess={this.returnLastAnalayzedGuess}
             feedbackRespnse={feedbackRespnse}
-			currentGuesses={currentGuesses}
+            currentGuesses={currentGuesses}
           />
         </div>
         <Settings
