@@ -5,69 +5,83 @@ class Hint extends Component {
   state = {
     randomCodeIndex: 0,
     randomCodeNum: 0,
-    hint: ''
+    hint: "",
+    firstSideOfCard: false,
+    hintIsReady: true,
+	hintsBalance: 2
   };
 
-//   generateHints = () => {
-//     const { uniqueCodeNums, nonExistingNums, difficalityLevel } = this.props;
-//     let hints = [];
-//     uniqueCodeNums.forEach(codeNum => {
-//       hints.push(`Number ${codeNum} exsit in the combination of the code!`);
-//     });
+  returnAHint = () => {
+    const { hintIsReady } = this.state;
 
-//     nonExistingNums.forEach(num => {
-//       hints.push(
-//         `Number ${num} does NOT exsit in the combination of the code!`
-//       );
-//     });
-
-//     if (uniqueCodeNums.length === 4) {
-//       hints.push("There are no duplicate numbers!");
-//     } else {
-//       hints.push("There is at least one duplicate number");
-//     }
-
-//     if (uniqueCodeNums.length <= 2) {
-//       hints.push(
-//         `I don/'t know how to tell you this! too many similar numbers are there!`
-//       );
-//     }
-
-//     if (uniqueCodeNums.length === 1) {
-//       hints.push(
-//         `Ok here is the best hint ever! all the numbers are similar! Good Luck!!`
-//       );
-//     }
-
-//     let maxCodeNum = Math.max(...uniqueCodeNums);
-//     let minCodeNum = Math.min(...uniqueCodeNums);
-//     maxCodeNum !== difficalityLevel &&
-//       hints.push(`All the numbers are smaller than ${maxCodeNum + 1}`);
-//     minCodeNum !== 0 &&
-//       hints.push(`All the numbers are greater than ${minCodeNum - 1}`);
-
-//     let randomNumber = this.selectRandomCodeNumber(hints.length - 1);
-
-//         this.setState({ hint: hints[randomNumber] });
-
-//   };
-
-  selectRandomCodeNumber = maxNum => {
-    const min = 0;
-    const max = parseInt(maxNum);
-    const minFixed = min;
-    const maxFixed = max - min + 1;
-    const randomNumber = Math.floor(Math.random() * maxFixed) + minFixed;
-    return randomNumber;
+    if (hintIsReady) {
+      const { hints } = this.props;
+      const min = 0;
+      const max = parseInt(hints.length - 1);
+      const minFixed = min;
+      const maxFixed = max - min + 1;
+	  const randomNumber = Math.floor(Math.random() * maxFixed) + minFixed;
+	  this.setState({ hint: hints[randomNumber], firstSideOfCard: true})
+	}
+	this.countDown(7)
+	setTimeout(this.flipBackTheCard, 9000)
   };
+
+  flipBackTheCard = () => {
+	this.setState({ firstSideOfCard: false });
+  }
+
+   countDown = () => {
+			let timeLeft = 8;
+			let timer = setInterval(function(){
+				document.querySelector('.show-timer').innerHTML = timeLeft
+				timeLeft -= 1;
+			if(timeLeft < 0){
+				clearInterval(timer);
+			} 
+		}, 1000);
+
+	}
 
   render() {
-    // const { difficalityLevel, code, currentGuesses} = this.props;
-    const { hint } = this.state;
+
+	// const { difficultyLevel, code, currentGuesses} = this.props;
+    const { hint, firstSideOfCard, hintsBalance, hintIsReady, timeLeft} = this.state;
+
+    const flipStyle = firstSideOfCard
+      ? {
+          transform: "rotateY(180deg)"
+        }
+      : {
+          transform: null
+		};
+		
+		const frontStyle = hintIsReady ? {
+			color: '#fff'
+		} : {
+			color: null
+		}
+
+
     return (
       <section className="hint">
-        <button onClick={this.generateHints}>Generate Hint</button>
-        <p>{hint}</p>
+        <div className="flip-card">
+          <div className="flip-card-inner" style={flipStyle}>
+            <article style={frontStyle} className="flip-card-front" onDoubleClick={this.returnAHint}>
+				{!hintIsReady ? <p>Your hint is not ready yet, it will be ready after you make two
+              guesses!</p> : <p>Your hint is ready! Double Click Here to open it!</p>}
+
+			  {/* <p className="hints-balance">Hints Balance <span className="hints-balance-num">{hintsBalance}</span></p> */}
+              
+
+            </article>
+
+            <article className="flip-card-back">
+              <p>{hint}</p>
+            </article>
+          </div>
+        </div>
+			  <p className="show-timer">0</p>
       </section>
     );
   }

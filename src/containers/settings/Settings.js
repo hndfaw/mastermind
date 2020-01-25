@@ -25,7 +25,7 @@ class Settings extends Component {
 
   render() {
     const {
-      difficalityLevel,
+      difficultyLevel,
       currentGuesses,
       openSettings,
       feedbackRespnse,
@@ -50,7 +50,7 @@ class Settings extends Component {
               <ToggleButtonGroup
                 type="radio"
                 name="options"
-                defaultValue={difficalityLevel}
+                defaultValue={difficultyLevel}
                 size="sm"
                 onChange={this.handleChangeDifficulty}
               >

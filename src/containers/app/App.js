@@ -16,7 +16,7 @@ class App extends Component {
     round: 1,
     successfulRounds: 0,
     roundFinished: false,
-    difficalityLevel: 7,
+    difficultyLevel: 7,
     openSettings: false,
     feedbackRespnse: "all",
     points: 0,
@@ -27,8 +27,8 @@ class App extends Component {
   _element = React.createRef();
 
   componentDidMount() {
-    let { difficalityLevel } = this.state;
-    this.generateNewCode(difficalityLevel);
+    let { difficultyLevel } = this.state;
+    this.generateNewCode(difficultyLevel);
     this.setState({ guessContainerHeight: this._element.current.clientHeight });
   }
 
@@ -37,16 +37,16 @@ class App extends Component {
     fetchCode(level)
       .then(data => data.split(/\r|\n/))
       .then(data => data.map(d => d !== "" && newCode.push(parseInt(d))))
-      .then(() => this.setState({ code: newCode }))
+      .then(() => this.setState({ code: newCode}))
       .then(() => this.findNonExistingNumbers());
   };
 
   findNonExistingNumbers = () => {
-    const { difficalityLevel, code } = this.state;
+    const { difficultyLevel, code } = this.state;
     const uniqueCodeNums = code.filter((codeNum, index, self) => {
       return index === self.indexOf(codeNum);
     });
-    let emptyArray = Array(difficalityLevel + 1).fill(0);
+    let emptyArray = Array(difficultyLevel + 1).fill(0);
     const nonExistingNums = [];
     emptyArray.forEach((zero, i) => {
       if (!uniqueCodeNums.includes(i)) {
@@ -54,12 +54,12 @@ class App extends Component {
       }
     });
 
-	// this.setState({ nonExistingNums, uniqueCodeNums });
+	this.setState({ nonExistingNums, uniqueCodeNums });
 	this.generateHints(nonExistingNums, uniqueCodeNums)
   };
 
   generateHints = (nonExistingNums, uniqueCodeNums) => {
-    const { difficalityLevel } = this.props;
+    const { difficultyLevel } = this.state;
     let hints = [];
     uniqueCodeNums.forEach(codeNum => {
       hints.push(`Number ${codeNum} exsit in the combination of the code!`);
@@ -91,7 +91,8 @@ class App extends Component {
 
     let maxCodeNum = Math.max(...uniqueCodeNums);
     let minCodeNum = Math.min(...uniqueCodeNums);
-    maxCodeNum !== difficalityLevel &&
+
+    maxCodeNum !== difficultyLevel &&
       hints.push(`All the numbers are less than ${maxCodeNum + 1}`);
     minCodeNum !== 0 &&
       hints.push(`All the numbers are greater than ${minCodeNum - 1}`);
@@ -217,28 +218,28 @@ class App extends Component {
 
   restartRound = () => {
     let numOfRounds = this.state.round;
-    let { difficalityLevel } = this.state;
+    let { difficultyLevel } = this.state;
     this.setState({
       currentGuesses: [],
       roundFinished: false,
       round: numOfRounds + 1
     });
-    this.generateNewCode(difficalityLevel);
+    this.generateNewCode(difficultyLevel);
   };
 
   getDifficultyLevel = () => {
-    const { difficalityLevel } = this.state;
+    const { difficultyLevel } = this.state;
     const diffLev = {
       7: "Easy",
       14: "Medium",
       28: "Hard",
       56: "Harder"
     };
-    return `${diffLev[difficalityLevel]} (0 - ${difficalityLevel})`;
+    return `${diffLev[difficultyLevel]} (0 - ${difficultyLevel})`;
   };
 
   updateDifficultyLevel = level => {
-    this.setState({ difficalityLevel: level });
+    this.setState({ difficultyLevel: level });
     this.generateNewCode(level);
   };
 
@@ -251,8 +252,8 @@ class App extends Component {
   };
 
   restart = type => {
-    let { difficalityLevel } = this.state;
-    this.generateNewCode(difficalityLevel);
+    let { difficultyLevel } = this.state;
+    this.generateNewCode(difficultyLevel);
     this.setState({ currentGuesses: [], roundFinished: false });
 
     if (type === "Game") {
@@ -301,11 +302,12 @@ class App extends Component {
       round,
       successfulRounds,
       openSettings,
-      difficalityLevel,
+      difficultyLevel,
       feedbackRespnse,
       points,
 	  nonExistingNums,
-	  uniqueCodeNums
+	  uniqueCodeNums,
+	  hints
     } = this.state;
 
     return (
@@ -319,9 +321,10 @@ class App extends Component {
           points={points}
           roundFinished={roundFinished}
           code={code}
-          difficalityLevel={difficalityLevel}
+          difficultyLevel={difficultyLevel}
 		  nonExistingNums={nonExistingNums}
 		  uniqueCodeNums={uniqueCodeNums}
+		  hints={hints}
         />
         <div className="game">
           <CodeKeeper
@@ -344,7 +347,7 @@ class App extends Component {
         </div>
         <Settings
           updateDifficultyLevel={this.updateDifficultyLevel}
-          difficalityLevel={difficalityLevel}
+          difficultyLevel={difficultyLevel}
           currentGuesses={currentGuesses}
           openSettings={openSettings}
           updateOpenSettings={this.updateOpenSettings}
