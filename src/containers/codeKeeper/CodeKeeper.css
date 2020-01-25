@@ -8,10 +8,11 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  border: 1px solid #000;
+  border: 1px solid #828282;
   padding: 3px;
   border-radius: 5px;
   margin: 17px 0 0 0;
+  background: #dbdde0;
 }
 
 .the-code-num {
