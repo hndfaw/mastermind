@@ -1,6 +1,7 @@
 .app-side-bar {
   width: 35vw;
   background: rgb(53,54,58);
+  cursor: default;
 }
 
 .logo {
@@ -23,10 +24,10 @@
 }
 
 .side-bar-info-container {
-  font-size: 12px;
+  font-size: 14px;
   padding: 17px 9px 7px 25px;
   color: #fff;
-  height: 120px;
+  height: 143px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

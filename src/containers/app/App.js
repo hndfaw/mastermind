@@ -10,22 +10,27 @@ import SideBar from "../sideBar/SideBar";
 class App extends Component {
   state = {
     code: [],
+    uniqueCodeNums: [],
+    nonExistingNums: [],
     currentGuesses: [],
     round: 1,
     successfulRounds: 0,
     roundFinished: false,
-    difficalityLevel: 7,
+    difficultyLevel: 7,
     openSettings: false,
     feedbackRespnse: "all",
     points: 0,
-    guessContainerHeight: 0
+    guessContainerHeight: 0,
+    hints: [],
+    hintIsReady: false,
+    hintsBalance: 2
   };
 
   _element = React.createRef();
 
   componentDidMount() {
-    let { difficalityLevel } = this.state;
-    this.generateNewCode(difficalityLevel);
+    let { difficultyLevel } = this.state;
+    this.generateNewCode(difficultyLevel);
     this.setState({ guessContainerHeight: this._element.current.clientHeight });
   }
 
@@ -34,7 +39,67 @@ class App extends Component {
     fetchCode(level)
       .then(data => data.split(/\r|\n/))
       .then(data => data.map(d => d !== "" && newCode.push(parseInt(d))))
-      .then(() => this.setState({ code: newCode }));
+      .then(() => this.setState({ code: newCode }))
+      .then(() => this.findNonExistingNumbers());
+  };
+
+  findNonExistingNumbers = () => {
+    const { difficultyLevel, code } = this.state;
+    const uniqueCodeNums = code.filter((codeNum, index, self) => {
+      return index === self.indexOf(codeNum);
+    });
+    let emptyArray = Array(difficultyLevel + 1).fill(0);
+    const nonExistingNums = [];
+    emptyArray.forEach((zero, i) => {
+      if (!uniqueCodeNums.includes(i)) {
+        nonExistingNums.push(i);
+      }
+    });
+
+    this.setState({ nonExistingNums, uniqueCodeNums });
+    this.generateHints(nonExistingNums, uniqueCodeNums);
+  };
+
+  generateHints = (nonExistingNums, uniqueCodeNums) => {
+    const { difficultyLevel } = this.state;
+    let hints = [];
+    uniqueCodeNums.forEach(codeNum => {
+      hints.push(`Number ${codeNum} exsit in the combination of the code!`);
+    });
+
+    nonExistingNums.forEach(num => {
+      hints.push(
+        `Number ${num} does NOT exsit in the combination of the code!`
+      );
+    });
+
+    if (uniqueCodeNums.length === 4) {
+      hints.push("There are no duplicate numbers!");
+    } else {
+      hints.push("There is at least one duplicate number");
+    }
+
+    if (uniqueCodeNums.length <= 2) {
+      hints.push(
+        `I don/'t know how to tell you this! too many similar numbers are there!`
+      );
+    }
+
+    if (uniqueCodeNums.length === 1) {
+      hints.push(
+        `Ok here is the best hint ever! all the numbers are similar! Good Luck!!`
+      );
+    }
+
+    let maxCodeNum = Math.max(...uniqueCodeNums);
+    let minCodeNum = Math.min(...uniqueCodeNums);
+
+    maxCodeNum !== difficultyLevel &&
+      hints.push(`All the numbers are less than ${maxCodeNum + 1}`);
+    minCodeNum !== 0 &&
+      hints.push(`All the numbers are greater than ${minCodeNum - 1}`);
+
+    this.setState({ hints });
   };
 
   submitAGuess = guess => {
@@ -52,7 +117,24 @@ class App extends Component {
     ) {
       this.endOfRound();
     }
+
+    const { currentGuesses, hintsBalance  } = this.state;
+
+    if(currentGuesses.length >= 2 && hintsBalance > 0) {
+      this.updateHintReady('auto')
+    }
+    
   };
+
+  updateHintReady = type => {
+    const { hintIsReady, hintsBalance } = this.state;
+    if(type === 'auto') {
+      this.setState({hintIsReady: true})
+    } else if (type !== 'auto' && hintIsReady) {
+      this.setState({hintIsReady: false})
+      this.setState({hintsBalance: hintsBalance - 1})
+    }
+  }
 
   analyzingCode = guess => {
     const { code } = this.state;
@@ -136,15 +218,6 @@ class App extends Component {
     return feedbackResponse[feedbackNum];
   };
 
-  endOfRound = result => {
-    this.calculatePoints();
-    this.setState({ roundFinished: true });
-    if (result === "success") {
-      let updateSuccessfulRounds = this.state.successfulRounds;
-      this.setState({ successfulRounds: updateSuccessfulRounds + 1 });
-    }
-  };
-
   calculatePoints = () => {
     const { points, currentGuesses } = this.state;
     let guessBalance = 10 - currentGuesses.length;
@@ -152,30 +225,19 @@ class App extends Component {
     this.setState({ points: updatedPoints });
   };
 
-  restartRound = () => {
-    let numOfRounds = this.state.round;
-    let { difficalityLevel } = this.state;
-    this.setState({
-      currentGuesses: [],
-      roundFinished: false,
-      round: numOfRounds + 1
-    });
-    this.generateNewCode(difficalityLevel);
-  };
-
   getDifficultyLevel = () => {
-    const { difficalityLevel } = this.state;
+    const { difficultyLevel } = this.state;
     const diffLev = {
       7: "Easy",
       14: "Medium",
       28: "Hard",
       56: "Harder"
     };
-    return `${diffLev[difficalityLevel]} (0 - ${difficalityLevel})`;
+    return `${diffLev[difficultyLevel]} (0 - ${difficultyLevel})`;
   };
 
   updateDifficultyLevel = level => {
-    this.setState({ difficalityLevel: level });
+    this.setState({ difficultyLevel: level });
     this.generateNewCode(level);
   };
 
@@ -187,15 +249,40 @@ class App extends Component {
     this.setState({ feedbackRespnse: feedbackType });
   };
 
+  endOfRound = result => {
+    this.calculatePoints();
+    this.setState({ roundFinished: true });
+    if (result === "success") {
+      let updateSuccessfulRounds = this.state.successfulRounds;
+      this.setState({ successfulRounds: updateSuccessfulRounds + 1, hintsBalance: 2});
+    }
+  };
+
   restart = type => {
-    let { difficalityLevel } = this.state;
-    this.generateNewCode(difficalityLevel);
-    this.setState({ currentGuesses: [], roundFinished: false });
+
+    // type 'Game to restart whole game
+    // type Round to restart round manually
+    // roundFinished to restart round and incrementing rounds number
+
+    let numOfRounds = this.state.round;
+
+    let { difficultyLevel } = this.state;
+    this.generateNewCode(difficultyLevel);
+
+    this.setState({ currentGuesses: [], roundFinished: false, hintsBalance: 2 });
 
     if (type === "Game") {
       this.setState({ round: 1, successfulRounds: 0, points: 0 });
     }
+
+    if (type === 'Round-Finished') {
+      this.setState({
+        round: numOfRounds + 1,
+        hintIsReady: false
+      });
+    }
   };
+
 
   returnLastAnalayzedGuess = () => {
     const { currentGuesses } = this.state;
@@ -238,9 +325,14 @@ class App extends Component {
       round,
       successfulRounds,
       openSettings,
-      difficalityLevel,
+      difficultyLevel,
       feedbackRespnse,
-      points
+      points,
+      nonExistingNums,
+      uniqueCodeNums,
+      hints,
+      hintIsReady,
+      hintsBalance
     } = this.state;
 
     return (
@@ -253,6 +345,14 @@ class App extends Component {
           updateOpenSettings={this.updateOpenSettings}
           points={points}
           roundFinished={roundFinished}
+          code={code}
+          difficultyLevel={difficultyLevel}
+          nonExistingNums={nonExistingNums}
+          uniqueCodeNums={uniqueCodeNums}
+          hints={hints}
+          hintIsReady={hintIsReady}
+          updateHintReady={this.updateHintReady}
+          hintsBalance={hintsBalance}
         />
         <div className="game">
           <CodeKeeper
@@ -267,15 +367,15 @@ class App extends Component {
           <GuessingForm
             submitAGuess={this.submitAGuess}
             roundFinished={roundFinished}
-            restartRound={this.restartRound}
+            restart={this.restart}
             returnLastAnalayzedGuess={this.returnLastAnalayzedGuess}
             feedbackRespnse={feedbackRespnse}
-			currentGuesses={currentGuesses}
+            currentGuesses={currentGuesses}
           />
         </div>
         <Settings
           updateDifficultyLevel={this.updateDifficultyLevel}
-          difficalityLevel={difficalityLevel}
+          difficultyLevel={difficultyLevel}
           currentGuesses={currentGuesses}
           openSettings={openSettings}
           updateOpenSettings={this.updateOpenSettings}

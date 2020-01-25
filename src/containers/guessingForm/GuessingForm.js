@@ -18,7 +18,8 @@ class GussingForm extends Component {
     if (!roundFinished) {
       this.onSubmit();
     } else {
-      this.props.restartRound();
+      this.props.restart('Round-Finished')
+      ;
     }
   };
 
