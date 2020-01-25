@@ -9,8 +9,8 @@ import SideBar from "../sideBar/SideBar";
 
 class App extends Component {
   state = {
-	code: [],
-	uniqueCodeNums: [],
+    code: [],
+    uniqueCodeNums: [],
     nonExistingNums: [],
     currentGuesses: [],
     round: 1,
@@ -20,8 +20,10 @@ class App extends Component {
     openSettings: false,
     feedbackRespnse: "all",
     points: 0,
-	guessContainerHeight: 0,
-	hints: []
+    guessContainerHeight: 0,
+    hints: [],
+    hintIsReady: false,
+    hintsBalance: 2  
   };
 
   _element = React.createRef();
@@ -37,7 +39,7 @@ class App extends Component {
     fetchCode(level)
       .then(data => data.split(/\r|\n/))
       .then(data => data.map(d => d !== "" && newCode.push(parseInt(d))))
-      .then(() => this.setState({ code: newCode}))
+      .then(() => this.setState({ code: newCode }))
       .then(() => this.findNonExistingNumbers());
   };
 
@@ -54,8 +56,8 @@ class App extends Component {
       }
     });
 
-	this.setState({ nonExistingNums, uniqueCodeNums });
-	this.generateHints(nonExistingNums, uniqueCodeNums)
+    this.setState({ nonExistingNums, uniqueCodeNums });
+    this.generateHints(nonExistingNums, uniqueCodeNums);
   };
 
   generateHints = (nonExistingNums, uniqueCodeNums) => {
@@ -97,8 +99,7 @@ class App extends Component {
     minCodeNum !== 0 &&
       hints.push(`All the numbers are greater than ${minCodeNum - 1}`);
 
-        this.setState({ hints });
-
+    this.setState({ hints });
   };
 
   submitAGuess = guess => {
@@ -116,7 +117,25 @@ class App extends Component {
     ) {
       this.endOfRound();
     }
+
+    const { currentGuesses, hintsBalance  } = this.state;
+
+    if(currentGuesses.length >= 2 && hintsBalance > 0) {
+      this.updateHintReady('auto')
+    }
+    
   };
+
+  updateHintReady = type => {
+    const { hintIsReady, hintsBalance } = this.state;
+    if(type === 'auto') {
+      this.setState({hintIsReady: true})
+    } else if (type !== 'auto' && hintIsReady) {
+      this.setState({hintIsReady: false})
+      this.setState({hintsBalance: hintsBalance - 1})
+    }
+
+  }
 
   analyzingCode = guess => {
     const { code } = this.state;
@@ -305,9 +324,11 @@ class App extends Component {
       difficultyLevel,
       feedbackRespnse,
       points,
-	  nonExistingNums,
-	  uniqueCodeNums,
-	  hints
+      nonExistingNums,
+      uniqueCodeNums,
+      hints,
+      hintIsReady,
+      hintsBalance
     } = this.state;
 
     return (
@@ -322,9 +343,12 @@ class App extends Component {
           roundFinished={roundFinished}
           code={code}
           difficultyLevel={difficultyLevel}
-		  nonExistingNums={nonExistingNums}
-		  uniqueCodeNums={uniqueCodeNums}
-		  hints={hints}
+          nonExistingNums={nonExistingNums}
+          uniqueCodeNums={uniqueCodeNums}
+          hints={hints}
+          hintIsReady={hintIsReady}
+          updateHintReady={this.updateHintReady}
+          hintsBalance={hintsBalance}
         />
         <div className="game">
           <CodeKeeper

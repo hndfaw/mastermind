@@ -13,9 +13,12 @@ class SideBar extends Component {
       difficultyLevel,
       code,
       currentGuesses,
-	  nonExistingNums,
-	  uniqueCodeNums,
-	  hints
+      nonExistingNums,
+      uniqueCodeNums,
+      hints,
+      hintIsReady,
+      updateHintReady,
+      hintsBalance
     } = this.props;
 
     return (
@@ -33,9 +36,12 @@ class SideBar extends Component {
           difficultyLevel={difficultyLevel}
           code={code}
           currentGuesses={currentGuesses}
-		  nonExistingNums={nonExistingNums}
-		  uniqueCodeNums={uniqueCodeNums}
-		  hints={hints}
+          nonExistingNums={nonExistingNums}
+          uniqueCodeNums={uniqueCodeNums}
+          hints={hints}
+          hintIsReady={hintIsReady}
+          updateHintReady={updateHintReady}
+          hintsBalance={hintsBalance}
         />
         <Button
           variant="dark"
