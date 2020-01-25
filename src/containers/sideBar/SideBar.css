@@ -1,0 +1,33 @@
+.app-side-bar {
+  width: 35vw;
+  background: rgb(53,54,58);
+}
+
+.logo {
+  height: 30px;
+  margin: 25px;
+}
+
+.settings-btn {
+  background-image: url("../../assets/images/icons8-settings-w.svg");
+  background-repeat: no-repeat;
+  font-size: 0;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background-size: 23px 23px;
+  margin-right: 10px;
+  position: fixed;
+  bottom: 15px;
+  left: 12px;
+}
+
+.side-bar-info-container {
+  font-size: 12px;
+  padding: 17px 9px 7px 25px;
+  color: #fff;
+  height: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}

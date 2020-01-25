@@ -18,11 +18,11 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  min-height: 412px;
   width: 100%;
   position: relative;
   align-items: center;
-  margin: auto 0 17px 0;
+  height: calc(100vh - 270px);
+
 }
 
 .app-sidebar-right {

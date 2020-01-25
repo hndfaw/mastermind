@@ -18,24 +18,12 @@
 }
 
 .single-guess-counter {
-  background: #343A40;
+  background: #343a40;
   height: 9px;
   width: 10%;
-}
-
-.single-guess-counter-0,
-.single-guess-counter-1,
-.single-guess-counter-2,
-.single-guess-counter-3,
-.single-guess-counter-4,
-.single-guess-counter-5,
-.single-guess-counter-6,
-.single-guess-counter-7,
-.single-guess-counter-8 {
   border-right: 1px solid #dbdde0;
 }
 
 .empty {
-    background: rgb(183, 183, 183);
-    ;
-  }
+  background: rgb(183, 183, 183);
+}

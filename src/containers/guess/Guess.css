@@ -8,7 +8,6 @@
 }
 
 .guess-card {
-  height: 35px;
   border-radius: 5px;
 }
 
@@ -47,7 +46,7 @@
 
 .guess-card-part-2-msg {
   font-size: 12px;
-  color: #626d79;
+  color: #4c555f;
   padding-left: 5px;
   white-space: nowrap;
 }

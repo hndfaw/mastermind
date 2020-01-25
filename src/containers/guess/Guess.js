@@ -4,40 +4,43 @@ import "./Guess.css";
 class ShowGuess extends Component {
 
   guessCardStyle = () => {
-    const { index, currentGuesses } = this.props;
+    const { index, currentGuesses, guessContainerHeight } = this.props;
+
     let length = currentGuesses.length;
-    let dynamicWidth = (105 - (length - index) * 8) - (((length - index - 1) * index)/1.4);
-    let dynamicHeight = 35 - (length - index) * 2 ;
+    let dynamicWidth = (105 - (length - index) * 8) - (((length - index - 1) * index)/1.2);
     let dynamicFontSize = 20 - (length - index);
-    let dynamicMarginTop = 28 - ((length - index) * 2);
+    let dynamicMarginTop = (guessContainerHeight / 30) - (length - index)
+    let dynamicHeight = guessContainerHeight /10 - (length - index)
 
     return {
       width: `${dynamicWidth}%`,
-      height: `${dynamicHeight}px`,
       fontSize: `${dynamicFontSize}px`,
-      marginTop: `${dynamicMarginTop}px`
+      marginTop: `${dynamicMarginTop}px`,
+      height: `${dynamicHeight}px`
     }
   }
 
   partOneStyle = () => {
     const { feedbackRespnse } = this.props;
-    return feedbackRespnse === "single" ? { height: "100%" } : { height: null };
+    return feedbackRespnse === "single" ? { height: "80%" } : { height: null };
   }
 
   codeNumStyle = () => {
-    const { index, currentGuesses } = this.props;
+    const { index, currentGuesses, guessContainerHeight } = this.props;
     let length = currentGuesses.length;
 
-    let dynamicOpacity = 1 - ((length - index) / 20) ;
+    let dynamicOpacity = 1 - ((length - index) / 14) ;
+    let dynamicHeight = guessContainerHeight /20 - (length - index)
     return {
-      background: `rgba(52, 58, 64, ${dynamicOpacity})`
+      background: `rgba(52, 58, 64, ${dynamicOpacity})`,
+      height: `${dynamicHeight}px`
     }
   }
 
   msgStyle = () => {
     const { index, currentGuesses } = this.props;
     let length = currentGuesses.length;
-    let dynamicFontSize = 13 - ((length - index) / 1.6);
+    let dynamicFontSize = 13 - ((length - index) / 3);
     return {
       fontSize: `${dynamicFontSize}px`
     }

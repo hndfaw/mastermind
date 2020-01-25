@@ -3,7 +3,6 @@
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   padding: 10px 20px;
-  margin-top: 5px;
   width: 100%;
 }
 
@@ -34,19 +33,3 @@
   font-size: 24px;
   border-radius: 0px;
 }
-
-/* .guess-num-input-1 {
-  background: hsla(354, 70%, 54%, 0.1);
-}
-
-.guess-num-input-2 {
-  background: hsla(211, 100%, 50%, 0.1);
-}
-
-.guess-num-input-3 {
-  background: hsla(45, 100%, 52%, 0.1);
-}
-
-.guess-num-input-4 {
-  background: hsla(134, 62%, 39%, 0.1);
-} */

@@ -4,7 +4,6 @@ import Form from "react-bootstrap/Form";
 import "./GuessingForm.css";
 import GuessCounter from "../../component/guessCounter/GuessCounter";
 
-
 class GussingForm extends Component {
   state = {
     numOne: "",
@@ -28,7 +27,7 @@ class GussingForm extends Component {
     const { numOne, numTwo, numThree, numFour } = this.state;
 
     if (roundFinished !== true && !this.checkEmptyFields()) {
-      this.props.submitAGuess([numOne, numTwo, numThree, numFour]);
+    this.props.submitAGuess([numOne, numTwo, numThree, numFour]);
       this.clearValues();
     }
   };
@@ -49,18 +48,24 @@ class GussingForm extends Component {
   };
 
   render() {
-    const { roundFinished, feedbackRespnse, returnLastAnalayzedGuess, currentGuesses } = this.props;
+    const {
+      roundFinished,
+      feedbackRespnse,
+      returnLastAnalayzedGuess,
+      currentGuesses
+    } = this.props;
     const { numOne, numTwo, numThree, numFour } = this.state;
     let buttonValue = roundFinished ? "Play again!" : "Go!";
 
     return (
       <section className="gussing-form-container">
         {feedbackRespnse === "single" && (
-            <p className="single-feedback">
-              {returnLastAnalayzedGuess().feedback || "Your feedback will be here"}
-            </p>
-          )}
-         <GuessCounter currentGuesses={currentGuesses}/>
+          <p className="single-feedback">
+            {returnLastAnalayzedGuess().feedback ||
+              "Your feedback will be here"}
+          </p>
+        )}
+        <GuessCounter currentGuesses={currentGuesses} />
 
         <Form onSubmit={this.restartOrSubmit} className="guessing-form">
           <div className="guss-num-input-container">
@@ -111,7 +116,6 @@ class GussingForm extends Component {
             {buttonValue}
           </Button>
         </Form>
-
       </section>
     );
   }
