@@ -6,6 +6,9 @@ import Guess from "../guess/Guess";
 import CodeKeeper from "../codeKeeper/CodeKeeper";
 import Settings from "../settings/Settings";
 import SideBar from "../sideBar/SideBar";
+import { Route, Switch, NavLink } from 'react-router-dom';
+import WelcomePage from '../../component/welcomePage/WelcomePage';
+
 
 class App extends Component {
   state = {
@@ -30,8 +33,9 @@ class App extends Component {
 
   componentDidMount() {
     let { difficultyLevel } = this.state;
-    this.generateNewCode(difficultyLevel);
-    this.setState({ guessContainerHeight: this._element.current.clientHeight });
+	this.generateNewCode(difficultyLevel);
+	let x = this._element.current !== null && this._element.current
+    this.setState({ guessContainerHeight: x.clientHeight });
   }
 
   generateNewCode = level => {
@@ -118,23 +122,22 @@ class App extends Component {
       this.endOfRound();
     }
 
-    const { currentGuesses, hintsBalance  } = this.state;
+    const { currentGuesses, hintsBalance } = this.state;
 
-    if(currentGuesses.length >= 2 && hintsBalance > 0) {
-      this.updateHintReady('auto')
+    if (currentGuesses.length >= 2 && hintsBalance > 0) {
+      this.updateHintReady("auto");
     }
-    
   };
 
   updateHintReady = type => {
     const { hintIsReady, hintsBalance } = this.state;
-    if(type === 'auto') {
-      this.setState({hintIsReady: true})
-    } else if (type !== 'auto' && hintIsReady) {
-      this.setState({hintIsReady: false})
-      this.setState({hintsBalance: hintsBalance - 1})
+    if (type === "auto") {
+      this.setState({ hintIsReady: true });
+    } else if (type !== "auto" && hintIsReady) {
+      this.setState({ hintIsReady: false });
+      this.setState({ hintsBalance: hintsBalance - 1 });
     }
-  }
+  };
 
   analyzingCode = guess => {
     const { code } = this.state;
@@ -254,12 +257,14 @@ class App extends Component {
     this.setState({ roundFinished: true });
     if (result === "success") {
       let updateSuccessfulRounds = this.state.successfulRounds;
-      this.setState({ successfulRounds: updateSuccessfulRounds + 1, hintsBalance: 2});
+      this.setState({
+        successfulRounds: updateSuccessfulRounds + 1,
+        hintsBalance: 2
+      });
     }
   };
 
   restart = type => {
-
     // type 'Game to restart whole game
     // type Round to restart round manually
     // roundFinished to restart round and incrementing rounds number
@@ -269,20 +274,23 @@ class App extends Component {
     let { difficultyLevel } = this.state;
     this.generateNewCode(difficultyLevel);
 
-    this.setState({ currentGuesses: [], roundFinished: false, hintsBalance: 2 });
+    this.setState({
+      currentGuesses: [],
+      roundFinished: false,
+      hintsBalance: 2
+    });
 
     if (type === "Game") {
       this.setState({ round: 1, successfulRounds: 0, points: 0 });
     }
 
-    if (type === 'Round-Finished') {
+    if (type === "Round-Finished") {
       this.setState({
         round: numOfRounds + 1,
         hintIsReady: false
       });
     }
   };
-
 
   returnLastAnalayzedGuess = () => {
     const { currentGuesses } = this.state;
@@ -337,53 +345,66 @@ class App extends Component {
 
     return (
       <div className="app">
-        <SideBar
-          currentGuesses={currentGuesses}
-          round={round}
-          successfulRounds={successfulRounds}
-          getDifficultyLevel={this.getDifficultyLevel}
-          updateOpenSettings={this.updateOpenSettings}
-          points={points}
-          roundFinished={roundFinished}
-          code={code}
-          difficultyLevel={difficultyLevel}
-          nonExistingNums={nonExistingNums}
-          uniqueCodeNums={uniqueCodeNums}
-          hints={hints}
-          hintIsReady={hintIsReady}
-          updateHintReady={this.updateHintReady}
-          hintsBalance={hintsBalance}
-        />
-        <div className="game">
-          <CodeKeeper
+        <Switch>
+		<Route exact path="/" render={() => (
+			<WelcomePage />
+		)}/>
+
+		<Route exact path="/game" render={() => (
+			<div className="home-page">
+				<SideBar
+            currentGuesses={currentGuesses}
+            round={round}
+            successfulRounds={successfulRounds}
+            getDifficultyLevel={this.getDifficultyLevel}
+            updateOpenSettings={this.updateOpenSettings}
+            points={points}
             roundFinished={roundFinished}
             code={code}
-            currentGuesses={currentGuesses}
+            difficultyLevel={difficultyLevel}
+            nonExistingNums={nonExistingNums}
+            uniqueCodeNums={uniqueCodeNums}
+            hints={hints}
+            hintIsReady={hintIsReady}
+            updateHintReady={this.updateHintReady}
+            hintsBalance={hintsBalance}
           />
+          <div className="game">
+            <CodeKeeper
+              roundFinished={roundFinished}
+              code={code}
+              currentGuesses={currentGuesses}
+            />
 
-          <div className="guesses-container" ref={this._element}>
-            {this.returnGuess()}
+            <div className="guesses-container" ref={this._element}>
+              {this.returnGuess()}
+            </div>
+            <GuessingForm
+              submitAGuess={this.submitAGuess}
+              roundFinished={roundFinished}
+              restart={this.restart}
+              returnLastAnalayzedGuess={this.returnLastAnalayzedGuess}
+              feedbackRespnse={feedbackRespnse}
+              currentGuesses={currentGuesses}
+            />
           </div>
-          <GuessingForm
-            submitAGuess={this.submitAGuess}
-            roundFinished={roundFinished}
-            restart={this.restart}
-            returnLastAnalayzedGuess={this.returnLastAnalayzedGuess}
-            feedbackRespnse={feedbackRespnse}
+          <Settings
+            updateDifficultyLevel={this.updateDifficultyLevel}
+            difficultyLevel={difficultyLevel}
             currentGuesses={currentGuesses}
+            openSettings={openSettings}
+            updateOpenSettings={this.updateOpenSettings}
+            updateFeedbackRespnse={this.updateFeedbackRespnse}
+            feedbackRespnse={feedbackRespnse}
+            restart={this.restart}
+            round={round}
           />
-        </div>
-        <Settings
-          updateDifficultyLevel={this.updateDifficultyLevel}
-          difficultyLevel={difficultyLevel}
-          currentGuesses={currentGuesses}
-          openSettings={openSettings}
-          updateOpenSettings={this.updateOpenSettings}
-          updateFeedbackRespnse={this.updateFeedbackRespnse}
-          feedbackRespnse={feedbackRespnse}
-          restart={this.restart}
-          round={round}
-        />
+			</div>
+               
+            )} />
+
+          
+        </Switch>
       </div>
     );
   }

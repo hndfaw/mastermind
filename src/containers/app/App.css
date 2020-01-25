@@ -1,4 +1,10 @@
-.app {
+/* .app {
+  display: flex;
+  justify-content: space-between;
+} */
+
+.home-page {
+
   display: flex;
   justify-content: space-between;
 }
