@@ -104,22 +104,6 @@ class Settings extends Component {
                 </p>
               )}
             </div>
-
-            <div>
-              <h6 className="settings-header">Game Difficulty Level</h6>
-
-              <ToggleButtonGroup
-                type="radio"
-                name="options"
-                size="sm"
-              >
-                <ToggleButton value={"#343A40"}>Dark</ToggleButton>
-                <ToggleButton value={"#DC3545"}>Red</ToggleButton>
-                <ToggleButton value={"#007BFF"}>Blue</ToggleButton>
-                <ToggleButton value={"#FFC108"}>Yellow</ToggleButton>
-                <ToggleButton value={"#26A243"}>Green</ToggleButton>
-              </ToggleButtonGroup>
-            </div>
           </Modal.Body>
           <Modal.Footer>
             <Button
