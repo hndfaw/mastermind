@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import "./Hint.css";
 
-
 class Hint extends Component {
   state = {
     randomCodeIndex: 0,
@@ -40,26 +39,23 @@ class Hint extends Component {
         clearInterval(timer);
       }
     }, 1000);
-  };
-
+  };Í
 
   hintFrontSideMsg = () => {
-	const { hintIsReady, hintsBalance } = this.props;
+    const { hintIsReady, hintsBalance } = this.props;
 
-	if (hintsBalance === 0) {
-		return `You do not have hints anymore. You will get 2 hints again in the next round!`
-	} else if (!hintIsReady && hintsBalance === 2) {
-		return "Your first hint is NOT ready yet, it will be ready after you make two guesses!"
-	} else if (hintIsReady && hintsBalance === 2) {
-		return "Your first hint is ready, CLICK here to reveal it!"
-	} else if (!hintIsReady && hintsBalance < 2) {
-		return "Your next hint is NOT ready yet. You can only get one hint per a guess!"
-	} else if (hintIsReady && hintsBalance === 1) {
-		return "Your hint second is ready, CLICK here to reveal it!"
-	}
-  }
-
-
+    if (hintsBalance === 0) {
+      return `You do not have hints anymore. You will get 2 hints again in the next round!`;
+    } else if (!hintIsReady && hintsBalance === 3) {
+      return "Your first hint is NOT ready yet, it will be ready after you make two guesses!";
+    } else if (hintIsReady && hintsBalance === 3) {
+      return "Your first hint is ready, CLICK here to reveal it!";
+    } else if (!hintIsReady && hintsBalance < 3) {
+      return "Your next hint is NOT ready yet. You can only get one hint per a guess!";
+    } else if (hintIsReady && hintsBalance < 3) {
+      return "Your hint is ready, CLICK here to reveal it!";
+    }
+  };
 
   render() {
     const { hint, secondSideCard } = this.state;
@@ -75,20 +71,20 @@ class Hint extends Component {
 
     const frontStyle = hintIsReady
       ? {
-		  color: "#fff",
-		  cursor: 'pointer'
+          color: "#fff",
+          cursor: "pointer"
         }
       : {
-		  color: null,
-		  cursor: 'default'
+          color: null,
+          cursor: "default"
         };
 
     const timerStyle = secondSideCard
       ? {
-		  color: "#fff",
+          color: "#fff"
         }
       : {
-		  color: null,
+          color: null
         };
 
     return (
@@ -100,9 +96,7 @@ class Hint extends Component {
               className="flip-card-front"
               onClick={this.returnAHint}
             >
-
-			  {this.hintFrontSideMsg()}
-
+              {this.hintFrontSideMsg()}
             </article>
 
             <article className="flip-card-back">

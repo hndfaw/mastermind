@@ -7,7 +7,13 @@
 
 .instructions-red-logo {
   height: 26px;
-  margin-left: 6px;
+  margin-right: 6px;
+}
+
+.instructions-header {
+    margin-top: 9px;
+    color: #FFC108;
+
 }
 
 .instructions-page-header {
@@ -20,6 +26,7 @@
 .instructions-body {
   font-size: 24px;
   max-width: 600px;
+  color: #4b5056
 }
 
 .instructions-btn {
@@ -55,4 +62,17 @@
   display: flex;
   justify-content: space-between;
   width: 350px;
+}
+
+
+.instr-img {
+    height: 700px;
+}
+
+.instr-img-container {
+    margin-top: 80px;
+}
+
+.instr-img-title {
+    padding-left: 70px;
 }

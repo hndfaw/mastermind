@@ -27,7 +27,7 @@ class App extends Component {
     guessContainerHeight: 0,
     hints: [],
     hintIsReady: false,
-    hintsBalance: 2
+    hintsBalance: 3
   };
 
   _element = React.createRef();
@@ -260,7 +260,7 @@ class App extends Component {
       let updateSuccessfulRounds = this.state.successfulRounds;
       this.setState({
         successfulRounds: updateSuccessfulRounds + 1,
-        hintsBalance: 2
+        hintsBalance: 3
       });
     }
   };
@@ -278,7 +278,7 @@ class App extends Component {
     this.setState({
       currentGuesses: [],
       roundFinished: false,
-      hintsBalance: 2
+      hintsBalance: 3
     });
 
     if (type === "Game") {
