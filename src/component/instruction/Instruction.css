@@ -3,6 +3,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  position: relative;
 }
 
 .instructions-red-logo {
@@ -29,33 +30,25 @@
   color: #4b5056
 }
 
-.instructions-btn {
+.instructions-btn-game {
   color: #fff;
   font-size: 20px;
-  /* border: 1px solid rgb(70, 72, 77); */
   text-decoration: none;
   border-radius: 3px;
   padding: 6px 13px;
   border: 1px oslid rgb(70, 72, 77);
-  background: #dc3545;
-}
-
-.instructions-btn-instructions {
-  background: #ffc108;
-}
-
-.instructions-btn-instructions:hover {
-  background: rgba(255, 193, 8, 0.85);
+  background: #dc354670;
+  position: fixed;
+  bottom: 15px;
+  right: 10px;
 }
 
 .instructions-btn-game:hover {
-  background: hsla(354, 70%, 54%, 0.85);
-}
-
-.instructions-btn:hover {
+  background: #dc3545;
   text-decoration: none;
   color: #fff;
 }
+
 
 .instructions-page-btns-container {
   margin-top: 100px;
@@ -75,4 +68,10 @@
 
 .instr-img-title {
     padding-left: 70px;
+}
+
+.instructions-page-btns-container {
+    position: fixed;
+    right: 10px;
+    bottom: 15px;
 }

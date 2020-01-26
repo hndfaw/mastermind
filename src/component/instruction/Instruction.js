@@ -56,9 +56,7 @@ class Instruction extends Component {
 
 
 
-                {/* <div className="instructions-page-btns-container">
-                    <NavLink to="/game" className="instructions-btn instructions-btn-game">Start Game</NavLink>
-                </div> */}
+                <NavLink to="/game" className="instructions-btn-game">Start Game</NavLink>
             </section>
         )
     }
