@@ -24,13 +24,12 @@ class App extends Component {
     openSettings: false,
     feedbackRespnse: "all",
     points: 0,
+    currentRoundPoints: 0,
     hints: [],
     hintIsReady: false,
     hintsBalance: 3,
-    openEndOfRoundMsg: true
+    openEndOfRoundMsg: false
   };
-
-  _element = React.createRef();
 
   componentDidMount() {
     let { difficultyLevel } = this.state;
@@ -224,7 +223,7 @@ class App extends Component {
     const { points, currentGuesses } = this.state;
     let guessBalance = 10 - currentGuesses.length;
     let updatedPoints = points + guessBalance * 10;
-    this.setState({ points: updatedPoints });
+    this.setState({ points: updatedPoints, currentRoundPoints:  guessBalance * 10});
   };
 
   getDifficultyLevel = () => {
@@ -258,12 +257,13 @@ class App extends Component {
 
   endOfRound = result => {
     this.calculatePoints();
-    this.setState({ roundFinished: true });
+    this.setState({ roundFinished: true, openEndOfRoundMsg: true, hintIsReady: false, hintsBalance: 0 });
     if (result === "success") {
       let updateSuccessfulRounds = this.state.successfulRounds;
       this.setState({
         successfulRounds: updateSuccessfulRounds + 1,
-        hintsBalance: 3
+        hintsBalance: 0,
+        hintIsReady: false,
       });
     }
   };
@@ -343,7 +343,8 @@ class App extends Component {
       hints,
       hintIsReady,
       hintsBalance,
-      openEndOfRoundMsg
+      openEndOfRoundMsg,
+      currentRoundPoints
     } = this.state;
 
     return (
@@ -378,6 +379,7 @@ class App extends Component {
                     roundFinished={roundFinished}
                     code={code}
                     currentGuesses={currentGuesses}
+                    openEndOfRoundMsg={openEndOfRoundMsg}
                   />
 
                   <div className="guesses-container" ref={this._element}>
@@ -406,7 +408,10 @@ class App extends Component {
                 <EndOfRoundMsg
                 openEndOfRoundMsg={openEndOfRoundMsg}
                 updateOpenEndOfRoundMsg={this.updateOpenEndOfRoundMsg}
-
+                returnLastAnalayzedGuess={this.returnLastAnalayzedGuess}
+                code={code}
+                currentRoundPoints={currentRoundPoints}
+                points={points}
                 />
               </div>
             )}

@@ -23,6 +23,20 @@ class Settings extends Component {
     this.setState({ restartWindowOpen: closeOpen, restartType: type });
   };
 
+  restartHeaderStyle = () => {
+    const { restartType } = this.state;
+
+    return restartType === "Game"
+      ? {
+          backgroundColor: "#DC3545",
+          color: "#fff"
+        }
+      : {
+          backgroundColor: "#FFC108",
+          color: "#000"
+        };
+  };
+
   render() {
     const {
       difficultyLevel,
@@ -40,13 +54,14 @@ class Settings extends Component {
           show={openSettings}
           onHide={() => this.props.updateOpenSettings(false)}
           aria-labelledby="example-modal-sizes-title-lg"
+          animation={false}
         >
-          <Modal.Header>
+          <Modal.Header className="settings-header">
             <Modal.Title>Game Settings</Modal.Title>
           </Modal.Header>
           <Modal.Body className="settings-modal-body">
             <div>
-              <h6 className="settings-header">Game Difficulty Level</h6>
+              <h6 className="settings-title">Game Difficulty Level</h6>
               <ToggleButtonGroup
                 type="radio"
                 name="options"
@@ -83,7 +98,7 @@ class Settings extends Component {
               )}
             </div>
             <div>
-              <h6 className="settings-header">Showing Feedback</h6>
+              <h6 className="settings-title">Showing Feedback</h6>
               <ToggleButtonGroup
                 type="radio"
                 name="options"
@@ -139,8 +154,12 @@ class Settings extends Component {
           show={restartWindowOpen}
           onHide={() => this.handleRestart(false)}
           aria-labelledby="example-modal-sizes-title-lg"
+          animation={false}
         >
-          <Modal.Header>
+          <Modal.Header
+            style={this.restartHeaderStyle()}
+            className="restart-header"
+          >
             <Modal.Title>Restarting {restartType}</Modal.Title>
           </Modal.Header>
           <Modal.Body className="settings-modal-body-restart">

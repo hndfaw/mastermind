@@ -27,10 +27,10 @@ class GussingForm extends Component {
     const { roundFinished } = this.props;
     const { numOne, numTwo, numThree, numFour } = this.state;
 
-    // if (roundFinished !== true && !this.checkEmptyFields()) {
+    if (roundFinished !== true && !this.checkEmptyFields()) {
     this.props.submitAGuess([numOne, numTwo, numThree, numFour]);
-    //   this.clearValues();
-    // }
+      this.clearValues();
+    }
   };
 
   handleOnChange = e => {
@@ -56,7 +56,7 @@ class GussingForm extends Component {
       currentGuesses
     } = this.props;
     const { numOne, numTwo, numThree, numFour } = this.state;
-    let buttonValue = roundFinished ? "Play again!" : "Go!";
+    let buttonValue = roundFinished ? "Next Round" : "Go!";
 
     return (
       <section className="gussing-form-container">

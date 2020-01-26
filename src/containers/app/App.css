@@ -68,3 +68,14 @@
   justify-content: center;
   align-items: center;
 }
+
+.modal-content {
+  border-radius: 0;
+  border-color: transparent;
+  border: none;
+}
+
+.modal-header {
+  border: none;
+  border-radius: 0;
+}

@@ -21,7 +21,7 @@ class Hint extends Component {
       const randomNumber = Math.floor(Math.random() * maxFixed) + minFixed;
       this.setState({ hint: hints[randomNumber], secondSideCard: true });
       hints.splice(randomNumber, 1);
-      this.countDown(7);
+      this.countDown();
       setTimeout(this.flipBackTheCard, 6000);
       updateHintReady();
     }
@@ -58,7 +58,6 @@ class Hint extends Component {
       }
     }, 1000);
   };
-  Í;
 
   hintFrontSideMsg = () => {
     const { hintIsReady, hintsBalance } = this.props;
