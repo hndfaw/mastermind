@@ -17,10 +17,7 @@
   height: 25px;
   border-radius: 50%;
   background-size: 23px 23px;
-  margin-right: 10px;
-  position: fixed;
-  bottom: 15px;
-  left: 12px;
+  margin-right: 15px;
 }
 
 .side-bar-info-container {
@@ -31,4 +28,24 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+
+.side-bar-btns-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  bottom: 15px;
+  left: 12px;
+}
+
+.side-bar-instructions-link {
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 14px;
+}
+
+.side-bar-instructions-link:hover {
+  text-decoration: none;
+  color: #fff;
 }

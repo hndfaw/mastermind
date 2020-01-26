@@ -1,0 +1,77 @@
+.instructions-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.instructions-red-logo {
+  height: 26px;
+  margin-right: 6px;
+}
+
+.instructions-header {
+    margin-top: 9px;
+    color: #FFC108;
+
+}
+
+.instructions-page-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 100px 0 120px 0;
+}
+
+.instructions-body {
+  font-size: 24px;
+  max-width: 600px;
+  color: #4b5056
+}
+
+.instructions-btn-game {
+  color: #fff;
+  font-size: 20px;
+  text-decoration: none;
+  border-radius: 3px;
+  padding: 6px 13px;
+  border: 1px oslid rgb(70, 72, 77);
+  background: #dc354670;
+  position: fixed;
+  bottom: 15px;
+  right: 10px;
+}
+
+.instructions-btn-game:hover {
+  background: #dc3545;
+  text-decoration: none;
+  color: #fff;
+}
+
+
+.instructions-page-btns-container {
+  margin-top: 100px;
+  display: flex;
+  justify-content: space-between;
+  width: 350px;
+}
+
+
+.instr-img {
+    height: 700px;
+}
+
+.instr-img-container {
+    margin-top: 80px;
+}
+
+.instr-img-title {
+    padding-left: 70px;
+}
+
+.instructions-page-btns-container {
+    position: fixed;
+    right: 10px;
+    bottom: 15px;
+}
