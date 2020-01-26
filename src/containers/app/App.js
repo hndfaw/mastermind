@@ -9,6 +9,7 @@ import SideBar from "../sideBar/SideBar";
 import { Route, Switch, NavLink } from "react-router-dom";
 import WelcomePage from "../../component/welcomePage/WelcomePage";
 import Instruction from "../../component/instruction/Instruction";
+import EndOfRoundMsg from '../../component/endOfRoundMsg/EndOfRoundMsg';
 
 class App extends Component {
   state = {
@@ -23,12 +24,12 @@ class App extends Component {
     openSettings: false,
     feedbackRespnse: "all",
     points: 0,
+    currentRoundPoints: 0,
     hints: [],
     hintIsReady: false,
-    hintsBalance: 3
+    hintsBalance: 3,
+    openEndOfRoundMsg: false
   };
-
-  _element = React.createRef();
 
   componentDidMount() {
     let { difficultyLevel } = this.state;
@@ -222,7 +223,7 @@ class App extends Component {
     const { points, currentGuesses } = this.state;
     let guessBalance = 10 - currentGuesses.length;
     let updatedPoints = points + guessBalance * 10;
-    this.setState({ points: updatedPoints });
+    this.setState({ points: updatedPoints, currentRoundPoints:  guessBalance * 10});
   };
 
   getDifficultyLevel = () => {
@@ -245,18 +246,24 @@ class App extends Component {
     this.setState({ openSettings: boolean });
   };
 
+  updateOpenEndOfRoundMsg = () => {
+    const { openEndOfRoundMsg } = this.state;
+    this.setState({ openEndOfRoundMsg:  !openEndOfRoundMsg});
+  };
+
   updateFeedbackRespnse = feedbackType => {
     this.setState({ feedbackRespnse: feedbackType });
   };
 
   endOfRound = result => {
     this.calculatePoints();
-    this.setState({ roundFinished: true });
+    this.setState({ roundFinished: true, openEndOfRoundMsg: true, hintIsReady: false, hintsBalance: 0 });
     if (result === "success") {
       let updateSuccessfulRounds = this.state.successfulRounds;
       this.setState({
         successfulRounds: updateSuccessfulRounds + 1,
-        hintsBalance: 3
+        hintsBalance: 0,
+        hintIsReady: false,
       });
     }
   };
@@ -335,7 +342,9 @@ class App extends Component {
       uniqueCodeNums,
       hints,
       hintIsReady,
-      hintsBalance
+      hintsBalance,
+      openEndOfRoundMsg,
+      currentRoundPoints
     } = this.state;
 
     return (
@@ -370,6 +379,7 @@ class App extends Component {
                     roundFinished={roundFinished}
                     code={code}
                     currentGuesses={currentGuesses}
+                    openEndOfRoundMsg={openEndOfRoundMsg}
                   />
 
                   <div className="guesses-container" ref={this._element}>
@@ -394,6 +404,14 @@ class App extends Component {
                   feedbackRespnse={feedbackRespnse}
                   restart={this.restart}
                   round={round}
+                />
+                <EndOfRoundMsg
+                openEndOfRoundMsg={openEndOfRoundMsg}
+                updateOpenEndOfRoundMsg={this.updateOpenEndOfRoundMsg}
+                returnLastAnalayzedGuess={this.returnLastAnalayzedGuess}
+                code={code}
+                currentRoundPoints={currentRoundPoints}
+                points={points}
                 />
               </div>
             )}

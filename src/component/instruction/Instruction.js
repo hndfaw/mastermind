@@ -19,11 +19,11 @@ class Instruction extends Component {
                     <h2 className="instructions-header">Instructions</h2>
                 </div>
                 <p className="instructions-body">
-                     This is a game where you try to guess the number combinations. At the end of each attempt to guess the 4 number combinations, the computer will provide feedback whether you had guess a number correctly, or/and a number and digit correctly. You must guess the right number combinations within 10 attempts to win the game.
+                     This is a game where you try to guess the number combinations. At the end of each attempt to guess the 4 number combinations, the computer will provide feedback whether you had guess a number correctly, and/or a number and digit correctly. You must guess the right number combinations within 10 attempts to win the game.
                 </p>
 
                 <div className="instr-img-container">
-                    <h2 className="instr-img-title">
+                    <h2 className="instr-img-title">p
                         Screenshot of the game</h2>
                     <img src={mainImg} alt="main" className="instr-img"/>
                 </div>

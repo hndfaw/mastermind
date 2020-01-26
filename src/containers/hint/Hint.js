@@ -21,7 +21,7 @@ class Hint extends Component {
       const randomNumber = Math.floor(Math.random() * maxFixed) + minFixed;
       this.setState({ hint: hints[randomNumber], secondSideCard: true });
       hints.splice(randomNumber, 1);
-      this.countDown(7);
+      this.countDown();
       setTimeout(this.flipBackTheCard, 6000);
       updateHintReady();
     }
@@ -58,7 +58,6 @@ class Hint extends Component {
       }
     }, 1000);
   };
-  Í;
 
   hintFrontSideMsg = () => {
     const { hintIsReady, hintsBalance } = this.props;
@@ -68,11 +67,11 @@ class Hint extends Component {
     } else if (!hintIsReady && hintsBalance === 3) {
       return "Your first hint is NOT ready yet, it will be ready after you make two guesses!";
     } else if (hintIsReady && hintsBalance === 3) {
-      return "Your first hint is ready, CLICK here to reveal it!";
+      return "Your first hint is ready, Click here to reveal it!";
     } else if (!hintIsReady && hintsBalance < 3) {
       return "Your next hint is NOT ready yet. You can only get one hint per a guess!";
     } else if (hintIsReady && hintsBalance < 3) {
-      return "Your hint is ready, CLICK here to reveal it!";
+      return "Your hint is ready, Click here to reveal it!";
     }
   };
 
