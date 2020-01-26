@@ -8,7 +8,9 @@
 }
 
 .guess-card {
-  border-radius: 5px;
+  border: 1px solid red;
+  height: 10%;
+  width: 100%;
 }
 
 .guess-card-part-1 {

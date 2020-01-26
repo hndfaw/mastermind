@@ -1,35 +1,28 @@
-/* .app {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-} */
-
 .home-page {
   display: flex;
   justify-content: space-between;
 }
 
-
 .game {
-  height: calc(100vh);
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   width: 450px;
   align-items: center;
   margin: 0 auto;
+  border: 1px solid red;
 }
 
 .guesses-container {
   display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
+  flex-direction: column-reverse;
+  justify-content: flex-start;
   width: 100%;
   position: relative;
   align-items: center;
   height: calc(100vh - 270px);
-
+  border: 1px solid red;
 }
 
 .app-sidebar-right {

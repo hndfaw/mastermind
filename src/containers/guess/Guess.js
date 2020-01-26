@@ -13,10 +13,10 @@ class ShowGuess extends Component {
     let dynamicHeight = guessContainerHeight /10 - (length - index)
 
     return {
-      width: `${dynamicWidth}%`,
+      // width: `${dynamicWidth}%`,
       fontSize: `${dynamicFontSize}px`,
-      marginTop: `${dynamicMarginTop}px`,
-      height: `${dynamicHeight}px`
+      // marginTop: `${dynamicMarginTop}px`,
+      // height: `${dynamicHeight}px`
     }
   }
 
@@ -30,10 +30,10 @@ class ShowGuess extends Component {
     let length = currentGuesses.length;
 
     let dynamicOpacity = 1 - ((length - index) / 14) ;
-    let dynamicHeight = guessContainerHeight /20 - (length - index)
+    // let dynamicHeight = guessContainerHeight /20 - (length - index)
     return {
       background: `rgba(52, 58, 64, ${dynamicOpacity})`,
-      height: `${dynamicHeight}px`
+      // height: `${dynamicHeight}px`
     }
   }
 
