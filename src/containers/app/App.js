@@ -9,6 +9,7 @@ import SideBar from "../sideBar/SideBar";
 import { Route, Switch, NavLink } from "react-router-dom";
 import WelcomePage from "../../component/welcomePage/WelcomePage";
 import Instruction from "../../component/instruction/Instruction";
+import EndOfRoundMsg from '../../component/endOfRoundMsg/EndOfRoundMsg';
 
 class App extends Component {
   state = {
@@ -25,7 +26,8 @@ class App extends Component {
     points: 0,
     hints: [],
     hintIsReady: false,
-    hintsBalance: 3
+    hintsBalance: 3,
+    openEndOfRoundMsg: true
   };
 
   _element = React.createRef();
@@ -245,6 +247,11 @@ class App extends Component {
     this.setState({ openSettings: boolean });
   };
 
+  updateOpenEndOfRoundMsg = () => {
+    const { openEndOfRoundMsg } = this.state;
+    this.setState({ openEndOfRoundMsg:  !openEndOfRoundMsg});
+  };
+
   updateFeedbackRespnse = feedbackType => {
     this.setState({ feedbackRespnse: feedbackType });
   };
@@ -335,7 +342,8 @@ class App extends Component {
       uniqueCodeNums,
       hints,
       hintIsReady,
-      hintsBalance
+      hintsBalance,
+      openEndOfRoundMsg
     } = this.state;
 
     return (
@@ -394,6 +402,11 @@ class App extends Component {
                   feedbackRespnse={feedbackRespnse}
                   restart={this.restart}
                   round={round}
+                />
+                <EndOfRoundMsg
+                openEndOfRoundMsg={openEndOfRoundMsg}
+                updateOpenEndOfRoundMsg={this.updateOpenEndOfRoundMsg}
+
                 />
               </div>
             )}
