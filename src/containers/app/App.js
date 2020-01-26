@@ -6,10 +6,9 @@ import Guess from "../guess/Guess";
 import CodeKeeper from "../codeKeeper/CodeKeeper";
 import Settings from "../settings/Settings";
 import SideBar from "../sideBar/SideBar";
-import { Route, Switch, NavLink } from 'react-router-dom';
-import WelcomePage from '../../component/welcomePage/WelcomePage';
-import Instruction from '../../component/instruction/Instruction';
-
+import { Route, Switch, NavLink } from "react-router-dom";
+import WelcomePage from "../../component/welcomePage/WelcomePage";
+import Instruction from "../../component/instruction/Instruction";
 
 class App extends Component {
   state = {
@@ -24,7 +23,6 @@ class App extends Component {
     openSettings: false,
     feedbackRespnse: "all",
     points: 0,
-    guessContainerHeight: 0,
     hints: [],
     hintIsReady: false,
     hintsBalance: 3
@@ -34,9 +32,7 @@ class App extends Component {
 
   componentDidMount() {
     let { difficultyLevel } = this.state;
-	this.generateNewCode(difficultyLevel);
-	let x = this._element.current !== null && this._element.current
-    this.setState({ guessContainerHeight: x.clientHeight });
+    this.generateNewCode(difficultyLevel);
   }
 
   generateNewCode = level => {
@@ -306,7 +302,6 @@ class App extends Component {
     const {
       feedbackRespnse,
       currentGuesses,
-      guessContainerHeight
     } = this.state;
 
     const guess = this.state.currentGuesses.map((g, i) => {
@@ -318,7 +313,6 @@ class App extends Component {
           feedbackRespnse={feedbackRespnse}
           index={i}
           currentGuesses={currentGuesses}
-          guessContainerHeight={guessContainerHeight}
         />
       );
     });
@@ -347,73 +341,79 @@ class App extends Component {
     return (
       <div className="app">
         <Switch>
-		<Route exact path="/" render={() => (
-			<WelcomePage />
-		)}/>
+          <Route exact path="/" render={() => <WelcomePage />} />
 
-		<Route exact path="/game" render={() => (
-			<div className="home-page">
-				<SideBar
-            currentGuesses={currentGuesses}
-            round={round}
-            successfulRounds={successfulRounds}
-            getDifficultyLevel={this.getDifficultyLevel}
-            updateOpenSettings={this.updateOpenSettings}
-            points={points}
-            roundFinished={roundFinished}
-            code={code}
-            difficultyLevel={difficultyLevel}
-            nonExistingNums={nonExistingNums}
-            uniqueCodeNums={uniqueCodeNums}
-            hints={hints}
-            hintIsReady={hintIsReady}
-            updateHintReady={this.updateHintReady}
-            hintsBalance={hintsBalance}
-          />
-          <div className="game">
-            <CodeKeeper
-              roundFinished={roundFinished}
-              code={code}
-              currentGuesses={currentGuesses}
-            />
+          <Route
+            exact
+            path="/game"
+            render={() => (
+              <div className="home-page">
+                <SideBar
+                  currentGuesses={currentGuesses}
+                  round={round}
+                  successfulRounds={successfulRounds}
+                  getDifficultyLevel={this.getDifficultyLevel}
+                  updateOpenSettings={this.updateOpenSettings}
+                  points={points}
+                  roundFinished={roundFinished}
+                  code={code}
+                  difficultyLevel={difficultyLevel}
+                  nonExistingNums={nonExistingNums}
+                  uniqueCodeNums={uniqueCodeNums}
+                  hints={hints}
+                  hintIsReady={hintIsReady}
+                  updateHintReady={this.updateHintReady}
+                  hintsBalance={hintsBalance}
+                />
+                <div className="game">
+                  <CodeKeeper
+                    roundFinished={roundFinished}
+                    code={code}
+                    currentGuesses={currentGuesses}
+                  />
 
-            <div className="guesses-container" ref={this._element}>
-              {this.returnGuess()}
-            </div>
-            <GuessingForm
-              submitAGuess={this.submitAGuess}
-              roundFinished={roundFinished}
-              restart={this.restart}
-              returnLastAnalayzedGuess={this.returnLastAnalayzedGuess}
-              feedbackRespnse={feedbackRespnse}
-              currentGuesses={currentGuesses}
-            />
-          </div>
-          <Settings
-            updateDifficultyLevel={this.updateDifficultyLevel}
-            difficultyLevel={difficultyLevel}
-            currentGuesses={currentGuesses}
-            openSettings={openSettings}
-            updateOpenSettings={this.updateOpenSettings}
-            updateFeedbackRespnse={this.updateFeedbackRespnse}
-            feedbackRespnse={feedbackRespnse}
-            restart={this.restart}
-            round={round}
-          />
-			</div>
-               
-            )} />
-
-          <Route exact path="/instructions" render={() => (
-              <Instruction />
-            )}/>  
-
-            <Route render={() => (
-              <div className="page-404">
-                <p className="page-not-exist">The page you’re looking for can’t be found.</p><NavLink to="/game" className="back-to-game"> Back to the Game page</NavLink>
+                  <div className="guesses-container" ref={this._element}>
+                    {this.returnGuess()}
+                  </div>
+                  <GuessingForm
+                    submitAGuess={this.submitAGuess}
+                    roundFinished={roundFinished}
+                    restart={this.restart}
+                    returnLastAnalayzedGuess={this.returnLastAnalayzedGuess}
+                    feedbackRespnse={feedbackRespnse}
+                    currentGuesses={currentGuesses}
+                  />
+                </div>
+                <Settings
+                  updateDifficultyLevel={this.updateDifficultyLevel}
+                  difficultyLevel={difficultyLevel}
+                  currentGuesses={currentGuesses}
+                  openSettings={openSettings}
+                  updateOpenSettings={this.updateOpenSettings}
+                  updateFeedbackRespnse={this.updateFeedbackRespnse}
+                  feedbackRespnse={feedbackRespnse}
+                  restart={this.restart}
+                  round={round}
+                />
               </div>
-            )}/>
+            )}
+          />
 
+          <Route exact path="/instructions" render={() => <Instruction />} />
+
+          <Route
+            render={() => (
+              <div className="page-404">
+                <p className="page-not-exist">
+                  The page you’re looking for can’t be found.
+                </p>
+                <NavLink to="/game" className="back-to-game">
+                  {" "}
+                  Back to the Game page
+                </NavLink>
+              </div>
+            )}
+          />
         </Switch>
       </div>
     );

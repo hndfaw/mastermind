@@ -3,44 +3,36 @@ import "./Guess.css";
 
 class ShowGuess extends Component {
 
-  guessCardStyle = () => {
-    const { index, currentGuesses, guessContainerHeight } = this.props;
+ 
 
+  partOneAndTwoStyle = () => {
+    const { feedbackRespnse, index, currentGuesses } = this.props;
     let length = currentGuesses.length;
-    let dynamicWidth = (105 - (length - index) * 8) - (((length - index - 1) * index)/1.2);
-    let dynamicFontSize = 20 - (length - index);
-    let dynamicMarginTop = (guessContainerHeight / 30) - (length - index)
-    let dynamicHeight = guessContainerHeight /10 - (length - index)
-
-    return {
-      width: `${dynamicWidth}%`,
-      fontSize: `${dynamicFontSize}px`,
-      marginTop: `${dynamicMarginTop}px`,
-      height: `${dynamicHeight}px`
-    }
+    const dynamicWidth = (103 - (length - index) * 3) - (((length - index) * index) / 2)
+    return feedbackRespnse === "single" ? {
+      height: "60%",
+      width: `${dynamicWidth}%`
+    } : {
+      height: null,
+      width: `${dynamicWidth}%`
+    };
   }
 
-  partOneStyle = () => {
-    const { feedbackRespnse } = this.props;
-    return feedbackRespnse === "single" ? { height: "80%" } : { height: null };
-  }
 
   codeNumStyle = () => {
-    const { index, currentGuesses, guessContainerHeight } = this.props;
+    const { index, currentGuesses } = this.props;
     let length = currentGuesses.length;
 
-    let dynamicOpacity = 1 - ((length - index) / 14) ;
-    let dynamicHeight = guessContainerHeight /20 - (length - index)
+    let dynamicOpacity = 1 - ((length - index) / 25) ;
     return {
       background: `rgba(52, 58, 64, ${dynamicOpacity})`,
-      height: `${dynamicHeight}px`
     }
   }
 
   msgStyle = () => {
     const { index, currentGuesses } = this.props;
     let length = currentGuesses.length;
-    let dynamicFontSize = 13 - ((length - index) / 3);
+    let dynamicFontSize = 13 - ((length - index) / 5);
     return {
       fontSize: `${dynamicFontSize}px`
     }
@@ -52,8 +44,8 @@ class ShowGuess extends Component {
       
 
     return (
-      <div className="guess-card" style={this.guessCardStyle()}>
-        <div className="guess-card-part-1" style={this.partOneStyle()}>
+      <div className="guess-card">
+        <div className="guess-card-part-1" style={this.partOneAndTwoStyle()}>
           <p className="guess-card-num guess-card-num-1" style={this.codeNumStyle()}>
             {guess[0]}
           </p>
@@ -68,7 +60,7 @@ class ShowGuess extends Component {
           </p>
         </div>
         {feedbackRespnse === "all" && (
-          <div className="guess-card-part-2">
+          <div className="guess-card-part-2" style={this.partOneAndTwoStyle()}>
             <p className="guess-card-part-2-msg" style={this.msgStyle()}>{feedback.feedback}</p>
           </div>
         )}
