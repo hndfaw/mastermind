@@ -9,7 +9,6 @@ class ShowGuess extends Component {
     const { feedbackRespnse, index, currentGuesses } = this.props;
     let length = currentGuesses.length;
     const dynamicWidth = (103 - (length - index) * 3) - (((length - index) * index) / 2)
-    console.log((((length - index) * index) / 2))
     return feedbackRespnse === "single" ? {
       height: "60%",
       width: `${dynamicWidth}%`

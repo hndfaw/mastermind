@@ -10,16 +10,17 @@ class Hint extends Component {
   };
 
   returnAHint = () => {
-    const { hintIsReady, updateHintReady } = this.props;
+    const { hintIsReady, updateHintReady, hints } = this.props;
 
     if (hintIsReady) {
-      const { hints } = this.props;
+
       const min = 0;
       const max = parseInt(hints.length - 1);
       const minFixed = min;
       const maxFixed = max - min + 1;
       const randomNumber = Math.floor(Math.random() * maxFixed) + minFixed;
       this.setState({ hint: hints[randomNumber], secondSideCard: true });
+      hints.splice(randomNumber, 1)
       this.countDown(7);
       setTimeout(this.flipBackTheCard, 6000);
       updateHintReady();
