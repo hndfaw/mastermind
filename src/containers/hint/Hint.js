@@ -6,7 +6,7 @@ class Hint extends Component {
     randomCodeIndex: 0,
     randomCodeNum: 0,
     hint: "",
-    secondSideCard: false
+    secondSideCard: false,
   };
 
   returnAHint = () => {
@@ -20,11 +20,28 @@ class Hint extends Component {
       const maxFixed = max - min + 1;
       const randomNumber = Math.floor(Math.random() * maxFixed) + minFixed;
       this.setState({ hint: hints[randomNumber], secondSideCard: true });
-      hints.splice(randomNumber, 1)
+      hints.splice(randomNumber, 1);
       this.countDown(7);
       setTimeout(this.flipBackTheCard, 6000);
       updateHintReady();
     }
+  };
+
+  frontStyle = () => {
+    const { hintIsReady } = this.props;
+
+    return hintIsReady
+      ? {
+          color: "#fff",
+          cursor: "pointer",
+		  backgroundColor: 'rgb(47, 98, 154)',
+        }
+      : {
+          color: null,
+          cursor: "default",
+          borderColor: null,
+          backgroundColor: null
+        };
   };
 
   flipBackTheCard = () => {
@@ -40,7 +57,8 @@ class Hint extends Component {
         clearInterval(timer);
       }
     }, 1000);
-  };Í
+  };
+  Í;
 
   hintFrontSideMsg = () => {
     const { hintIsReady, hintsBalance } = this.props;
@@ -58,42 +76,40 @@ class Hint extends Component {
     }
   };
 
-  render() {
-    const { hint, secondSideCard } = this.state;
-    const { hintIsReady, hintsBalance } = this.props;
-
-    const flipStyle = secondSideCard
+  flipStyle = () => {
+    const { secondSideCard } = this.state;
+    return secondSideCard
       ? {
           transform: "rotateY(180deg)"
         }
       : {
           transform: null
         };
+  };
 
-    const frontStyle = hintIsReady
-      ? {
-          color: "#fff",
-          cursor: "pointer"
-        }
-      : {
-          color: null,
-          cursor: "default"
-        };
+  timerStyle = () => {
+    const { secondSideCard } = this.state;
 
-    const timerStyle = secondSideCard
+    return secondSideCard
       ? {
           color: "#fff"
         }
       : {
           color: null
         };
+  };
 
-    return (
+
+  render() {
+    const { hint } = this.state;
+    const { hintsBalance } = this.props;
+
+	return (
       <section className="hint">
         <div className="flip-card">
-          <div className="flip-card-inner" style={flipStyle}>
+          <div className="flip-card-inner" style={this.flipStyle()}>
             <article
-              style={frontStyle}
+              style={this.frontStyle()}
               className="flip-card-front"
               onClick={this.returnAHint}
             >
@@ -106,8 +122,8 @@ class Hint extends Component {
           </div>
         </div>
         <div className="hits-balance-timer-container">
-          <p className="hits-balance">Hits balance: {hintsBalance}</p>
-          <p style={timerStyle} className="show-timer">
+          <p className="hits-balance">Hints balance: {hintsBalance}</p>
+          <p style={this.timerStyle()} className="show-timer">
             0
           </p>
         </div>

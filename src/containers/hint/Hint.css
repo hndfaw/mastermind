@@ -10,7 +10,7 @@
 
 .flip-card {
   background-color: transparent;
-  width: 200px;
+  width: 220px;
   height: 150px;
   font-size: 15px;
 }
@@ -35,17 +35,18 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 5px;
+  padding: 0 16px;
 }
 
 .flip-card-front {
-  background-color: rgb(58, 91, 127);
+  background-color: rgb(61, 82, 105);
   color: #bbbbbb;
+  border: 1px solid gray;
 }
 
 .flip-card-back {
-  background-color: #007bfe;
-  color: white;
+  background-color: #ececec;
+  color: #35363A;
   transform: rotateY(180deg);
   cursor: default;
 }
