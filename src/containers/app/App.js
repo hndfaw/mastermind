@@ -23,7 +23,6 @@ class App extends Component {
     openSettings: false,
     feedbackRespnse: "all",
     points: 0,
-    guessContainerHeight: 0,
     hints: [],
     hintIsReady: false,
     hintsBalance: 3
@@ -34,8 +33,6 @@ class App extends Component {
   componentDidMount() {
     let { difficultyLevel } = this.state;
     this.generateNewCode(difficultyLevel);
-    let x = this._element.current !== null && this._element.current;
-    this.setState({ guessContainerHeight: x.clientHeight });
   }
 
   generateNewCode = level => {
@@ -305,7 +302,6 @@ class App extends Component {
     const {
       feedbackRespnse,
       currentGuesses,
-      guessContainerHeight
     } = this.state;
 
     const guess = this.state.currentGuesses.map((g, i) => {
@@ -317,7 +313,6 @@ class App extends Component {
           feedbackRespnse={feedbackRespnse}
           index={i}
           currentGuesses={currentGuesses}
-          guessContainerHeight={guessContainerHeight}
         />
       );
     });

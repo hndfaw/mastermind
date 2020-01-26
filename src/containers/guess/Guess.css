@@ -1,22 +1,12 @@
-.show-guesses {
-  border: 1px solid gray;
-  height: 70vh;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-}
-
 .guess-card {
-  border: 1px solid red;
   height: 10%;
   width: 100%;
+  border-radius: 5px;
 }
 
 .guess-card-part-1 {
   display: flex;
-  justify-content: space-around;
-  align-items: center;
+  margin: 0 auto;
 }
 
 .guess-card-num {
@@ -44,6 +34,10 @@
 .guess-card-num-1 {
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
+}
+
+.guess-card-part-2 {
+  margin: 0 auto;
 }
 
 .guess-card-part-2-msg {
