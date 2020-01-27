@@ -42,6 +42,7 @@ class App extends Component {
       .then(data => data.split(/\r|\n/))
       .then(data => data.map(d => d !== "" && generatedCode.push(parseInt(d))))
       .then(() => this.setState({ code: generatedCode }))
+
       .then(() => this.findNonExistingNumbers());
   };
 
