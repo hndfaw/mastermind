@@ -37,11 +37,12 @@ class App extends Component {
   }
 
   generateNewCode = level => {
-    let newCode = [];
+    let generatedCode = [];
     fetchCode(level)
       .then(data => data.split(/\r|\n/))
-      .then(data => data.map(d => d !== "" && newCode.push(parseInt(d))))
-      .then(() => this.setState({ code: [2, 3, 3, 0] }))
+      .then(data => data.map(d => d !== "" && generatedCode.push(parseInt(d))))
+      .then(() => this.setState({ code: generatedCode }))
+
       .then(() => this.findNonExistingNumbers());
   };
 
