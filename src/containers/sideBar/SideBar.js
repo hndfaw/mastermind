@@ -26,6 +26,7 @@ class SideBar extends Component {
     return (
       <section className="app-side-bar">
         <img src={logo} className="logo" alt="logo" />
+        <p className="x">Hozan, awa Hindreen drusti krdya!</p>
         <div className="side-bar-info-container">
           <p className="">Round: {round}</p>
           <p className="">Points: {points}</p>

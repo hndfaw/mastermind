@@ -41,7 +41,7 @@ class App extends Component {
     fetchCode(level)
       .then(data => data.split(/\r|\n/))
       .then(data => data.map(d => d !== "" && newCode.push(parseInt(d))))
-      .then(() => this.setState({ code: 'newCode' }))
+      .then(() => this.setState({ code: newCode }))
       .then(() => this.findNonExistingNumbers());
   };
 
