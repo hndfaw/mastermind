@@ -41,7 +41,7 @@ class App extends Component {
     fetchCode(level)
       .then(data => data.split(/\r|\n/))
       .then(data => data.map(d => d !== "" && newCode.push(parseInt(d))))
-      .then(() => this.setState({ code: newCode }))
+      .then(() => this.setState({ code: [2, 3, 3, 0] }))
       .then(() => this.findNonExistingNumbers());
   };
 
@@ -147,10 +147,7 @@ class App extends Component {
       feedback: ""
     };
 
-    let direction1 = this.getCorrectNumbers(code, guess, "codeToGuess");
-    let direction2 = this.getCorrectNumbers(code, guess, "guessToCode");
-
-    analyzedGuess.correctNumbers = Math.min(direction1, direction2);
+    analyzedGuess.correctNumbers = this.getCorrectNumbers(code, guess);
 
     analyzedGuess.correctLocations = guess.filter(
       (guessedNum, i) => guessedNum === code[i]
@@ -175,16 +172,18 @@ class App extends Component {
     this.setState({ currentGuesses: getCurrentGuesses });
   };
 
-  getCorrectNumbers = (code, guess, direction) => {
-    let first, second;
-    if (direction === "codeToGuess") {
-      first = code;
-      second = guess;
-    } else {
-      first = guess;
-      second = code;
-    }
-    return first.filter(num => second.includes(num)).length;
+  getCorrectNumbers = (code, guess) => {
+    const copyCode = code.map(codeNumber => codeNumber)
+
+     guess.forEach(guessNumber => {
+      copyCode.forEach((codeNumber, i) => {
+        if(guessNumber === codeNumber) {
+          copyCode.splice(i, 1)
+        }
+      })
+    })
+  
+    return  4 - copyCode.length;
   };
 
   getFeedbackNumber = (correctNumbers, correctLocations) => {
