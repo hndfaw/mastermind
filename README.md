@@ -52,4 +52,4 @@ Open http://localhost:3000 to view it in the browser.
 
 ## Project Screenshots:
 
-<img width="338" alt="Game Page" src="./src/assets/images/01-main.jpg">
+<img alt="Game Page" src="./src/assets/images/01-main.jpg">
