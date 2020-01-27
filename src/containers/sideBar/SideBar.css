@@ -1,7 +1,10 @@
 .app-side-bar {
   width: 35vw;
-  background: rgb(53,54,58);
+  background: #35363a;
   cursor: default;
+  height: 100vh;
+  position: fixed;
+  top: 0;
 }
 
 .logo {
