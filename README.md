@@ -27,7 +27,7 @@ To learn how to play, please visit:
 
 ## To View Mastermind on Your Computer Clone down this Repo
 
-###  Copy this line in your terminal and hit enter:
+###  In your terminal do the following steps; and hit return/enter after each step:
 
 `git clone https://github.com/hndfaw/mastermind.git`
 
