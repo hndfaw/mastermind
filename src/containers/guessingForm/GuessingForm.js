@@ -26,10 +26,10 @@ class GussingForm extends Component {
     const { roundFinished } = this.props;
     const { numOne, numTwo, numThree, numFour } = this.state;
 
-    if (roundFinished !== true && !this.checkEmptyFields()) {
+    // if (roundFinished !== true && !this.checkEmptyFields()) {
       this.props.submitAGuess([numOne, numTwo, numThree, numFour]);
-      this.clearValues();
-    }
+    //   this.clearValues();
+    // }
   };
 
   handleOnChange = e => {

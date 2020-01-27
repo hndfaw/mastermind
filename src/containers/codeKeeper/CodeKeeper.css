@@ -1,6 +1,8 @@
 .code-keeper {
   width: 100%;
-  position: relative;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
 .the-code {
@@ -9,11 +11,12 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  border: 1px solid #828282;
+  border: 1px solid #ffffff;
   padding: 3px;
   border-radius: 5px;
   margin: 10px auto 20px auto;
   background: #dbdde0;
+  box-shadow: 0px 5px 7px 0 #a2a2a2;
 }
 
 .the-code-num {
