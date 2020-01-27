@@ -26,17 +26,49 @@ class GussingForm extends Component {
     const { roundFinished } = this.props;
     const { numOne, numTwo, numThree, numFour } = this.state;
 
-    // if (roundFinished !== true && !this.checkEmptyFields()) {
+    if (roundFinished !== true && !this.checkEmptyFields()) {
       this.props.submitAGuess([numOne, numTwo, numThree, numFour]);
-    //   this.clearValues();
-    // }
+      this.clearValues();
+    }
+
+    document.querySelector('.guess-num-input-1').focus()
   };
 
   handleOnChange = e => {
+    const { difficultyLevel } = this.props;
+
     const parsedValue = parseInt(e.target.value);
     const value = isNaN(parsedValue) ? "" : parsedValue;
     this.setState({ [e.target.name]: value });
+    
+    if(difficultyLevel === 7) {
+      this.autoFocus(e.target.name, e.target.value, 'oneDigit')
+    } else {
+      this.autoFocus(e.target.name, e.target.value, 'twoDigits')
+    }
   };
+
+  autoFocus = (name, value, type) => {
+
+    if(type === 'oneDigit') {
+        if(name === 'numOne') {
+          document.querySelector('.guess-num-input-2').focus()
+        } else if (name === 'numTwo') {
+          document.querySelector('.guess-num-input-3').focus()
+        } else if (name === 'numThree') {
+          document.querySelector('.guess-num-input-4').focus()
+        }
+    } else {
+        if(name === 'numOne' && value.length === 2) {
+          document.querySelector('.guess-num-input-2').focus()
+        } else if (name === 'numTwo' && value.length === 2) {
+          document.querySelector('.guess-num-input-3').focus()
+        } else if (name === 'numThree' && value.length === 2) {
+          document.querySelector('.guess-num-input-4').focus()
+        }
+    }
+    
+  }
 
   clearValues = () => {
     this.setState({ numOne: "", numTwo: "", numThree: "", numFour: "" });

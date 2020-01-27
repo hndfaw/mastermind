@@ -390,6 +390,7 @@ class App extends Component {
                     returnLastAnalayzedGuess={this.returnLastAnalayzedGuess}
                     feedbackRespnse={feedbackRespnse}
                     currentGuesses={currentGuesses}
+                    difficultyLevel={difficultyLevel}
                   />
                 </div>
                 <Settings
