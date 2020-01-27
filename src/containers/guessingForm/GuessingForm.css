@@ -3,7 +3,7 @@
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   padding: 10px 20px;
-  width: 100%;
+  width: 60%;
 }
 
 .guessing-form {
@@ -25,7 +25,7 @@
 }
 
 .guess-num-input {
-  width: 68px;
+  width: 20%;
   height: 40px;
   text-align: center;
   margin: 0;
