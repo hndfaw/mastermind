@@ -70,7 +70,7 @@ class Instruction extends Component {
         </p>
 
         <div className="instructions-imgs-instructions">
-            <h3 className="instructions-imgs-title">Here is a quick demo for you!</h3>
+            <h3 className="instructions-imgs-title">To learn how to play, here is a quick demo for you!</h3>
           <div>
               {this.image()}
           </div>
