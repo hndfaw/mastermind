@@ -112,12 +112,12 @@ class App extends Component {
 
     let lastGuessAnalyze = this.returnLastAnalayzedGuess();
 
-    if (
-      updatedAllGuesses.length === 10 &&
-      lastGuessAnalyze.correctNumbers < 4 &&
-      lastGuessAnalyze.correctLocations < 4
-    ) {
-      this.endOfRound();
+    if ( updatedAllGuesses.length === 10) {
+
+      if (lastGuessAnalyze.correctNumbers < 4 ||
+        lastGuessAnalyze.correctLocations < 4) {
+          this.endOfRound();
+        }
     }
 
     const { currentGuesses, hintsBalance } = this.state;
@@ -246,9 +246,8 @@ class App extends Component {
     this.setState({ openSettings: boolean });
   };
 
-  updateOpenEndOfRoundMsg = () => {
-    const { openEndOfRoundMsg } = this.state;
-    this.setState({ openEndOfRoundMsg:  !openEndOfRoundMsg});
+  updateOpenEndOfRoundMsg = type => {
+    this.setState({ openEndOfRoundMsg:  type});
   };
 
   updateFeedbackRespnse = feedbackType => {

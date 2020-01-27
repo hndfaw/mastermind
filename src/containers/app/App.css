@@ -14,13 +14,13 @@
 
 .guesses-container {
   display: flex;
-  flex-direction: column-reverse;
-  justify-content: flex-start;
+  flex-direction: column;
+  justify-content: flex-end;
   position: relative;
   align-items: center;
-  height: 556px;
+  height: 555px;
+  min-height: 68vh;
   width: 60%;
-
 }
 
 .app-sidebar-right {
