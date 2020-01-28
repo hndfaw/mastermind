@@ -43,8 +43,8 @@ This is a game where you try to guess the number combinations. At the end of eac
 
 as feedback:
  1. your guess was incorrect
- 1. You had one correct number in wrong location
- 1. You had guessed one correct number and its correct location
+  1. You had one correct number in wrong location
+   1. You had guessed one correct number and its correct location
  1. You had X correct numbers and Y correct location/s.
  1. You found the CORRECT code.
 
