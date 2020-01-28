@@ -28,7 +28,6 @@ class App extends Component {
     round: 1,
     roundFinished: false,
     successfulRounds: 0,
-    uniqueCodeNums: []
   };
 
   componentDidMount() {
@@ -345,7 +344,7 @@ class App extends Component {
   };
 
   returnGuess = () => {
-    const { feedbackRespnse, currentGuesses } = this.state;
+    const { feedbackRespnse, currentGuesses, roundFinished, code } = this.state;
 
     const guess = this.state.currentGuesses.map((g, i) => {
       return (
@@ -356,6 +355,8 @@ class App extends Component {
           feedbackRespnse={feedbackRespnse}
           index={i}
           currentGuesses={currentGuesses}
+          roundFinished={roundFinished}
+          code={code}
         />
       );
     });
