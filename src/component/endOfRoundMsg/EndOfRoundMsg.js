@@ -5,8 +5,8 @@ import Modal from "react-bootstrap/Modal";
 class EndOfRoundMsg extends Component {
 
   msgTheme = () => {
-    const { returnLastAnalayzedGuess } = this.props;
-    const { correctNumbers = 4, correctLocations = 4 } = returnLastAnalayzedGuess();
+    const { returnLastAnalyzedGuess } = this.props;
+    const { correctNumbers = 4, correctLocations = 4 } = returnLastAnalyzedGuess();
     if (correctNumbers === 4 && correctLocations === 4) {
       return {
         background: "#007BFF",
@@ -21,8 +21,8 @@ class EndOfRoundMsg extends Component {
   };
 
   render() {
-    const { openEndOfRoundMsg, returnLastAnalayzedGuess, code, currentRoundPoints, points } = this.props;
-    const { correctNumbers, correctLocations } = returnLastAnalayzedGuess();
+    const { openEndOfRoundMsg, returnLastAnalyzedGuess, code, currentRoundPoints, points } = this.props;
+    const { correctNumbers, correctLocations } = returnLastAnalyzedGuess();
 
     return (
       <div>
@@ -33,7 +33,7 @@ class EndOfRoundMsg extends Component {
           aria-labelledby="example-modal-sizes-title-lg"
           className="end-of-round-msg-modal"
         >
-          <Modal.Header className="end-of-round-msg-modal-header" style={this.msgTheme()}>
+          <Modal.Header className="end-of-round-msg-modal-header" style={this.msgTheme()} closeButton>
             <Modal.Title>Round Over!</Modal.Title>
           </Modal.Header>
           <Modal.Body className="end-of-round-msg-modal-body">
@@ -76,7 +76,7 @@ class EndOfRoundMsg extends Component {
 
               {correctNumbers === 4 && correctLocations === 4 ? (
               <div className="end-of-round-msg-title">
-                <p className="end-of-round-msg-points-title">Points Earned</p>
+                <p className="end-of-round-msg-points-title">Points Earned this Round</p>
                 <p className="end-of-round-msg-points-point">{currentRoundPoints}</p>
                 <p className="end-of-round-msg-points-title">Total Points</p>
                 <p className="end-of-round-msg-points-point">{points}</p>
@@ -89,10 +89,6 @@ class EndOfRoundMsg extends Component {
                 Try again!
               </h3>
             )}
-
-            <p className="end-of-round-msg-click-outside">Click anywhere outside of this box to close it.</p>
-
-              
           </Modal.Body>
         </Modal>
       </div>

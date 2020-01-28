@@ -88,6 +88,23 @@
   border-radius: 0;
 }
 
+.instructions-btn-game-2 {
+  height: 38px;
+  background: #007BFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  padding: 12px;
+  background: #dc3546de;
+}
+
+.instructions-btn-game-2:hover {
+  color: #fff;
+  text-decoration: none;
+  background: #dc3546;
+}
+
 .instructions-buttons {
   display: flex;
   width: 32%;
@@ -100,3 +117,5 @@
 .instructions-imgs-title {
   margin: 50px 0 70px 0;
 }
+
+

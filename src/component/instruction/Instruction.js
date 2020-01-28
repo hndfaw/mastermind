@@ -43,7 +43,7 @@ class Instruction extends Component {
   image = () => {
     return data.map((img, i) => {
         return (
-          <img src={img} alt="main" className="instr-img" style={this.instrImgStyle(i + 1)}/>
+          <img src={img} alt="main" key={i} className="instr-img" style={this.instrImgStyle(i + 1)}/>
 
         )
     })
@@ -54,9 +54,9 @@ class Instruction extends Component {
 
       return (
       <section className="instructions-page">
-        <NavLink to="/game" className="instructions-btn-game">
+        {currentImg !== totalImages && <NavLink to="/game" className="instructions-btn-game">
           Start Game
-        </NavLink>
+        </NavLink>}
         <div className="instructions-page-header">
           <img className="instructions-red-logo" src={redLogo} alt="logo" />
           <h2 className="instructions-header">Instructions</h2>
@@ -84,14 +84,17 @@ class Instruction extends Component {
               &#10094;
             </Button>
             <p>{currentImg} / <span>{totalImages}</span></p>
-            <Button
+            {currentImg !== totalImages && <Button
               onClick={() => this.updateImgNumber("next")}
               className="instructions-prev-next-btn"
               variant="primary"
               disabled={currentImg === totalImages}
             >
               &#10095;
-            </Button>
+            </Button>}
+            {currentImg === totalImages && <NavLink to="/game" className="instructions-btn-game-2">
+              Start Game
+            </NavLink>}
           </div>
         </div>
       </section>

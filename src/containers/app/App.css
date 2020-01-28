@@ -4,22 +4,22 @@
 }
 
 .game {
+  align-items: center;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items: center;
   margin: 0 0 0 auto;
   width: 60%;
 }
 
 .guesses-container {
+  align-items: center;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
-  position: relative;
-  align-items: center;
   height: 555px;
+  justify-content: flex-end;
   min-height: 68vh;
+  position: relative;
   width: 60%;
 }
 
@@ -29,29 +29,28 @@
 }
 
 .single-feedback {
-  font-size: 12px;
-  width: 100%;
   background: #d0d0d0;
-  padding: 3px;
   border-radius: 2px;
-  padding-left: 8px;
+  font-size: 12px;
   margin-bottom: 9px;
+  padding-left: 8px;
+  padding: 3px;
+  width: 100%;
 }
 
 .page-not-exist {
-  font-size: 18px;
   color: #000;
+  font-size: 18px;
   padding-bottom: 20px;
 }
 
 .back-to-game {
+  border-radius: 3px;
+  border: 1px solid rgb(70, 72, 77);
   color: rgb(70, 72, 77);
   font-size: 16px;
-  border: 1px solid rgb(70, 72, 77);
-  text-decoration: none;
-  border-radius: 3px;
   padding: 3px 7px;
-  border: 1px oslid rgb(70, 72, 77);
+  text-decoration: none;
 }
 
 .back-to-game:hover {
@@ -61,21 +60,55 @@
 }
 
 .page-404 {
-  width: 100vw;
-  height: 100vh;
+  align-items: center;
   display: flex;
   flex-direction: column;
+  height: 100vh;
   justify-content: center;
-  align-items: center;
+  width: 100vw;
 }
 
 .modal-content {
-  border-radius: 0;
   border-color: transparent;
+  border-radius: 0;
   border: none;
 }
 
 .modal-header {
-  border: none;
   border-radius: 0;
+  border: none;
+}
+
+.diff-level-note-container {
+  align-items: center;
+  color: rgb(167, 154, 154);
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  height: 380px;
+  width: 100%;
+}
+
+.diff-level-note-text {
+  margin: 10px 0;
+}
+
+.diff-level-note-num {
+  background: #e8e8e8;
+  border-radius: 5px;
+  color: #807676;
+  display: inline-block;
+  font-size: 18px;
+  height: 40px;
+  margin: 10px;
+  padding-top: 6px;
+  text-align: center;
+  width: 40px;
+}
+
+.diff-level-note-status {
+  border-radius: 2px;
+  border: 1px solid #a19999;
+  margin: 0 6px;
+  padding: 2px 9px;
 }
