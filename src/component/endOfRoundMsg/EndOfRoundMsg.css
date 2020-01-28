@@ -79,3 +79,12 @@ element.style {
 .do-it-again-title {
     margin-top: 36px;
 }
+
+.modal-header .close {
+    padding: 1rem 1rem;
+    margin: -1rem -1rem -1rem auto;
+    color: #fff;
+    outline: none;
+    padding: 20px 17px 0 0;
+    cursor: pointer;
+}

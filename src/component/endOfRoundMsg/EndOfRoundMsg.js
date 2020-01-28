@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import "./EndOfRoundMsg.css";
 import Modal from "react-bootstrap/Modal";
-import Button from 'react-bootstrap/Button'
 
 class EndOfRoundMsg extends Component {
 
@@ -34,7 +33,7 @@ class EndOfRoundMsg extends Component {
           aria-labelledby="example-modal-sizes-title-lg"
           className="end-of-round-msg-modal"
         >
-          <Modal.Header className="end-of-round-msg-modal-header" style={this.msgTheme()}>
+          <Modal.Header className="end-of-round-msg-modal-header" style={this.msgTheme()} closeButton>
             <Modal.Title>Round Over!</Modal.Title>
           </Modal.Header>
           <Modal.Body className="end-of-round-msg-modal-body">
@@ -77,7 +76,7 @@ class EndOfRoundMsg extends Component {
 
               {correctNumbers === 4 && correctLocations === 4 ? (
               <div className="end-of-round-msg-title">
-                <p className="end-of-round-msg-points-title">Points Earned</p>
+                <p className="end-of-round-msg-points-title">Points Earned this Round</p>
                 <p className="end-of-round-msg-points-point">{currentRoundPoints}</p>
                 <p className="end-of-round-msg-points-title">Total Points</p>
                 <p className="end-of-round-msg-points-point">{points}</p>
@@ -90,10 +89,6 @@ class EndOfRoundMsg extends Component {
                 Try again!
               </h3>
             )}
-
-            <Button variant="outline-dark" onClick={() => this.props.updateOpenEndOfRoundMsg(false)}>Close</Button>
-
-              
           </Modal.Body>
         </Modal>
       </div>
