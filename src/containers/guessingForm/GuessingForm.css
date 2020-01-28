@@ -33,3 +33,9 @@
   font-size: 24px;
   border-radius: 0px;
 }
+
+@media screen and (max-width: 900px) {
+  .gussing-form-container {
+    width: 94%;
+  }
+}

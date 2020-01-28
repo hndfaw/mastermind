@@ -112,3 +112,26 @@
   margin: 0 6px;
   padding: 2px 9px;
 }
+
+
+@media screen and (max-width: 900px) {
+  .home-page {
+    display: block;
+  }
+
+  .game {
+    width: 100%;
+  }
+
+  .diff-level-note-text {
+    margin: 10px 0;
+    text-align: center;
+    font-size: 13px;
+}
+
+.guesses-container {
+  width: 98%;
+}
+
+
+}

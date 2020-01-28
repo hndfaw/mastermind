@@ -54,9 +54,9 @@ class ShowGuess extends Component {
   msgStyle = () => {
     const { index, currentGuesses } = this.props;
     let length = currentGuesses.length;
-    let dynamicFontSize = 13 - ((length - index) / 5);
+    let dynamicFontSize = 1 - ((length - index) / 20);
     return {
-      fontSize: `${dynamicFontSize}px`
+      fontSize: `${dynamicFontSize}em`
     }
 
   }
