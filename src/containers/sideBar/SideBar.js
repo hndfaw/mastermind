@@ -3,7 +3,11 @@ import "./SideBar.css";
 import logo from "../../assets/images/mastermind-logo-3.png";
 import Button from "react-bootstrap/Button";
 import Hint from "../hint/Hint";
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton';
+import newTabIcon from '../../assets/images/icons8-external-link-dark.svg'
+import newTabIconDarker from '../../assets/images/icons8-external-link-darker.svg'
 
 
 class SideBar extends Component {
@@ -48,7 +52,7 @@ class SideBar extends Component {
           roundFinished={roundFinished}
         />
         <div className="side-bar-btns-container">
-          <Button
+        <Button
             variant="dark"
             className="settings-btn"
             onClick={() => this.props.updateOpenSettings(true)}
@@ -57,8 +61,16 @@ class SideBar extends Component {
           </Button>
           <NavLink to="/instructions" className="side-bar-instructions-link">Instructions</NavLink>
 
-          <a href="https://github.com/hndfaw" target="blank" className="side-bar-instructions-link">GitHub</a>
-
+          <div className="side-bar-instructions-link" >
+              <a href="https://github.com/hndfaw/mastermind" className="side-bar-instructions-inner-link" target="blank" >GitHub</a>
+              <img className="new-tab-icon-single" src={newTabIcon} alt="new tab icon" />
+          </div>
+          <DropdownButton id="dropdown-basic-button" title="Developer" drop={'up'}>
+              <Dropdown.Item className="dropdown-item" target="blank" href="https://www.hindreen.net/">Portfolio <img className="new-tab-icon" src={newTabIconDarker} alt="new tab icon" /></Dropdown.Item>
+              <Dropdown.Item className="dropdown-item"  target="blank" href="https://www.linkedin.com/in/hndfaw/">LinkedIn <img className="new-tab-icon" src={newTabIconDarker} alt="new tab icon" /></Dropdown.Item>
+              <Dropdown.Item className="dropdown-item"  target="blank" href="https://github.com/hndfaw/">GitHub <img className="new-tab-icon" src={newTabIconDarker} alt="new tab icon" /></Dropdown.Item>
+          </DropdownButton>          
+          
         </div>
       </section>
     );

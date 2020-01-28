@@ -47,9 +47,52 @@
   color: rgba(255, 255, 255, 0.7);
   font-size: 14px;
   padding-right: 20px;
+  
 }
 
 .side-bar-instructions-link:hover {
   text-decoration: none;
   color: #fff;
 }
+
+#dropdown-basic-button {
+  background: transparent;
+  border: transparent;
+  outline: none;
+  box-shadow:  0 0 0 0 #ddd;
+  padding: 0 0 2px 0;
+  margin: 0;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+#dropdown-basic-button:hover {
+  color: #fff;
+}
+
+.dropdown-item {
+  font-size: 14px;
+  padding: 3px 0 3px 11px;
+}
+
+.new-tab-icon {
+  width: 14px;
+  margin: 0 0 2px 0;
+}
+
+.new-tab-icon-single {
+  width: 13px;
+  margin: 0 0 2px 3px;
+}
+
+.side-bar-instructions-inner-link {
+  text-decoration: none;
+  color: #ffffffb3;
+  font-size: 14px;
+}
+
+.side-bar-instructions-link:hover .side-bar-instructions-inner-link {
+  color: #fff;
+  text-decoration: none;
+}
+
