@@ -101,31 +101,38 @@ class Hint extends Component {
 
   render() {
     const { hint } = this.state;
-    const { hintsBalance } = this.props;
+    const { hintsBalance, roundFinished } = this.props;
+    const colorCode = <div className="color-code-container">
+      <p className="color-code-1 color-code">Correct number in the correct location</p>
+      <p className="color-code-2 color-code">Possible correct number in the wrong location, or just a duplicate!</p>
+      <p className="color-code-3 color-code">The number does NOT exist</p>
+    </div>
 
 	return (
       <section className="hint">
-        <div className="flip-card">
-          <div className="flip-card-inner" style={this.flipStyle()}>
-            <article
-              style={this.frontStyle()}
-              className="flip-card-front"
-              onClick={this.returnAHint}
-            >
-              {this.hintFrontSideMsg()}
-            </article>
+       {roundFinished ? colorCode : <div>
+          <div className="flip-card">
+            <div className="flip-card-inner" style={this.flipStyle()}>
+              <article
+                style={this.frontStyle()}
+                className="flip-card-front"
+                onClick={this.returnAHint}
+              >
+                {this.hintFrontSideMsg()}
+              </article>
 
-            <article className="flip-card-back">
-              <p className="flip-card-hint">{hint}</p>
-            </article>
+              <article className="flip-card-back">
+                <p className="flip-card-hint">{hint}</p>
+              </article>
+            </div>
           </div>
-        </div>
-        <div className="hits-balance-timer-container">
-          <p className="hits-balance">Hints balance: {hintsBalance}</p>
-          <p style={this.timerStyle()} className="show-timer">
-            0
-          </p>
-        </div>
+          <div className="hits-balance-timer-container">
+            <p className="hits-balance">Hints balance: {hintsBalance}</p>
+            <p style={this.timerStyle()} className="show-timer">
+              0
+            </p>
+          </div>
+        </div>}
       </section>
     );
   }

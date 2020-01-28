@@ -28,7 +28,6 @@ class App extends Component {
     round: 1,
     roundFinished: false,
     successfulRounds: 0,
-    uniqueCodeNums: []
   };
 
   componentDidMount() {

@@ -3,7 +3,7 @@ import "./SideBar.css";
 import logo from "../../assets/images/mastermind-logo-3.png";
 import Button from "react-bootstrap/Button";
 import Hint from "../hint/Hint";
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 
 
 class SideBar extends Component {
@@ -20,7 +20,8 @@ class SideBar extends Component {
       hints,
       hintIsReady,
       updateHintReady,
-      hintsBalance
+      hintsBalance,
+      roundFinished
     } = this.props;
 
     return (
@@ -44,6 +45,7 @@ class SideBar extends Component {
           hintIsReady={hintIsReady}
           updateHintReady={updateHintReady}
           hintsBalance={hintsBalance}
+          roundFinished={roundFinished}
         />
         <div className="side-bar-btns-container">
           <Button
@@ -54,6 +56,9 @@ class SideBar extends Component {
             Settings
           </Button>
           <NavLink to="/instructions" className="side-bar-instructions-link">Instructions</NavLink>
+
+          <a href="https://github.com/hndfaw" target="blank" className="side-bar-instructions-link">GitHub</a>
+
         </div>
       </section>
     );
