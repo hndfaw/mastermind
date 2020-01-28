@@ -28,7 +28,7 @@ class App extends Component {
     round: 1,
     roundFinished: false,
     successfulRounds: 0,
-    uniqueCodeNums: [],
+    uniqueCodeNums: []
   };
 
   componentDidMount() {
@@ -41,7 +41,7 @@ class App extends Component {
     fetchCode(level)
       .then(data => data.split(/\r|\n/))
       .then(data => data.map(d => d !== "" && generatedCode.push(parseInt(d))))
-      .then(() => this.setState({ code:  generatedCode }))
+      .then(() => this.setState({ code: generatedCode }))
       .then(() => this.findNonExistingNumbers());
   };
 
@@ -173,76 +173,45 @@ class App extends Component {
     this.setState({ currentGuesses: getCurrentGuesses });
   };
 
-   createUniqueObject = (combination) => {
+  createUniqueObject = combination => {
     return combination.reduce((acc, number) => {
-  
-      let total = combination.filter(num => num === number).length
+      let total = combination.filter(num => num === number).length;
       acc[number] = total;
       return acc;
-    }, {})
-  }
+    }, {});
+  };
 
-   compareCodeAndGuess = (code, guess) => {
+  compareCodeAndGuess = (code, guess) => {
+    return Object.entries(this.createUniqueObject(guess)).reduce(
+      (acc, guessEntry) => {
+        Object.entries(this.createUniqueObject(code)).forEach(codeEntry => {
+          if (!acc.hasOwnProperty(codeEntry[0])) {
+            acc[codeEntry[0]] = codeEntry[1];
+          }
+        });
 
-    return Object.entries(this.createUniqueObject(guess)).reduce((acc, guessEntry) => {
-       
-     Object.entries(this.createUniqueObject(code)).forEach(codeEntry => {
-       if(!acc.hasOwnProperty(codeEntry[0])) {
-         acc[codeEntry[0]] = codeEntry[1]
-       }
-     })
-  
-     if(acc.hasOwnProperty(guessEntry[0])) {
-        
-        acc[guessEntry[0]] = acc[guessEntry[0]] - guessEntry[1]
-        
-     }
-     
-  
-    return acc;
-    }, {})
-  
-  }
+        if (acc.hasOwnProperty(guessEntry[0])) {
+          acc[guessEntry[0]] = acc[guessEntry[0]] - guessEntry[1];
+        }
 
-   getCorrectNumbers = (code, guess) => {
-    const obj = this.compareCodeAndGuess(code, guess)
-   
-   let finalNumber =  Object.entries(obj).filter(el => 
-       el[1] > 0
-   ).reduce((total, curr) => {
-      total += curr[1]
-      return total
-   }, 0)
-   
-   return 4 - finalNumber
-    
- }
+        return acc;
+      },
+      {}
+    );
+  };
 
-  // getCorrectNumbers = (code, guess) => {
-    // const copyCode = [...code];
-    // guess.forEach((guessNumber, i) => {
+  getCorrectNumbers = (code, guess) => {
+    const obj = this.compareCodeAndGuess(code, guess);
 
-    //   console.log('Outer index', i)
+    let finalNumber = Object.entries(obj)
+      .filter(el => el[1] > 0)
+      .reduce((total, curr) => {
+        total += curr[1];
+        return total;
+      }, 0);
 
-    //   copyCode.forEach((codeNumber, codeIndex) => {
-
-    //     console.log('inner i', codeIndex)
-
-    //     if (codeNumber === guessNumber) {
-    //       copyCode.splice(codeIndex, 1);
-    //       // return
-    //     }
-
-    //   });
-    //   return
-    // });
-
-    // console.log(copyCode)
-
-    // return 4 - copyCode.length;
-
-  // };
-
+    return 4 - finalNumber;
+  };
 
   getFeedbackNumber = (correctNumbers, correctLocations) => {
     let feedbackNum;
@@ -455,17 +424,23 @@ class App extends Component {
                     ) : (
                       <div className="diff-level-note-container">
                         <p className="diff-level-note-text">
-                          Difficulty level of this game is 
-                          <span className="diff-level-note-status">{this.getDifficultyLevel("noLabel")}</span>
+                          Difficulty level of this game is
+                          <span className="diff-level-note-status">
+                            {this.getDifficultyLevel("noLabel")}
+                          </span>
                         </p>
-                        <p className="diff-level-note-text">The code you need to guess is between</p>
                         <p className="diff-level-note-text">
-                          <span className="diff-level-note-num">0</span>and 
-                          <span className="diff-level-note-num">{difficultyLevel}</span>
+                          The code you need to guess is between
+                        </p>
+                        <p className="diff-level-note-text">
+                          <span className="diff-level-note-num">0</span>and
+                          <span className="diff-level-note-num">
+                            {difficultyLevel}
+                          </span>
                         </p>
                       </div>
                     )}
-                  </div>  
+                  </div>
                   <GuessingForm
                     submitAGuess={this.submitAGuess}
                     roundFinished={roundFinished}
