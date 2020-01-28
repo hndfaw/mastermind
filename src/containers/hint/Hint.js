@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./Hint.css";
 
 class Hint extends Component {
+  
   state = {
     randomCodeIndex: 0,
     randomCodeNum: 0,
@@ -34,13 +35,12 @@ class Hint extends Component {
       ? {
           color: "#fff",
           cursor: "pointer",
-		  backgroundColor: 'rgb(47, 98, 154)',
+          backgroundColor: 'rgb(47, 98, 154)',
         }
       : {
           color: null,
           cursor: "default",
           borderColor: null,
-          backgroundColor: null
         };
   };
 
