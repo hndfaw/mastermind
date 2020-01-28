@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import "./EndOfRoundMsg.css";
 import Modal from "react-bootstrap/Modal";
+import Button from 'react-bootstrap/Button'
 
 class EndOfRoundMsg extends Component {
 
   msgTheme = () => {
-    const { returnLastAnalayzedGuess } = this.props;
-    const { correctNumbers = 4, correctLocations = 4 } = returnLastAnalayzedGuess();
+    const { returnLastAnalyzedGuess } = this.props;
+    const { correctNumbers = 4, correctLocations = 4 } = returnLastAnalyzedGuess();
     if (correctNumbers === 4 && correctLocations === 4) {
       return {
         background: "#007BFF",
@@ -21,8 +22,8 @@ class EndOfRoundMsg extends Component {
   };
 
   render() {
-    const { openEndOfRoundMsg, returnLastAnalayzedGuess, code, currentRoundPoints, points } = this.props;
-    const { correctNumbers, correctLocations } = returnLastAnalayzedGuess();
+    const { openEndOfRoundMsg, returnLastAnalyzedGuess, code, currentRoundPoints, points } = this.props;
+    const { correctNumbers, correctLocations } = returnLastAnalyzedGuess();
 
     return (
       <div>
@@ -90,7 +91,7 @@ class EndOfRoundMsg extends Component {
               </h3>
             )}
 
-            <p className="end-of-round-msg-click-outside">Click anywhere outside of this box to close it.</p>
+            <Button variant="outline-dark" onClick={() => this.props.updateOpenEndOfRoundMsg(false)}>Close</Button>
 
               
           </Modal.Body>

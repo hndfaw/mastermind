@@ -83,7 +83,7 @@ class GussingForm extends Component {
     const {
       roundFinished,
       feedbackRespnse,
-      returnLastAnalayzedGuess,
+      returnLastAnalyzedGuess,
       currentGuesses
     } = this.props;
     const { numOne, numTwo, numThree, numFour } = this.state;
@@ -93,7 +93,7 @@ class GussingForm extends Component {
       <section className="gussing-form-container">
         {feedbackRespnse === "single" && (
           <p className="single-feedback">
-            {returnLastAnalayzedGuess().feedback ||
+            {returnLastAnalyzedGuess().feedback ||
               "Your feedback will be here"}
           </p>
         )}

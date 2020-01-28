@@ -9,26 +9,26 @@ import SideBar from "../sideBar/SideBar";
 import { Route, Switch, NavLink } from "react-router-dom";
 import WelcomePage from "../../component/welcomePage/WelcomePage";
 import Instruction from "../../component/instruction/Instruction";
-import EndOfRoundMsg from '../../component/endOfRoundMsg/EndOfRoundMsg';
+import EndOfRoundMsg from "../../component/endOfRoundMsg/EndOfRoundMsg";
 
 class App extends Component {
   state = {
     code: [],
-    uniqueCodeNums: [],
-    nonExistingNums: [],
     currentGuesses: [],
-    round: 1,
-    successfulRounds: 0,
-    roundFinished: false,
-    difficultyLevel: 7,
-    openSettings: false,
-    feedbackRespnse: "all",
-    points: 0,
     currentRoundPoints: 0,
-    hints: [],
+    difficultyLevel: 7,
+    feedbackRespnse: "all",
     hintIsReady: false,
+    hints: [],
     hintsBalance: 3,
-    openEndOfRoundMsg: false
+    nonExistingNums: [],
+    openEndOfRoundMsg: false,
+    openSettings: false,
+    points: 0,
+    round: 1,
+    roundFinished: false,
+    successfulRounds: 0,
+    uniqueCodeNums: [],
   };
 
   componentDidMount() {
@@ -41,7 +41,7 @@ class App extends Component {
     fetchCode(level)
       .then(data => data.split(/\r|\n/))
       .then(data => data.map(d => d !== "" && generatedCode.push(parseInt(d))))
-      .then(() => this.setState({ code: generatedCode }))
+      .then(() => this.setState({ code:  generatedCode }))
       .then(() => this.findNonExistingNumbers());
   };
 
@@ -66,12 +66,12 @@ class App extends Component {
     const { difficultyLevel } = this.state;
     let hints = [];
     uniqueCodeNums.forEach(codeNum => {
-      hints.push(`Number ${codeNum} exsit in the combination of the code!`);
+      hints.push(`Number ${codeNum} exist in the combination of the code!`);
     });
 
     nonExistingNums.forEach(num => {
       hints.push(
-        `Number ${num} does NOT exsit in the combination of the code!`
+        `Number ${num} does NOT exist in the combination of the code!`
       );
     });
 
@@ -110,14 +110,15 @@ class App extends Component {
       this.analyzingCode(guess);
     }
 
-    let lastGuessAnalyze = this.returnLastAnalayzedGuess();
+    let lastGuessAnalyze = this.returnLastAnalyzedGuess();
 
-    if ( updatedAllGuesses.length === 10) {
-
-      if (lastGuessAnalyze.correctNumbers < 4 ||
-        lastGuessAnalyze.correctLocations < 4) {
-          this.endOfRound();
-        }
+    if (updatedAllGuesses.length === 10) {
+      if (
+        lastGuessAnalyze.correctNumbers < 4 ||
+        lastGuessAnalyze.correctLocations < 4
+      ) {
+        this.endOfRound();
+      }
     }
 
     const { currentGuesses, hintsBalance } = this.state;
@@ -172,19 +173,76 @@ class App extends Component {
     this.setState({ currentGuesses: getCurrentGuesses });
   };
 
-  getCorrectNumbers = (code, guess) => {
-    const copyCode = code.map(codeNumber => codeNumber)
-
-     guess.forEach(guessNumber => {
-      copyCode.forEach((codeNumber, i) => {
-        if(guessNumber === codeNumber) {
-          copyCode.splice(i, 1)
-        }
-      })
-    })
+   createUniqueObject = (combination) => {
+    return combination.reduce((acc, number) => {
   
-    return  4 - copyCode.length;
-  };
+      let total = combination.filter(num => num === number).length
+      acc[number] = total;
+      return acc;
+    }, {})
+  }
+
+   compareCodeAndGuess = (code, guess) => {
+
+    return Object.entries(this.createUniqueObject(guess)).reduce((acc, guessEntry) => {
+       
+     Object.entries(this.createUniqueObject(code)).forEach(codeEntry => {
+       if(!acc.hasOwnProperty(codeEntry[0])) {
+         acc[codeEntry[0]] = codeEntry[1]
+       }
+     })
+  
+     if(acc.hasOwnProperty(guessEntry[0])) {
+        
+        acc[guessEntry[0]] = acc[guessEntry[0]] - guessEntry[1]
+        
+     }
+     
+  
+    return acc;
+    }, {})
+  
+  }
+
+   getCorrectNumbers = (code, guess) => {
+    const obj = this.compareCodeAndGuess(code, guess)
+   
+   let finalNumber =  Object.entries(obj).filter(el => 
+       el[1] > 0
+   ).reduce((total, curr) => {
+      total += curr[1]
+      return total
+   }, 0)
+   
+   return 4 - finalNumber
+    
+ }
+
+  // getCorrectNumbers = (code, guess) => {
+    // const copyCode = [...code];
+    // guess.forEach((guessNumber, i) => {
+
+    //   console.log('Outer index', i)
+
+    //   copyCode.forEach((codeNumber, codeIndex) => {
+
+    //     console.log('inner i', codeIndex)
+
+    //     if (codeNumber === guessNumber) {
+    //       copyCode.splice(codeIndex, 1);
+    //       // return
+    //     }
+
+    //   });
+    //   return
+    // });
+
+    // console.log(copyCode)
+
+    // return 4 - copyCode.length;
+
+  // };
+
 
   getFeedbackNumber = (correctNumbers, correctLocations) => {
     let feedbackNum;
@@ -211,7 +269,7 @@ class App extends Component {
     let feedbackResponse = {
       0: "Your guess was incorrect",
       1: "You had one correct number in wrong location",
-      2: "You had guessed a correct number and its correct location",
+      2: "You had guessed one correct number and its correct location",
       3: `You had ${correctNumbers} correct numbers and ${correctLocations} correct location/s`,
       4: "You found the CORRECT code!"
     };
@@ -222,10 +280,16 @@ class App extends Component {
     const { points, currentGuesses } = this.state;
     let guessBalance = 10 - currentGuesses.length;
     let updatedPoints = points + guessBalance * 10;
-    this.setState({ points: updatedPoints, currentRoundPoints:  guessBalance * 10});
+    this.setState({
+      points: updatedPoints,
+      currentRoundPoints: guessBalance * 10
+    });
   };
 
-  getDifficultyLevel = () => {
+  getDifficultyLevel = type => {
+    // options of type
+    // 1. withLabel
+    // 2. else >> noLabel
     const { difficultyLevel } = this.state;
     const diffLev = {
       7: "Easy",
@@ -233,7 +297,10 @@ class App extends Component {
       28: "Hard",
       56: "Harder"
     };
-    return `${diffLev[difficultyLevel]} (0 - ${difficultyLevel})`;
+
+    return type === "withLabel"
+      ? `${diffLev[difficultyLevel]} (0 - ${difficultyLevel})`
+      : diffLev[difficultyLevel];
   };
 
   updateDifficultyLevel = level => {
@@ -246,7 +313,7 @@ class App extends Component {
   };
 
   updateOpenEndOfRoundMsg = type => {
-    this.setState({ openEndOfRoundMsg:  type});
+    this.setState({ openEndOfRoundMsg: type });
   };
 
   updateFeedbackRespnse = feedbackType => {
@@ -255,13 +322,18 @@ class App extends Component {
 
   endOfRound = result => {
     this.calculatePoints();
-    this.setState({ roundFinished: true, openEndOfRoundMsg: true, hintIsReady: false, hintsBalance: 0 });
+    this.setState({
+      roundFinished: true,
+      openEndOfRoundMsg: true,
+      hintIsReady: false,
+      hintsBalance: 0
+    });
     if (result === "success") {
       let updateSuccessfulRounds = this.state.successfulRounds;
       this.setState({
         successfulRounds: updateSuccessfulRounds + 1,
         hintsBalance: 0,
-        hintIsReady: false,
+        hintIsReady: false
       });
     }
   };
@@ -294,7 +366,7 @@ class App extends Component {
     }
   };
 
-  returnLastAnalayzedGuess = () => {
+  returnLastAnalyzedGuess = () => {
     const { currentGuesses } = this.state;
     const lastAnalyzedGuess =
       currentGuesses.length !== 0
@@ -304,10 +376,7 @@ class App extends Component {
   };
 
   returnGuess = () => {
-    const {
-      feedbackRespnse,
-      currentGuesses,
-    } = this.state;
+    const { feedbackRespnse, currentGuesses } = this.state;
 
     const guess = this.state.currentGuesses.map((g, i) => {
       return (
@@ -381,13 +450,27 @@ class App extends Component {
                   />
 
                   <div className="guesses-container" ref={this._element}>
-                    {this.returnGuess()}
-                  </div>
+                    {currentGuesses.length > 0 ? (
+                      this.returnGuess()
+                    ) : (
+                      <div className="diff-level-note-container">
+                        <p className="diff-level-note-text">
+                          Difficulty level of this game is 
+                          <span className="diff-level-note-status">{this.getDifficultyLevel("noLabel")}</span>
+                        </p>
+                        <p className="diff-level-note-text">The code you need to guess is between</p>
+                        <p className="diff-level-note-text">
+                          <span className="diff-level-note-num">0</span>and 
+                          <span className="diff-level-note-num">{difficultyLevel}</span>
+                        </p>
+                      </div>
+                    )}
+                  </div>  
                   <GuessingForm
                     submitAGuess={this.submitAGuess}
                     roundFinished={roundFinished}
                     restart={this.restart}
-                    returnLastAnalayzedGuess={this.returnLastAnalayzedGuess}
+                    returnLastAnalyzedGuess={this.returnLastAnalyzedGuess}
                     feedbackRespnse={feedbackRespnse}
                     currentGuesses={currentGuesses}
                     difficultyLevel={difficultyLevel}
@@ -405,12 +488,12 @@ class App extends Component {
                   round={round}
                 />
                 <EndOfRoundMsg
-                openEndOfRoundMsg={openEndOfRoundMsg}
-                updateOpenEndOfRoundMsg={this.updateOpenEndOfRoundMsg}
-                returnLastAnalayzedGuess={this.returnLastAnalayzedGuess}
-                code={code}
-                currentRoundPoints={currentRoundPoints}
-                points={points}
+                  openEndOfRoundMsg={openEndOfRoundMsg}
+                  updateOpenEndOfRoundMsg={this.updateOpenEndOfRoundMsg}
+                  returnLastAnalyzedGuess={this.returnLastAnalyzedGuess}
+                  code={code}
+                  currentRoundPoints={currentRoundPoints}
+                  points={points}
                 />
               </div>
             )}
@@ -425,7 +508,6 @@ class App extends Component {
                   The page you’re looking for can’t be found.
                 </p>
                 <NavLink to="/game" className="back-to-game">
-                  {" "}
                   Back to the Game page
                 </NavLink>
               </div>

@@ -31,7 +31,7 @@ class SideBar extends Component {
           <p className="">Points: {points}</p>
           <p className="">Successful Rounds: {successfulRounds}</p>
           <p>
-            Difficulty Level: <span>{this.props.getDifficultyLevel()}</span>
+            Difficulty Level: <span>{this.props.getDifficultyLevel('withLabel')}</span>
           </p>
         </div>
         <Hint

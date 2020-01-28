@@ -43,7 +43,7 @@ class Instruction extends Component {
   image = () => {
     return data.map((img, i) => {
         return (
-          <img src={img} alt="main" className="instr-img" style={this.instrImgStyle(i + 1)}/>
+          <img src={img} alt="main" key={i} className="instr-img" style={this.instrImgStyle(i + 1)}/>
 
         )
     })
