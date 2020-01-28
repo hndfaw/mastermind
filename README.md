@@ -35,11 +35,11 @@ This is a game where you try to guess the number combinations. At the end of eac
 
 ## Game rules
 
-- At the start of the game the computer will randomly select a pattern of four different numbers from a total of 8 different numbers.
+1. At the start of the game the computer will randomly select a pattern of four different numbers from a total of 8 different numbers.
 
-- You will have 10 attempts to guess the number combinations
+1. You will have 10 attempts to guess the number combinations
 
-- At the end of each guess, computer will provide one of the following response
+1. At the end of each guess, computer will provide one of the following response
 
 as feedback:
     *your guess was incorrect
