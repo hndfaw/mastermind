@@ -65,12 +65,13 @@ class SideBar extends Component {
               <a href="https://github.com/hndfaw/mastermind" className="side-bar-instructions-inner-link" target="blank" >GitHub</a>
               <img className="new-tab-icon-single" src={newTabIcon} alt="new tab icon" />
           </div>
+
           <DropdownButton id="dropdown-basic-button" title="Developer" drop={'up'}>
               <Dropdown.Item className="dropdown-item" target="blank" href="https://www.hindreen.net/">Portfolio <img className="new-tab-icon" src={newTabIconDarker} alt="new tab icon" /></Dropdown.Item>
               <Dropdown.Item className="dropdown-item"  target="blank" href="https://www.linkedin.com/in/hndfaw/">LinkedIn <img className="new-tab-icon" src={newTabIconDarker} alt="new tab icon" /></Dropdown.Item>
               <Dropdown.Item className="dropdown-item"  target="blank" href="https://github.com/hndfaw/">GitHub <img className="new-tab-icon" src={newTabIconDarker} alt="new tab icon" /></Dropdown.Item>
           </DropdownButton>          
-          
+
         </div>
       </section>
     );
