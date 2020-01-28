@@ -42,8 +42,8 @@ This is a game where you try to guess the number combinations. At the end of eac
 1. At the end of each guess, computer will provide one of the following response
 
 as feedback:
-    1.2 your guess was incorrect
-    1.2 You had one correct number in wrong location
+1.1 your guess was incorrect
+1.1 You had one correct number in wrong location
     *You had guessed one correct number and its correct location
     *You had X correct numbers and Y correct location/s.
     *You found the CORRECT code.
