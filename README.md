@@ -42,11 +42,11 @@ This is a game where you try to guess the number combinations. At the end of eac
 - At the end of each guess, computer will provide one of the following response
 
 as feedback:
-    • Your guess was incorrect
-    • You had one correct number in wrong location
-    • You had guessed one correct number and its correct location
-    • You had X correct numbers and Y correct location/s`
-    • You found the CORRECT code.
+    - Your guess was incorrect
+    - You had one correct number in wrong location
+    - You had guessed one correct number and its correct location
+    - You had X correct numbers and Y correct location/s.
+    - You found the CORRECT code.
 
 - Duplicate numbers are allowed
 - There are hints to help you win. Every round you play, you will get three hints. The hints will be available after you make your second guess, and you only can use one hint per guess. After you click on the hint, it will only last for 6 seconds then the card will flip back, so you will need to read it before it goes away.
