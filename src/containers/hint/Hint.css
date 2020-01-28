@@ -1,11 +1,14 @@
 .hint {
   color: #fff;
   display: flex;
-  align-items: flex-end;
-  margin: 100px auto 0 auto;
+  align-items: center;
   flex-direction: column;
+  width: -moz-fit-content;
   width: fit-content;
   cursor: default;
+  margin: 80px 0;
+  justify-content: center;
+  width: 100%;
 }
 
 .flip-card {

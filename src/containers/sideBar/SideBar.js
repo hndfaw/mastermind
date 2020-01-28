@@ -52,7 +52,7 @@ class SideBar extends Component {
           roundFinished={roundFinished}
         />
         <div className="side-bar-btns-container">
-          <Button
+        <Button
             variant="dark"
             className="settings-btn"
             onClick={() => this.props.updateOpenSettings(true)}
@@ -66,14 +66,11 @@ class SideBar extends Component {
               <img className="new-tab-icon-single" src={newTabIcon} alt="new tab icon" />
           </div>
 
-          
-
           <DropdownButton id="dropdown-basic-button" title="Developer" drop={'up'}>
               <Dropdown.Item className="dropdown-item" target="blank" href="https://www.hindreen.net/">Portfolio <img className="new-tab-icon" src={newTabIconDarker} alt="new tab icon" /></Dropdown.Item>
               <Dropdown.Item className="dropdown-item"  target="blank" href="https://www.linkedin.com/in/hndfaw/">LinkedIn <img className="new-tab-icon" src={newTabIconDarker} alt="new tab icon" /></Dropdown.Item>
               <Dropdown.Item className="dropdown-item"  target="blank" href="https://github.com/hndfaw/">GitHub <img className="new-tab-icon" src={newTabIconDarker} alt="new tab icon" /></Dropdown.Item>
-          </DropdownButton>
-          
+          </DropdownButton>          
 
         </div>
       </section>

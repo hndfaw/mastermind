@@ -2,9 +2,11 @@
   width: 35vw;
   background: #35363a;
   cursor: default;
-  height: 100vh;
-  position: fixed;
-  top: 0;
+  height: unset;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
 }
 
 .logo {
@@ -37,9 +39,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: fixed;
-  bottom: 15px;
-  left: 12px;
+  margin: 10px;
 }
 
 .side-bar-instructions-link {
@@ -59,7 +59,7 @@
   background: transparent;
   border: transparent;
   outline: none;
-  box-shadow:  0 0 0 0 #ddd;
+  box-shadow: 0 0 0 0 #ddd;
   padding: 0 0 2px 0;
   margin: 0;
   font-size: 14px;
@@ -94,4 +94,22 @@
 .side-bar-instructions-link:hover .side-bar-instructions-inner-link {
   color: #fff;
   text-decoration: none;
+
+}
+
+@media screen and (max-width: 900px) {
+  .app-side-bar {
+    width: 100%;
+    background: #35363a;
+    cursor: default;
+  }
+
+  .side-bar-btns-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* position: absolute;
+    bottom: 15px;
+    left: 12px; */
+  }
 }

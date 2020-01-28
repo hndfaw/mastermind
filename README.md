@@ -1,6 +1,6 @@
 # Mastermind
 
-[Mastermind Live Website!](https://master.d3bmjn4idj74od.amplifyapp.com/)
+[Mastermind Website!](https://master.d3bmjn4idj74od.amplifyapp.com/)
 
 
 Created By: Hindreen Abdullah
@@ -44,11 +44,14 @@ Open http://localhost:3000 to view it in the browser.
 
 ## Extensions to be added:
 
-1. Make the game responsive; currently, the player cannot play on their small screens like phones.
+1. Make the game responsive; currently, the game is responsive but player cannot have the same experience as they would playing on desktop.
 
 2. User authentication to track and save game progress for each user.
 
 3. Give users the option to change numbers to colors when they play the game.
+
+4. Add timer to the game.
+
 
 ## Project Screenshots:
 

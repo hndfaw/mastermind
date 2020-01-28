@@ -1,6 +1,7 @@
 import mainImg from "../../assets/images/01-main.jpg";
 import codeImg from "../../assets/images/02-code-.jpg";
-import formImg from "../../assets/images/03-code-.jpg";
+import codeImg2 from "../../assets/images/03-code-.jpg";
+import codeImg3 from "../../assets/images/03-code-2-1.jpg";
 import dontWorryImg from "../../assets/images/04-code-.jpg";
 import formImg1 from "../../assets/images/05-form-.jpg";
 import formImg2 from "../../assets/images/06-form-.jpg";
@@ -24,7 +25,8 @@ import instImg from "../../assets/images/22-instruction-.jpg";
 const data = [
     mainImg,
     codeImg,
-    formImg,
+    codeImg2,
+    codeImg3,
     dontWorryImg,
     formImg1,
     formImg2,
