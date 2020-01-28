@@ -47,6 +47,7 @@
   color: rgba(255, 255, 255, 0.7);
   font-size: 14px;
   padding-right: 20px;
+  
 }
 
 .side-bar-instructions-link:hover {
@@ -93,6 +94,7 @@
 .side-bar-instructions-link:hover .side-bar-instructions-inner-link {
   color: #fff;
   text-decoration: none;
+
 }
 
 @media screen and (max-width: 900px) {
