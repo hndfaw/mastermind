@@ -2,11 +2,10 @@ import React, { Component } from "react";
 import "./Hint.css";
 
 class Hint extends Component {
-  
   state = {
+    hint: "",
     randomCodeIndex: 0,
     randomCodeNum: 0,
-    hint: "",
     secondSideCard: false,
   };
 
@@ -14,7 +13,6 @@ class Hint extends Component {
     const { hintIsReady, updateHintReady, hints } = this.props;
 
     if (hintIsReady) {
-
       const min = 0;
       const max = parseInt(hints.length - 1);
       const minFixed = min;
@@ -35,12 +33,12 @@ class Hint extends Component {
       ? {
           color: "#fff",
           cursor: "pointer",
-          backgroundColor: 'rgb(47, 98, 154)',
+          backgroundColor: "rgb(47, 98, 154)"
         }
       : {
           color: null,
           cursor: "default",
-          borderColor: null,
+          borderColor: null
         };
   };
 
@@ -98,41 +96,53 @@ class Hint extends Component {
         };
   };
 
+  colorCode = () => {
+    return (
+      <div className="color-code-container">
+        <p className="color-code-1 color-code">
+          Correct number in the correct location
+        </p>
+        <p className="color-code-2 color-code">
+          Possible correct number in the wrong location, or just a duplicate!
+        </p>
+        <p className="color-code-3 color-code">The number does NOT exist</p>
+      </div>
+    );
+  };
 
   render() {
     const { hint } = this.state;
     const { hintsBalance, roundFinished } = this.props;
-    const colorCode = <div className="color-code-container">
-      <p className="color-code-1 color-code">Correct number in the correct location</p>
-      <p className="color-code-2 color-code">Possible correct number in the wrong location, or just a duplicate!</p>
-      <p className="color-code-3 color-code">The number does NOT exist</p>
-    </div>
 
-	return (
+    return (
       <section className="hint">
-       {roundFinished ? colorCode : <div>
-          <div className="flip-card">
-            <div className="flip-card-inner" style={this.flipStyle()}>
-              <article
-                style={this.frontStyle()}
-                className="flip-card-front"
-                onClick={this.returnAHint}
-              >
-                {this.hintFrontSideMsg()}
-              </article>
+        {roundFinished ? (
+          this.colorCode()
+        ) : (
+          <div>
+            <div className="flip-card">
+              <div className="flip-card-inner" style={this.flipStyle()}>
+                <article
+                  style={this.frontStyle()}
+                  className="flip-card-front"
+                  onClick={this.returnAHint}
+                >
+                  {this.hintFrontSideMsg()}
+                </article>
 
-              <article className="flip-card-back">
-                <p className="flip-card-hint">{hint}</p>
-              </article>
+                <article className="flip-card-back">
+                  <p className="flip-card-hint">{hint}</p>
+                </article>
+              </div>
+            </div>
+            <div className="hits-balance-timer-container">
+              <p className="hits-balance">Hints balance: {hintsBalance}</p>
+              <p style={this.timerStyle()} className="show-timer">
+                0
+              </p>
             </div>
           </div>
-          <div className="hits-balance-timer-container">
-            <p className="hits-balance">Hints balance: {hintsBalance}</p>
-            <p style={this.timerStyle()} className="show-timer">
-              0
-            </p>
-          </div>
-        </div>}
+        )}
       </section>
     );
   }

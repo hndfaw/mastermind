@@ -1,64 +1,63 @@
 .welcome-page {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .welcome-red-logo {
-    height: 26px;
-    margin-left: 8px;
+  height: 26px;
+  margin-left: 8px;
 }
 
 .weloce-header {
-    margin-top: 9px;
-    color: #007BFF;
+  color: #007bff;
+  margin-top: 9px;
 }
 
 .welcome-page-header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 100px 0 120px 0;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin: 100px 0 120px 0;
 }
 
 .welcome-body {
-    font-size: 24px;
-    max-width: 600px;
-    color: #4b5056;
+  color: #4b5056;
+  font-size: 24px;
+  max-width: 600px;
 }
 
 .welcome-btn {
-    color: #fff;
-    font-size: 20px;
-    /* border: 1px solid rgb(70, 72, 77); */
-    text-decoration: none;
-    border-radius: 3px;
-    padding: 6px 13px;
-    border: 1px oslid rgb(70, 72, 77);
-    background: #DC3545;
-  }
+  background: #dc3545;
+  border-radius: 3px;
+  border: 1px oslid rgb(70, 72, 77);
+  color: #fff;
+  font-size: 20px;
+  padding: 6px 13px;
+  text-decoration: none;
+}
 
-  .welcome-btn-instructions {
-      background: #FFC108;
-  }
+.welcome-btn-instructions {
+  background: #ffc108;
+}
 
-  .welcome-btn-instructions:hover {
-    background: rgba(255, 193, 8, 0.85);
+.welcome-btn-instructions:hover {
+  background: rgba(255, 193, 8, 0.85);
 }
 
 .welcome-btn-game:hover {
-    background: hsla(354, 70%, 54%, 0.85);
+  background: hsla(354, 70%, 54%, 0.85);
 }
-  
-  .welcome-btn:hover {
-    text-decoration: none;
-    color: #fff;
-  }
 
-  .welcome-page-btns-container {
-      margin-top: 100px;
-      display: flex;
-      justify-content: space-between;
-      width: 350px;
-  }
+.welcome-btn:hover {
+  color: #fff;
+  text-decoration: none;
+}
+
+.welcome-page-btns-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 100px;
+  width: 350px;
+}

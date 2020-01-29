@@ -2,29 +2,31 @@ import React, { Component } from "react";
 import "./CodeKeeper.css";
 
 class CodeKeeper extends Component {
+  fontStyle = () => {
+    const { roundFinished } = this.props;
+    return roundFinished ? { fontSize: "1.88em" } : { fontSize: "2.6em" };
+  };
 
-	fontStyle = () => {
-	 const { roundFinished } = this.props;
-	 return roundFinished
-      ? { fontSize: "1.88em" }
-      : { fontSize: "2.6em" };
-  }
-  
   codeKeeperExtraLayerStyle = () => {
     const { openEndOfRoundMsg } = this.props;
-    return !openEndOfRoundMsg ? {
-      display: 'none'
-    } : {
-      display: 'block'
-    }
-  }
+    return !openEndOfRoundMsg
+      ? {
+          display: "none"
+        }
+      : {
+          display: "block"
+        };
+  };
 
   render() {
-	const { code, roundFinished } = this.props;
-    
+    const { code, roundFinished } = this.props;
+
     return (
       <div className="code-keeper">
-        <div className="code-keeper-extra-layer" style={this.codeKeeperExtraLayerStyle()}></div>
+        <div
+          className="code-keeper-extra-layer"
+          style={this.codeKeeperExtraLayerStyle()}
+        ></div>
         <div className="the-code">
           <p className="the-code-num" style={this.fontStyle()}>
             {roundFinished ? code[0] : "*"}

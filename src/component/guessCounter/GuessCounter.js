@@ -17,7 +17,6 @@ class GuessCounter extends Component {
   };
 
   generateElement = () => {
-
     return this.generateGuessStatus().map((el, i) => {
       if (el === 1) {
         return <div className="single-guess-counter" key={i}></div>;

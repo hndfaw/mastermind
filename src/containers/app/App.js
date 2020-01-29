@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import "./App.css";
 import { fetchCode } from "../../api/apiCalls";
 import GuessingForm from "../guessingForm/GuessingForm";
-import Guess from "../guess/Guess";
-import CodeKeeper from "../codeKeeper/CodeKeeper";
+import Guess from "../../component/guess/Guess";
+import CodeKeeper from "../../component/codeKeeper/CodeKeeper";
 import Settings from "../settings/Settings";
 import SideBar from "../sideBar/SideBar";
 import { Route, Switch, NavLink } from "react-router-dom";
@@ -27,7 +27,7 @@ class App extends Component {
     points: 0,
     round: 1,
     roundFinished: false,
-    successfulRounds: 0,
+    successfulRounds: 0
   };
 
   componentDidMount() {
@@ -366,22 +366,22 @@ class App extends Component {
 
   render() {
     const {
-      roundFinished,
       code,
       currentGuesses,
-      round,
-      successfulRounds,
-      openSettings,
+      currentRoundPoints,
       difficultyLevel,
       feedbackRespnse,
-      points,
-      nonExistingNums,
-      uniqueCodeNums,
-      hints,
       hintIsReady,
+      hints,
       hintsBalance,
+      nonExistingNums,
       openEndOfRoundMsg,
-      currentRoundPoints
+      openSettings,
+      points,
+      round,
+      roundFinished,
+      successfulRounds,
+      uniqueCodeNums,
     } = this.state;
 
     return (
@@ -395,21 +395,21 @@ class App extends Component {
             render={() => (
               <div className="home-page">
                 <SideBar
-                  currentGuesses={currentGuesses}
-                  round={round}
-                  successfulRounds={successfulRounds}
-                  getDifficultyLevel={this.getDifficultyLevel}
-                  updateOpenSettings={this.updateOpenSettings}
-                  points={points}
-                  roundFinished={roundFinished}
                   code={code}
+                  currentGuesses={currentGuesses}
                   difficultyLevel={difficultyLevel}
-                  nonExistingNums={nonExistingNums}
-                  uniqueCodeNums={uniqueCodeNums}
-                  hints={hints}
+                  getDifficultyLevel={this.getDifficultyLevel}
                   hintIsReady={hintIsReady}
-                  updateHintReady={this.updateHintReady}
+                  hints={hints}
                   hintsBalance={hintsBalance}
+                  nonExistingNums={nonExistingNums}
+                  points={points}
+                  round={round}
+                  roundFinished={roundFinished}
+                  successfulRounds={successfulRounds}
+                  uniqueCodeNums={uniqueCodeNums}
+                  updateHintReady={this.updateHintReady}
+                  updateOpenSettings={this.updateOpenSettings}
                 />
                 <div className="game">
                   <CodeKeeper
@@ -443,33 +443,33 @@ class App extends Component {
                     )}
                   </div>
                   <GuessingForm
-                    submitAGuess={this.submitAGuess}
-                    roundFinished={roundFinished}
-                    restart={this.restart}
-                    returnLastAnalyzedGuess={this.returnLastAnalyzedGuess}
-                    feedbackRespnse={feedbackRespnse}
                     currentGuesses={currentGuesses}
                     difficultyLevel={difficultyLevel}
+                    feedbackRespnse={feedbackRespnse}
+                    restart={this.restart}
+                    returnLastAnalyzedGuess={this.returnLastAnalyzedGuess}
+                    roundFinished={roundFinished}
+                    submitAGuess={this.submitAGuess}
                   />
                 </div>
                 <Settings
-                  updateDifficultyLevel={this.updateDifficultyLevel}
-                  difficultyLevel={difficultyLevel}
                   currentGuesses={currentGuesses}
-                  openSettings={openSettings}
-                  updateOpenSettings={this.updateOpenSettings}
-                  updateFeedbackRespnse={this.updateFeedbackRespnse}
+                  difficultyLevel={difficultyLevel}
                   feedbackRespnse={feedbackRespnse}
+                  openSettings={openSettings}
                   restart={this.restart}
                   round={round}
+                  updateDifficultyLevel={this.updateDifficultyLevel}
+                  updateFeedbackRespnse={this.updateFeedbackRespnse}
+                  updateOpenSettings={this.updateOpenSettings}
                 />
                 <EndOfRoundMsg
-                  openEndOfRoundMsg={openEndOfRoundMsg}
-                  updateOpenEndOfRoundMsg={this.updateOpenEndOfRoundMsg}
-                  returnLastAnalyzedGuess={this.returnLastAnalyzedGuess}
                   code={code}
                   currentRoundPoints={currentRoundPoints}
+                  openEndOfRoundMsg={openEndOfRoundMsg}
                   points={points}
+                  returnLastAnalyzedGuess={this.returnLastAnalyzedGuess}
+                  updateOpenEndOfRoundMsg={this.updateOpenEndOfRoundMsg}
                 />
               </div>
             )}

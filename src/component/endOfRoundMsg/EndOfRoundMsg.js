@@ -3,10 +3,12 @@ import "./EndOfRoundMsg.css";
 import Modal from "react-bootstrap/Modal";
 
 class EndOfRoundMsg extends Component {
-
   msgTheme = () => {
     const { returnLastAnalyzedGuess } = this.props;
-    const { correctNumbers = 4, correctLocations = 4 } = returnLastAnalyzedGuess();
+    const {
+      correctNumbers = 4,
+      correctLocations = 4
+    } = returnLastAnalyzedGuess();
     if (correctNumbers === 4 && correctLocations === 4) {
       return {
         background: "#007BFF",
@@ -16,12 +18,18 @@ class EndOfRoundMsg extends Component {
       return {
         background: "#9da3ad",
         color: "rgb(64, 64, 64)"
-    };
+      };
     }
   };
 
   render() {
-    const { openEndOfRoundMsg, returnLastAnalyzedGuess, code, currentRoundPoints, points } = this.props;
+    const {
+      openEndOfRoundMsg,
+      returnLastAnalyzedGuess,
+      code,
+      currentRoundPoints,
+      points
+    } = this.props;
     const { correctNumbers, correctLocations } = returnLastAnalyzedGuess();
 
     return (
@@ -33,7 +41,11 @@ class EndOfRoundMsg extends Component {
           aria-labelledby="example-modal-sizes-title-lg"
           className="end-of-round-msg-modal"
         >
-          <Modal.Header className="end-of-round-msg-modal-header" style={this.msgTheme()} closeButton>
+          <Modal.Header
+            className="end-of-round-msg-modal-header"
+            style={this.msgTheme()}
+            closeButton
+          >
             <Modal.Title>Round Over!</Modal.Title>
           </Modal.Header>
           <Modal.Body className="end-of-round-msg-modal-body">
@@ -47,47 +59,49 @@ class EndOfRoundMsg extends Component {
               </h3>
             )}
 
-              <div className="end-of-round-msg-the-code">
-                <p
-                  style={this.msgTheme()}
-                  className="end-of-round-msg-the-code-num"
-                >
-                  {code[0]}
-                </p>
-                <p
-                  style={this.msgTheme()}
-                  className="end-of-round-msg-the-code-num"
-                >
-                  {code[1]}
-                </p>
-                <p
-                  style={this.msgTheme()}
-                  className="end-of-round-msg-the-code-num"
-                >
-                  {code[2]}
-                </p>
-                <p
-                  style={this.msgTheme()}
-                  className="end-of-round-msg-the-code-num"
-                >
-                  {code[3]}
-                </p>
-              </div>
+            <div className="end-of-round-msg-the-code">
+              <p
+                style={this.msgTheme()}
+                className="end-of-round-msg-the-code-num"
+              >
+                {code[0]}
+              </p>
+              <p
+                style={this.msgTheme()}
+                className="end-of-round-msg-the-code-num"
+              >
+                {code[1]}
+              </p>
+              <p
+                style={this.msgTheme()}
+                className="end-of-round-msg-the-code-num"
+              >
+                {code[2]}
+              </p>
+              <p
+                style={this.msgTheme()}
+                className="end-of-round-msg-the-code-num"
+              >
+                {code[3]}
+              </p>
+            </div>
 
-              {correctNumbers === 4 && correctLocations === 4 ? (
+            {correctNumbers === 4 && correctLocations === 4 ? (
               <div className="end-of-round-msg-title">
-                <p className="end-of-round-msg-points-title">Points Earned this Round</p>
-                <p className="end-of-round-msg-points-point">{currentRoundPoints}</p>
+                <p className="end-of-round-msg-points-title">
+                  Points Earned this Round
+                </p>
+                <p className="end-of-round-msg-points-point">
+                  {currentRoundPoints}
+                </p>
                 <p className="end-of-round-msg-points-title">Total Points</p>
                 <p className="end-of-round-msg-points-point">{points}</p>
                 <h3 className="end-of-round-msg-title do-it-again-title">
-                Do it again!
-              </h3>
+                  Do it again!
+                </h3>
               </div>
             ) : (
-              <h3 className="end-of-round-msg-title">
-                Try again!
-              </h3>
+              <h3 className="end-of-round-msg-title">Try again!</h3>
             )}
           </Modal.Body>
         </Modal>

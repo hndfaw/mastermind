@@ -1,10 +1,10 @@
 .instructions-page {
+  align-items: center;
+  background: rgb(250, 250, 250);
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
   position: relative;
-  background: rgb(250, 250, 250);
 }
 
 .instructions-red-logo {
@@ -13,44 +13,44 @@
 }
 
 .instructions-header {
-  margin-top: 9px;
   color: #ffc108;
+  margin-top: 9px;
 }
 
 .instructions-page-header {
+  align-items: center;
   display: flex;
   justify-content: center;
-  align-items: center;
   margin: 50px 0 120px 0;
 }
 
 .instructions-body {
+  color: #4b5056;
   font-size: 24px;
   max-width: 600px;
-  color: #4b5056;
 }
 
 .instructions-btn-game {
+  background: #dc3546de;
+  border-radius: 3px;
+  border: 1px oslid rgb(70, 72, 77);
   color: #fff;
   font-size: 20px;
-  text-decoration: none;
-  border-radius: 3px;
-  padding: 6px 13px;
-  border: 1px oslid rgb(70, 72, 77);
-  background: #dc3546de;
   margin: 19px auto 0 14px;
+  padding: 6px 13px;
+  text-decoration: none;
 }
 
 .instructions-btn-game:hover {
   background: #dc3545;
-  text-decoration: none;
   color: #fff;
+  text-decoration: none;
 }
 
 .instructions-page-btns-container {
-  margin-top: 100px;
   display: flex;
   justify-content: space-between;
+  margin-top: 100px;
   width: 350px;
 }
 
@@ -63,60 +63,58 @@
 }
 
 .instructions-page-btns-container {
+  bottom: 15px;
   position: fixed;
   right: 10px;
-  bottom: 15px;
 }
 
 .instructions-imgs-instructions {
-  display: flex;
-  justify-content: center;
   align-items: center;
-  flex-direction: column;
-  margin: 100px 0 0 0;
-  border-top: 1px solid lightgray;
-  width: 100%;
   background: #fff;
+  border-top: 1px solid lightgray;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 100px 0 0 0;
+  width: 100%;
 }
 
 .instructions-prev-next-btn {
-  height: 38px;
-  width: 60px;
+  border-radius: 0;
   font-size: 16px;
   font-size: 23px;
+  height: 38px;
   padding: 0;
-  border-radius: 0;
+  width: 60px;
 }
 
 .instructions-btn-game-2 {
-  height: 38px;
-  background: #007BFF;
-  display: flex;
   align-items: center;
-  justify-content: center;
-  color: #fff;
-  padding: 12px;
+  background: #007bff;
   background: #dc3546de;
+  color: #fff;
+  display: flex;
+  height: 38px;
+  justify-content: center;
+  padding: 12px;
 }
 
 .instructions-btn-game-2:hover {
+  background: #dc3546;
   color: #fff;
   text-decoration: none;
-  background: #dc3546;
 }
 
 .instructions-buttons {
-  display: flex;
-  width: 32%;
-  margin: 50px 0 60px 0;
-  justify-content: space-between;
   align-items: center;
   background: #e2e2e2;
+  display: flex;
+  justify-content: space-between;
+  margin: 50px 0 60px 0;
+  width: 32%;
 }
 
 .instructions-imgs-title {
+  color: #26a243;
   margin: 50px 0 70px 0;
-  color: #26A243;
 }
-
-
