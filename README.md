@@ -61,7 +61,7 @@ To learn more, visit:
 [Mastemind Website Instructions page](https://master.d3bmjn4idj74od.amplifyapp.com/instructions)
 
 
-## To View Mastermind on Your Computer Clone down this Repo
+## To View Mastermind on Your Computer, follow below steps:
 
 ###  In your terminal do the following steps; and hit return/enter after each step:
 
