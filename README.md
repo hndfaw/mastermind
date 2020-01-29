@@ -1,5 +1,7 @@
 # Mastermind
 
+Mastermind is a web application, you can play it online on the below website, or you can clone it this code down to your computer to use it locally. The steps of how to install and run this application locally can be found on this page.
+
 [Mastermind Website!](https://master.d3bmjn4idj74od.amplifyapp.com/)
 
 
