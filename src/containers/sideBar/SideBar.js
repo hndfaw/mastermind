@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./SideBar.css";
 import logo from "../../assets/images/mastermind-logo-3.png";
 import Button from "react-bootstrap/Button";
-import Hint from "../hint/Hint";
+import Hint from "../../component/hint/Hint";
 import { NavLink } from 'react-router-dom';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
