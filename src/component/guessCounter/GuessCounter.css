@@ -4,24 +4,24 @@
 }
 
 .guess-counter-title {
+  font-size: 13px;
   font-weight: normal;
   margin: 0;
-  font-size: 13px;
   width: 120px;
 }
 
 .guess-counter-container {
-  width: 100%;
+  align-items: center;
   display: flex;
   justify-content: space-around;
-  align-items: center;
+  width: 100%;
 }
 
 .single-guess-counter {
   background: #343a40;
+  border-right: 1px solid #dbdde0;
   height: 9px;
   width: 10%;
-  border-right: 1px solid #dbdde0;
 }
 
 .empty {

@@ -5,8 +5,6 @@ import { NavLink } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import data from "../../assets/data/images";
 
-
-
 class Instruction extends Component {
   state = {
     currentImg: 1,
@@ -14,7 +12,7 @@ class Instruction extends Component {
   };
 
   componentDidMount() {
-      this.setState({totalImages: data.length})
+    this.setState({ totalImages: data.length });
   }
 
   instrImgStyle = imgNum => {
@@ -42,21 +40,28 @@ class Instruction extends Component {
 
   image = () => {
     return data.map((img, i) => {
-        return (
-          <img src={img} alt="main" key={i} className="instr-img" style={this.instrImgStyle(i + 1)}/>
-
-        )
-    })
-  }
+      return (
+        <img
+          src={img}
+          alt="main"
+          key={i}
+          className="instr-img"
+          style={this.instrImgStyle(i + 1)}
+        />
+      );
+    });
+  };
 
   render() {
-      const { totalImages, currentImg } = this.state;
+    const { totalImages, currentImg } = this.state;
 
-      return (
+    return (
       <section className="instructions-page">
-        {currentImg !== totalImages && <NavLink to="/game" className="instructions-btn-game">
-          Start Game
-        </NavLink>}
+        {currentImg !== totalImages && (
+          <NavLink to="/game" className="instructions-btn-game">
+            Start Game
+          </NavLink>
+        )}
         <div className="instructions-page-header">
           <img className="instructions-red-logo" src={redLogo} alt="logo" />
           <h2 className="instructions-header">Instructions</h2>
@@ -70,10 +75,8 @@ class Instruction extends Component {
         </p>
 
         <div className="instructions-imgs-instructions">
-            <h3 className="instructions-imgs-title">Visual Demo</h3>
-          <div>
-              {this.image()}
-          </div>
+          <h3 className="instructions-imgs-title">Visual Demo</h3>
+          <div>{this.image()}</div>
           <div className="instructions-buttons">
             <Button
               onClick={() => this.updateImgNumber("prev")}
@@ -83,18 +86,24 @@ class Instruction extends Component {
             >
               &#10094;
             </Button>
-            <p>{currentImg} / <span>{totalImages}</span></p>
-            {currentImg !== totalImages && <Button
-              onClick={() => this.updateImgNumber("next")}
-              className="instructions-prev-next-btn"
-              variant="primary"
-              disabled={currentImg === totalImages}
-            >
-              &#10095;
-            </Button>}
-            {currentImg === totalImages && <NavLink to="/game" className="instructions-btn-game-2">
-              Start Game
-            </NavLink>}
+            <p>
+              {currentImg} / <span>{totalImages}</span>
+            </p>
+            {currentImg !== totalImages && (
+              <Button
+                onClick={() => this.updateImgNumber("next")}
+                className="instructions-prev-next-btn"
+                variant="primary"
+                disabled={currentImg === totalImages}
+              >
+                &#10095;
+              </Button>
+            )}
+            {currentImg === totalImages && (
+              <NavLink to="/game" className="instructions-btn-game-2">
+                Start Game
+              </NavLink>
+            )}
           </div>
         </div>
       </section>

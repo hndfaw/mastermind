@@ -7,8 +7,8 @@ import Modal from "react-bootstrap/Modal";
 
 class Settings extends Component {
   state = {
-    restartWindowOpen: false,
-    restartType: ""
+    restartType: "",
+    restartWindowOpen: false
   };
 
   handleChangeDifficulty = value => {
@@ -16,7 +16,7 @@ class Settings extends Component {
   };
 
   handleChangeFeedbackType = feedbackType => {
-    this.props.updateFeedbackRespnse(feedbackType);
+    this.props.updateFeedbackResponse(feedbackType);
   };
 
   handleRestart = (closeOpen, type) => {
@@ -39,10 +39,10 @@ class Settings extends Component {
 
   render() {
     const {
-      difficultyLevel,
       currentGuesses,
+      difficultyLevel,
+      feedbackResponse,
       openSettings,
-      feedbackRespnse,
       round
     } = this.props;
     const { restartWindowOpen, restartType } = this.state;
@@ -50,11 +50,11 @@ class Settings extends Component {
     return (
       <div>
         <Modal
-          size="md"
-          show={openSettings}
-          onHide={() => this.props.updateOpenSettings(false)}
-          aria-labelledby="example-modal-sizes-title-lg"
           animation={false}
+          aria-labelledby="example-modal-sizes-title-lg"
+          onHide={() => this.props.updateOpenSettings(false)}
+          show={openSettings}
+          size="md"
         >
           <Modal.Header className="settings-header">
             <Modal.Title>Game Settings</Modal.Title>
@@ -63,11 +63,11 @@ class Settings extends Component {
             <div>
               <h6 className="settings-title">Game Difficulty Level</h6>
               <ToggleButtonGroup
-                type="radio"
-                name="options"
                 defaultValue={difficultyLevel}
-                size="sm"
+                name="options"
                 onChange={this.handleChangeDifficulty}
+                size="sm"
+                type="radio"
               >
                 <ToggleButton disabled={currentGuesses.length !== 0} value={7}>
                   Easy (0 - 7)
@@ -100,16 +100,16 @@ class Settings extends Component {
             <div>
               <h6 className="settings-title">Showing Feedback</h6>
               <ToggleButtonGroup
-                type="radio"
+                defaultValue={feedbackResponse}
                 name="options"
-                defaultValue={feedbackRespnse}
-                size="sm"
                 onChange={this.handleChangeFeedbackType}
+                size="sm"
+                type="radio"
               >
                 <ToggleButton value={"single"}>Only Last Response</ToggleButton>
                 <ToggleButton value={"all"}>All Responses</ToggleButton>
               </ToggleButtonGroup>
-              {feedbackRespnse === "single" ? (
+              {feedbackResponse === "single" ? (
                 <p className="settings-note">
                   This setting will only show the feedback of your last guess.
                 </p>
@@ -150,11 +150,11 @@ class Settings extends Component {
           </Modal.Footer>
         </Modal>
         <Modal
-          size="md"
-          show={restartWindowOpen}
-          onHide={() => this.handleRestart(false)}
-          aria-labelledby="example-modal-sizes-title-lg"
           animation={false}
+          aria-labelledby="example-modal-sizes-title-lg"
+          onHide={() => this.handleRestart(false)}
+          show={restartWindowOpen}
+          size="md"
         >
           <Modal.Header
             style={this.restartHeaderStyle()}

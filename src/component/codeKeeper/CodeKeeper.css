@@ -1,43 +1,42 @@
 .code-keeper {
-  width: 100%;
   position: sticky;
   top: 0;
+  width: 100%;
   z-index: 100;
 }
 
 .the-code {
-  height: 60px;
-  width: 60%;
-  display: flex;
-  justify-content: space-around;
   align-items: center;
-  border: 1px solid #ffffff;
-  padding: 3px;
-  border-radius: 5px;
-  margin: 10px auto 20px auto;
   background: #dbdde0;
+  border-radius: 5px;
+  border: 1px solid #ffffff;
   box-shadow: 0px 5px 7px 0 #a2a2a2;
+  display: flex;
+  height: 60px;
+  justify-content: space-around;
+  margin: 10px auto 20px auto;
+  padding: 3px;
+  width: 60%;
 }
 
 .the-code-num {
-  width: 50px;
-  height: 50px;
-  font-size: 2.6em;
-  text-align: center;
+  background-color: #343a40;
   border-radius: 50%;
   color: #fff;
-  background-color: #343A40;
+  font-size: 2.6em;
+  height: 50px;
+  text-align: center;
+  width: 50px;
 }
 
 .code-keeper-extra-layer {
-  height: 60px;
-  width: 100%;
-  border-radius: 5px;
   background: rgba(255, 255, 255, 1);
-  position: absolute;
+  border-radius: 5px;
+  height: 60px;
   margin: 10px 0 20px 0;
+  position: absolute;
+  width: 100%;
 }
-
 
 @media screen and (max-width: 900px) {
   .the-code {
