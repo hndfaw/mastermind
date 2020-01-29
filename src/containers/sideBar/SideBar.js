@@ -19,12 +19,12 @@ class SideBar extends Component {
 	  hintIsReady,
 	  hints,
 	  hintsBalance,
-	  nonExistingNums,
+	  nonExistingNumbersInCode,
 	  points,
 	  round,
 	  roundFinished,
 	  successfulRounds,
-	  uniqueCodeNums,
+	  uniqueCodeNumbers,
 	  updateHintReady,
 	} = this.props;
 
@@ -46,9 +46,9 @@ class SideBar extends Component {
 		  hintIsReady={hintIsReady}
 		  hints={hints}
 		  hintsBalance={hintsBalance}
-		  nonExistingNums={nonExistingNums}
+		  nonExistingNumbersInCode={nonExistingNumbersInCode}
 		  roundFinished={roundFinished}
-		  uniqueCodeNums={uniqueCodeNums}
+		  uniqueCodeNumbers={uniqueCodeNumbers}
 		  updateHintReady={updateHintReady}
 		/>
 		<div className="side-bar-btns-container">
@@ -66,10 +66,10 @@ class SideBar extends Component {
 			  <img className="new-tab-icon-single" src={newTabIcon} alt="new tab icon" />
 		  </div>
 
-		  <DropdownButton id="dropdown-basic-button" title="Developer" drop={'up'}>
-			  <Dropdown.Item className="dropdown-item" target="blank" href="https://www.hindreen.net/">Portfolio <img className="new-tab-icon" src={newTabIconDarker} alt="new tab icon" /></Dropdown.Item>
-			  <Dropdown.Item className="dropdown-item"  target="blank" href="https://www.linkedin.com/in/hndfaw/">LinkedIn <img className="new-tab-icon" src={newTabIconDarker} alt="new tab icon" /></Dropdown.Item>
-			  <Dropdown.Item className="dropdown-item"  target="blank" href="https://github.com/hndfaw/">GitHub <img className="new-tab-icon" src={newTabIconDarker} alt="new tab icon" /></Dropdown.Item>
+		  <DropdownButton id="drop-down-basic-button" title="Developer" drop={'up'}>
+			  <Dropdown.Item className="drop-down-item" target="blank" href="https://www.hindreen.net/">Portfolio <img className="new-tab-icon" src={newTabIconDarker} alt="new tab icon" /></Dropdown.Item>
+			  <Dropdown.Item className="drop-down-item"  target="blank" href="https://www.linkedin.com/in/hndfaw/">LinkedIn <img className="new-tab-icon" src={newTabIconDarker} alt="new tab icon" /></Dropdown.Item>
+			  <Dropdown.Item className="drop-down-item"  target="blank" href="https://github.com/hndfaw/">GitHub <img className="new-tab-icon" src={newTabIconDarker} alt="new tab icon" /></Dropdown.Item>
 		  </DropdownButton>          
 
 		</div>

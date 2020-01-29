@@ -10,7 +10,7 @@
   margin-left: 8px;
 }
 
-.weloce-header {
+.welcome-header {
   color: #007bff;
   margin-top: 9px;
 }
@@ -31,7 +31,7 @@
 .welcome-btn {
   background: #dc3545;
   border-radius: 3px;
-  border: 1px oslid rgb(70, 72, 77);
+  border: 1px solid rgb(70, 72, 77);
   color: #fff;
   font-size: 20px;
   padding: 6px 13px;

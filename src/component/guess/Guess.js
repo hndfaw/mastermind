@@ -3,11 +3,11 @@ import "./Guess.css";
 
 class ShowGuess extends Component {
   partOneAndTwoStyle = () => {
-    const { feedbackRespnse, index, currentGuesses } = this.props;
+    const { feedbackResponse, index, currentGuesses } = this.props;
     let length = currentGuesses.length;
     const dynamicWidth =
       103 - (length - index) * 3 - ((length - index) * index) / 2;
-    return feedbackRespnse === "single"
+    return feedbackResponse === "single"
       ? {
           height: "60%",
           width: `${dynamicWidth}%`
@@ -58,7 +58,7 @@ class ShowGuess extends Component {
   };
 
   render() {
-    const { guess, feedback, feedbackRespnse } = this.props;
+    const { guess, feedback, feedbackResponse } = this.props;
 
     return (
       <div className="guess-card">
@@ -88,7 +88,7 @@ class ShowGuess extends Component {
             {guess[3]}
           </p>
         </div>
-        {feedbackRespnse === "all" && (
+        {feedbackResponse === "all" && (
           <div className="guess-card-part-2" style={this.partOneAndTwoStyle()}>
             <p className="guess-card-part-2-msg" style={this.msgStyle()}>
               {feedback.feedback}

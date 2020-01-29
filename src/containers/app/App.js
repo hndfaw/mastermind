@@ -17,11 +17,11 @@ class App extends Component {
     currentGuesses: [],
     currentRoundPoints: 0,
     difficultyLevel: 7,
-    feedbackRespnse: "all",
+    feedbackResponse: "all",
     hintIsReady: false,
     hints: [],
     hintsBalance: 3,
-    nonExistingNums: [],
+    nonExistingNumbersInCode: [],
     openEndOfRoundMsg: false,
     openSettings: false,
     points: 0,
@@ -46,54 +46,54 @@ class App extends Component {
 
   findNonExistingNumbers = () => {
     const { difficultyLevel, code } = this.state;
-    const uniqueCodeNums = code.filter((codeNum, index, self) => {
+    const uniqueCodeNumbers = code.filter((codeNum, index, self) => {
       return index === self.indexOf(codeNum);
     });
     let emptyArray = Array(difficultyLevel + 1).fill(0);
-    const nonExistingNums = [];
+    const nonExistingNumbersInCode = [];
     emptyArray.forEach((zero, i) => {
-      if (!uniqueCodeNums.includes(i)) {
-        nonExistingNums.push(i);
+      if (!uniqueCodeNumbers.includes(i)) {
+        nonExistingNumbersInCode.push(i);
       }
     });
 
-    this.setState({ nonExistingNums, uniqueCodeNums });
-    this.generateHints(nonExistingNums, uniqueCodeNums);
+    this.setState({ nonExistingNumbersInCode, uniqueCodeNumbers });
+    this.generateHints(nonExistingNumbersInCode, uniqueCodeNumbers);
   };
 
-  generateHints = (nonExistingNums, uniqueCodeNums) => {
+  generateHints = (nonExistingNumbersInCode, uniqueCodeNumbers) => {
     const { difficultyLevel } = this.state;
     let hints = [];
-    uniqueCodeNums.forEach(codeNum => {
+    uniqueCodeNumbers.forEach(codeNum => {
       hints.push(`Number ${codeNum} exist in the combination of the code!`);
     });
 
-    nonExistingNums.forEach(num => {
+    nonExistingNumbersInCode.forEach(num => {
       hints.push(
         `Number ${num} does NOT exist in the combination of the code!`
       );
     });
 
-    if (uniqueCodeNums.length === 4) {
+    if (uniqueCodeNumbers.length === 4) {
       hints.push("There are no duplicate numbers!");
     } else {
       hints.push("There is at least one duplicate number");
     }
 
-    if (uniqueCodeNums.length <= 2) {
+    if (uniqueCodeNumbers.length <= 2) {
       hints.push(
         `I don/'t know how to tell you this! too many similar numbers are there!`
       );
     }
 
-    if (uniqueCodeNums.length === 1) {
+    if (uniqueCodeNumbers.length === 1) {
       hints.push(
         `Ok here is the best hint ever! all the numbers are similar! Good Luck!!`
       );
     }
 
-    let maxCodeNum = Math.max(...uniqueCodeNums);
-    let minCodeNum = Math.min(...uniqueCodeNums);
+    let maxCodeNum = Math.max(...uniqueCodeNumbers);
+    let minCodeNum = Math.min(...uniqueCodeNumbers);
 
     maxCodeNum !== difficultyLevel &&
       hints.push(`All the numbers are less than ${maxCodeNum + 1}`);
@@ -284,8 +284,8 @@ class App extends Component {
     this.setState({ openEndOfRoundMsg: type });
   };
 
-  updateFeedbackRespnse = feedbackType => {
-    this.setState({ feedbackRespnse: feedbackType });
+  updateFeedbackResponse = feedbackType => {
+    this.setState({ feedbackResponse: feedbackType });
   };
 
   endOfRound = result => {
@@ -344,7 +344,7 @@ class App extends Component {
   };
 
   returnGuess = () => {
-    const { feedbackRespnse, currentGuesses, roundFinished, code } = this.state;
+    const { feedbackResponse, currentGuesses, roundFinished, code } = this.state;
 
     const guess = this.state.currentGuesses.map((g, i) => {
       return (
@@ -352,7 +352,7 @@ class App extends Component {
           guess={g.guess}
           key={i}
           feedback={g.analyzedGuess}
-          feedbackRespnse={feedbackRespnse}
+          feedbackResponse={feedbackResponse}
           index={i}
           currentGuesses={currentGuesses}
           roundFinished={roundFinished}
@@ -370,18 +370,18 @@ class App extends Component {
       currentGuesses,
       currentRoundPoints,
       difficultyLevel,
-      feedbackRespnse,
+      feedbackResponse,
       hintIsReady,
       hints,
       hintsBalance,
-      nonExistingNums,
+      nonExistingNumbersInCode,
       openEndOfRoundMsg,
       openSettings,
       points,
       round,
       roundFinished,
       successfulRounds,
-      uniqueCodeNums,
+      uniqueCodeNumbers,
     } = this.state;
 
     return (
@@ -402,12 +402,12 @@ class App extends Component {
                   hintIsReady={hintIsReady}
                   hints={hints}
                   hintsBalance={hintsBalance}
-                  nonExistingNums={nonExistingNums}
+                  nonExistingNumbersInCode={nonExistingNumbersInCode}
                   points={points}
                   round={round}
                   roundFinished={roundFinished}
                   successfulRounds={successfulRounds}
-                  uniqueCodeNums={uniqueCodeNums}
+                  uniqueCodeNumbers={uniqueCodeNumbers}
                   updateHintReady={this.updateHintReady}
                   updateOpenSettings={this.updateOpenSettings}
                 />
@@ -445,7 +445,7 @@ class App extends Component {
                   <GuessingForm
                     currentGuesses={currentGuesses}
                     difficultyLevel={difficultyLevel}
-                    feedbackRespnse={feedbackRespnse}
+                    feedbackResponse={feedbackResponse}
                     restart={this.restart}
                     returnLastAnalyzedGuess={this.returnLastAnalyzedGuess}
                     roundFinished={roundFinished}
@@ -455,12 +455,12 @@ class App extends Component {
                 <Settings
                   currentGuesses={currentGuesses}
                   difficultyLevel={difficultyLevel}
-                  feedbackRespnse={feedbackRespnse}
+                  feedbackResponse={feedbackResponse}
                   openSettings={openSettings}
                   restart={this.restart}
                   round={round}
                   updateDifficultyLevel={this.updateDifficultyLevel}
-                  updateFeedbackRespnse={this.updateFeedbackRespnse}
+                  updateFeedbackResponse={this.updateFeedbackResponse}
                   updateOpenSettings={this.updateOpenSettings}
                 />
                 <EndOfRoundMsg

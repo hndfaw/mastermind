@@ -54,7 +54,7 @@
   text-decoration: none;
 }
 
-#dropdown-basic-button {
+#drop-down-basic-button {
   background: transparent;
   border: transparent;
   box-shadow: 0 0 0 0 #ddd;
@@ -65,11 +65,11 @@
   padding: 0 0 2px 0;
 }
 
-#dropdown-basic-button:hover {
+#drop-down-basic-button:hover {
   color: #fff;
 }
 
-.dropdown-item {
+.drop-down-item {
   font-size: 14px;
   padding: 3px 0 3px 11px;
 }

@@ -8,7 +8,7 @@ class WelcomePage extends Component {
     return (
       <section className="welcome-page">
         <div className="welcome-page-header">
-          <h2 className="weloce-header">Welcome to</h2>
+          <h2 className="welcome-header">Welcome to</h2>
           <img className="welcome-red-logo" src={redLogo} alt="logo" />
         </div>
         <p className="welcome-body">

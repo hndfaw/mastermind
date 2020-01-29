@@ -16,7 +16,7 @@ class Settings extends Component {
   };
 
   handleChangeFeedbackType = feedbackType => {
-    this.props.updateFeedbackRespnse(feedbackType);
+    this.props.updateFeedbackResponse(feedbackType);
   };
 
   handleRestart = (closeOpen, type) => {
@@ -41,7 +41,7 @@ class Settings extends Component {
     const {
       currentGuesses,
       difficultyLevel,
-      feedbackRespnse,
+      feedbackResponse,
       openSettings,
       round
     } = this.props;
@@ -100,7 +100,7 @@ class Settings extends Component {
             <div>
               <h6 className="settings-title">Showing Feedback</h6>
               <ToggleButtonGroup
-                defaultValue={feedbackRespnse}
+                defaultValue={feedbackResponse}
                 name="options"
                 onChange={this.handleChangeFeedbackType}
                 size="sm"
@@ -109,7 +109,7 @@ class Settings extends Component {
                 <ToggleButton value={"single"}>Only Last Response</ToggleButton>
                 <ToggleButton value={"all"}>All Responses</ToggleButton>
               </ToggleButtonGroup>
-              {feedbackRespnse === "single" ? (
+              {feedbackResponse === "single" ? (
                 <p className="settings-note">
                   This setting will only show the feedback of your last guess.
                 </p>
