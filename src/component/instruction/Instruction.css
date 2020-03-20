@@ -118,6 +118,10 @@
   margin: 50px 0 70px 0;
 }
 
+.smaller-screen-note {
+  display: none;
+}
+
 @media screen and (max-width: 900px) {
   .instructions-body {
     text-align: center;
@@ -131,7 +135,6 @@
   .instructions-page {
     height: 100vh;
     display: block;
-
   }
 
   .instructions-btn-game {
@@ -144,5 +147,22 @@
   .instructions-page-header {
     padding: 100px 0 120px;
     margin: 0;
-}
+  }
+
+  .instructions-header {
+    font-size: 20px;
+  }
+
+  .smaller-screen-note {
+    display: block;
+    padding: 10px 10px;
+    margin: 55px 10px;
+    border-radius: 5px;
+    border: 1px solid #c74040;
+    background-color: #e4b6b6;
+  }
+
+  .bold-font {
+    font-weight: bold;
+  }
 }

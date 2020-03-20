@@ -71,4 +71,8 @@
     position: absolute;
     bottom: 20px;
   }
+
+  .welcome-header {
+    font-size: 20px;
+  }
 }

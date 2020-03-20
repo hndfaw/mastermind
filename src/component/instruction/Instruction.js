@@ -74,6 +74,8 @@ class Instruction extends Component {
           combinations within 10 attempts to win the game.
         </p>
 
+        <p className="smaller-screen-note">Note: I built this game for the devices with a bigger screen like <span className="bold-font">laptops</span>. You are currently using a smaller screen which will not give you the best experience. </p>
+
         <div className="instructions-imgs-instructions">
           <h3 className="instructions-imgs-title">Visual Demo</h3>
           <div>{this.image()}</div>
