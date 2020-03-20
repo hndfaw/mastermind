@@ -134,6 +134,7 @@ class GuessingForm extends Component {
               type="number"
               value={numFour}
             />
+
           </div>
 
           <Button

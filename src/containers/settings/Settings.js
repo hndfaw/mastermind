@@ -69,7 +69,9 @@ class Settings extends Component {
                 size="sm"
                 type="radio"
               >
-                <ToggleButton disabled={currentGuesses.length !== 0} value={7}>
+                
+                <ToggleButton disabled={currentGuesses.length !== 0} value={7
+                }>
                   Easy (0 - 7)
                 </ToggleButton>
                 <ToggleButton disabled={currentGuesses.length !== 0} value={14}>

@@ -117,3 +117,32 @@
   color: #26a243;
   margin: 50px 0 70px 0;
 }
+
+@media screen and (max-width: 900px) {
+  .instructions-body {
+    text-align: center;
+    font-size: 18px;
+  }
+
+  .instructions-imgs-instructions {
+    display: none;
+  }
+
+  .instructions-page {
+    height: 100vh;
+    display: block;
+
+  }
+
+  .instructions-btn-game {
+    position: absolute;
+    bottom: 15px;
+    left: 20px;
+    margin: 0;
+  }
+
+  .instructions-page-header {
+    padding: 100px 0 120px;
+    margin: 0;
+}
+}
