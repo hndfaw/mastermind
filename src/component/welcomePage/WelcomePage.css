@@ -60,3 +60,15 @@
   margin-top: 100px;
   width: 350px;
 }
+
+@media screen and (max-width: 900px) {
+  .welcome-body {
+    text-align: center;
+    font-size: 18px;
+  }
+
+  .welcome-page-btns-container {
+    position: absolute;
+    bottom: 20px;
+  }
+}
