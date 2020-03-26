@@ -61,18 +61,26 @@
   width: 350px;
 }
 
+.welcome-page-small-screen-msg {
+  display: none;
+}
+
 @media screen and (max-width: 900px) {
   .welcome-body {
-    text-align: center;
-    font-size: 18px;
+    display: none;
+  }
+
+  .welcome-page-small-screen-msg {
+    display: block;
+    border: 1px solid rgb(200, 30, 30);
+    margin: auto 8px;
+    padding: 9px;
+    border-radius: 3px;
+    background-color: rgb(246, 156, 156);
   }
 
   .welcome-page-btns-container {
-    position: absolute;
-    bottom: 20px;
+    display: none;
   }
 
-  .welcome-header {
-    font-size: 20px;
-  }
 }

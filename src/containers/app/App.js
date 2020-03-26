@@ -393,8 +393,6 @@ class App extends Component {
             uniqueCodeNumbers
         } = this.state;
         
-        console.log('currentGuesses', currentGuesses.length)
-
 		return (
 			<div className="app">
 				<Switch>

@@ -85,3 +85,8 @@ element.style {
   padding: 1rem 1rem;
   padding: 20px 17px 0 0;
 }
+
+
+@media screen and (max-width: 900px) {
+
+}
