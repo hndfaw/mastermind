@@ -17,6 +17,9 @@ class WelcomePage extends Component {
           otherwise, click on the "Start Game" button to start the game! Have
           fun!
         </p>
+        <p className="welcome-page-small-screen-msg">
+        Mastermind is built for the devices with a bigger screen like <span className="bold-font">laptops</span>. You are currently using a smaller screen please switch to a <span className="bold-font">computer</span>.
+        </p>
 
         <div className="welcome-page-btns-container">
           <NavLink to="/game" className="welcome-btn welcome-btn-game">
